@@ -11,12 +11,11 @@
 	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-	<!--[if lt IE 9]>
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->    <!--[if lt IE 9]>
 	<script src="js/html5shiv.js"></script>
-	<script src="js/respond.min.js"></script>
-	<![endif]-->
+	<script src="js/respond.min.js"></script>    <![endif]-->
 	<link href="css/main.css" rel="stylesheet">
+	<link href="css/" rel="stylesheet">
 </head>
 <body>
 
@@ -32,7 +31,9 @@
 			<div class="brand-wrap">
 				<img src="img/logo-32x32.png" alt="" />
 
-				<div class="pull-left"><a href="#" class="navbar-brand df-title">DreamFactory Oasys</a><br />
+				<div class="pull-left">
+					<a href="#" class="navbar-brand df-title">DreamFactory Oasys</a>
+					<br />
 					<small>Example Code</small>
 				</div>
 			</div>
@@ -44,9 +45,15 @@
 
 					<ul class="dropdown-menu">
 						<li class="dropdown-header">HTML</li>
-						<li><a href="#" class="example-code" data-provider="github">GitHub</a></li>
-						<li><a href="#" class="example-code" data-provider="facebook">Facebook</a></li>
-						<li><a href="#" class="example-code" data-provider="salesforce">Salesforce</a></li>
+						<li>
+							<a href="#" class="example-code" data-provider="github">GitHub</a>
+						</li>
+						<li>
+							<a href="#" class="example-code" data-provider="facebook">Facebook</a>
+						</li>
+						<li>
+							<a href="#" class="example-code" data-provider="salesforce">Salesforce</a>
+						</li>
 					</ul>
 				</li>
 
@@ -65,53 +72,69 @@
 			</ul>
 		</div>
 	</nav>
+
 	<div class="container">
-		<h3>Runtime Settings</h3>
 
-		<form class="form-horizontal" id="session-form">
+		<section id="runtime-settings">
+			<div class="panel-group" id="runtime-settings-group">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#runtime-settings-group" href="#session-form-body">Runtime Settings</a>
+						</h4>
+					</div>
+					<div id="session-form-body" class="panel-collapse collapse in">
+						<div class="panel-body">
 
-			<div class="form-group">
-				<label for="dsp-name" class="col-sm-2 control-label">DSP Name</label>
-				<div class="col-sm-6">
-					<input type="text" class="form-control" id="dsp-name" placeholder="Enter your DSP's name">
+							<form class="form-horizontal" id="runtime-settings-form">
+								<div class="form-group">
+									<label for="dsp-name" class="col-sm-2 control-label">DSP Name</label>
+
+									<div class="col-sm-10">
+										<input type="text" class="form-control" id="dsp-name" placeholder="Enter your DSP's name">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="request-body" class="col-sm-2 control-label">Body</label>
+
+									<div class="col-sm-10">
+										<textarea id="request-body" rows="5" class="form-control"></textarea>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="request-verb" class="col-sm-2 control-label">Verb</label>
+
+									<div class="col-sm-3">
+										<select class="form-control" id="request-verb">
+											<option>GET</option>
+											<option>POST</option>
+											<option>PUT</option>
+											<option>PATCH</option>
+											<option>MERGE</option>
+											<option>DELETE</option>
+											<option>OPTIONS</option>
+											<option>COPY</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="multientry" data-id="request-headers" data-name="request-headers"></div>
+							</form>
+
+						</div>
+					</div>
 				</div>
 			</div>
+		</section>
 
-			<div class="form-group">
-				<label for="request-body" class="col-sm-2 control-label">Body</label>
-				<div class="col-sm-6">
-					<textarea id="request-body" rows="5" class="form-control"></textarea>
-				</div>
-			</div>
+		<section id="provider-results">
+			<h4>Call Results:</h4>
 
-			<div class="form-group">
-				<label for="request-verb" class="col-sm-2 control-label">Verb</label>
-				<div class="col-sm-2">
-					<select class="form-control" id="request-verb">
-						<option>GET</option>
-						<option>POST</option>
-						<option>PUT</option>
-						<option>PATCH</option>
-						<option>MERGE</option>
-						<option>DELETE</option>
-						<option>OPTIONS</option>
-						<option>COPY</option>
-					</select>
-				</div>
-			</div>
+			<div id="example-code"></div>
+		</section>
 
-			<div class="form-group">
-				<label for="request-headers" class="col-sm-2 control-label">Headers</label>
-				<div class="col-sm-6">
-					<textarea id="request-headers" rows="5" class="form-control"></textarea>
-				</div>
-			</div>
-
-		</form>
-
-		<div id="example-code">
-
-		</div>
 	</div>
 </div>
 
@@ -132,13 +155,14 @@
 		</div>
 		<div class="clearfix"></div>
 		<p>
-			<span class="pull-left hidden-xs hidden-sm">Licensed under the <a
-					target="_blank" href="http://www.apache.org/licenses/LICENSE-2.0">Apache License v2.0
+			<span class="pull-left hidden-xs hidden-sm">Licensed under the <a target="_blank"
+																			  href="http://www.apache.org/licenses/LICENSE-2.0">Apache License v2.0
 				</a></span>
 			<span class="pull-right">&copy; DreamFactory Software, Inc. <?php echo date( 'Y' ); ?>. All Rights Reserved.</span>
 		</p>
 	</div>
 </div>
+
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
 <script src="js/jquery.multientry.js"></script>
 <script src="js/oasys.jquery.js"></script>

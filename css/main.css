@@ -14,12 +14,11 @@ code {
 }
 
 form {
-	border-top: 1px solid #ddd;
 	padding-top: 11px;
 }
 
 h3 {
-	margin-bottom:  4px;
+	margin-bottom: 4px;
 }
 
 /* Wrapper for page content to push down footer */
@@ -191,6 +190,15 @@ ul li a:hover {
 	font-size: 10pt;
 }
 
+.panel-title a, .panel-title a:hover {
+	text-decoration: none;
+}
+
+span.input-group-addon + btn-multientry {
+	padding: 0;
+}
+
+/** Specific Sized Devices **/
 @media (max-width: 480px) {
 	#footer {
 		width: 472px;

@@ -16,7 +16,12 @@ var _options = {
  * Initialize any buttons and set fieldset menu classes
  */
 jQuery(function($) {
-	$('#request-headers').multientry({});
+	$('.multientry').multientry({
+		label:       'Header(s)',
+		formId:      'runtime-settings-form',
+		placeholder: 'Header (i.e. &quot;Content-Type: application/json&quot;)'
+
+	});
 
 	$('a.example-code').on('click', function(e) {
 		e.preventDefault();

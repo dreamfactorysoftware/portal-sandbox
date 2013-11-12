@@ -63,26 +63,66 @@
 			//	Create div
 			var _divId = 'df-multientry-' + options.attribute;
 			var _pif = '_' + _simpleId;
+			var _columns = 12;
 
-			//	form-group
-			$('<div class="' + options.divClass + '" id="' + _pif + '" style="margin-bottom: 4px;"></div>').appendTo($_me);
+			/**
+			 *                                <div class="form-group">
+			 <label for="dsp-name" class="col-sm-2 control-label">DSP Name</label>
+
+			 <div class="col-sm-10">
+			 <input type="text" class="form-control" id="dsp-name" placeholder="Enter your DSP's name">
+			 </div>
+			 </div>
+
+			 <div class="input-group">
+			 <span class="input-group-addon">@</span>
+			 <input type="text" class="form-control" placeholder="Username">
+			 </div>
+
+			 <div class="input-group">
+			 <input type="text" class="form-control">
+			 <span class="input-group-btn">
+			 <button class="btn btn-default" type="button">Go!</button>
+			 </span>
+			 </div><!-- /input-group -->
+
+			 */
+
+				//	form-group
+			$('<div class="' + options.divClass + '" id="' + _pif + '" style=""></div>').appendTo($_me);
 			var $_pif = $('div#' + _pif);
 
 			$('<input type="hidden" name="' + _simpleName + '" id="' + _simpleId + '" />').appendTo($_pif);
 
 			if (options.label) {
-				$('<label class="control-label">' + options.label + '</label>').appendTo($_pif);
+				$('<label for="" class="' + 'col-' + options.gridSize + '-' + options.labelSize + ' ' + options.labelClass + '">' + options.label +
+					'</label>').appendTo($_pif);
+
+				_columns -= options.labelSize;
+			} else {
+				options.labelSize = 0;
 			}
 
-			//	List element (controls)
-			$('<div class="col-sm-5" style="margin-left: 0;"><div style="margin-bottom: 0;" class="well"><ul class="nav nav-list ' + options.ulClass +
-			  '" id="' + options.attribute + '" style="min-height:' + options.minimumHeight + ';"></ul></div></div>').appendTo($_pif);
+			var _inputSizeClass = 'col-' + options.gridSize + '-' + ( options.inputSize || _columns );
+			var _inputOffsetClass = 'col-' + options.gridSize + '-offset-' + options.labelSize;
 
-			//	Input element (control-group)
-			$('<div class="' + options.divClass + '"><div class="' + options.innerDivClass + '"><div class="input-append"><input data-parent="ul#' +
-			  options.attribute + '" id="df-multientry-add-item-' + options.attribute + '" class="col-sm-5 ' + options.inputClass +
-			  '" type="text" placeholder="' + options.placeholder + '" style = "margin-right:4px"><button class="' + options.buttonClass +
-			  '">Add</button></div><hr class="df-multientry-divider" style="margin:18px 0 0;" /></div></div>').appendTo($_me);
+			$('<div class="' + _inputSizeClass + '">' +
+				'	<ul class="nav nav-stacked ' + options.ulClass + ' ' + options.inputClass + '" id="' + options.attribute +
+				'" style="min-height:' +
+				options.minimumHeight + '; padding-right:0; padding-left:0;"></ul>' +
+				'</div>' +
+				'</div>').appendTo($_pif);
+
+			$('<div class="' + options.divClass + '">' +
+				'<div class="' + _inputOffsetClass + ' ' + _inputSizeClass + ' input-group">' +
+				'	<input data-parent="ul#' + options.attribute + '" id="df-multientry-add-item-' + options.attribute + '" class="' +
+				options.inputClass + '" type="text" placeholder="' + options.placeholder + '">' +
+				'	<span class="input-group-btn">' +
+				'		<button class="' + options.buttonClass + '" type="button">Add</button>' +
+				'	</span>' +
+				'	</div>' +
+				'</div>').appendTo($_me);
+
 			$('<style>div#' + $(this).attr('id') + ' label.error { display: block; margin-top: 4px; padding-left:	0; }</style>').appendTo($_me)
 
 			//	Finally, add data...
@@ -127,21 +167,20 @@
 			/**
 			 * Show the trash can icon on hover
 			 */
-			$('ul.' + options.ulClass).on('mouseenter mouseleave', 'li',function(e) {
+			$('.' + options.ulClass).on('mouseenter mouseleave', 'li',function(e) {
 				if ('mouseenter' == e.type) {
-					$('a i', $(this)).show();
+					$('i', $(this)).removeClass('hide');
+				} else {
+					$('i', $(this)).addClass('hide');
 				}
-				else {
-					$('a i', $(this)).hide();
-				}
-			}).on('click', 'li a i.df-multientry-item',function(e) {
+			}).on('click', 'a i.fa',function(e) {
 					if (confirm('Remove this item?')) {
 						$(this).closest('li').remove();
 						if (options.afterDelete) {
 							options.afterDelete(this);
 						}
 					}
-				}).on('click', 'li a', function() {
+				}).on('click', 'a', function() {
 					return false;
 				});
 
@@ -170,22 +209,25 @@
 		attribute:          null,
 		items:              [],
 		validateOptions:    {},
+		gridSize:           'sm', //	lg, md, sm, or xs
 		placeholder:        'Enter an item to add',
 		label:              'Item(s)',
-		labelClass:         'control-label',
+		labelSize:          2,
 		divClass:           'form-group',
+		labelClass:         'control-label',
 		inputClass:         'form-control',
-		innerDivClass:      'input-group',
-		ulClass:            'form-control item-list',
+		inputSize:          null,
+		innerDivClass:      'well well-sm',
+		ulClass:            'item-list',
 		minimumHeight:      '120px',
 		duplicateCheck:     null,
-		buttonClass:        'btn add-new-item',
+		buttonClass:        'btn btn-primary add-new-item',
 		replacementTag:     '%%item%%',
 		replacementPattern: '/%%item%%/gi',
 		validPattern:       '^([A-Za-z0-9\_\.\-])+$',
 		name:               null, //	Or set data-name
 		id:                 null, //	Or set data-id
-		itemTemplate:       '<li id="%%item%%"><a href="#">%%item%%<i title="Click the trash can to delete this item" class="icon-trash pull-right df-multientry-item" style="display:none;"></i></a></li>',
+		itemTemplate:       '<li id="%%item%%"><a href="#">%%item%%<i title="Click to delete" class="fa fa-trash-o pull-right df-multientry-item hide"></i></a></li>',
 		afterDelete:        function(el) {
 			return true;
 		},
