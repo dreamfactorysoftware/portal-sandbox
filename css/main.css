@@ -1,5 +1,9 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans);
 
+/**************************************************************************
+** General Classes
+**************************************************************************/
+
 html, body {
 	height:      100%;
 	font-family: 'Open Sans', sans-serif;
@@ -21,6 +25,10 @@ h3 {
 section {
 	margin-bottom: 4px;
 }
+
+/**************************************************************************
+** Specific Classes
+**************************************************************************/
 
 /* Wrapper for page content to push down footer */
 #wrap {
@@ -72,11 +80,6 @@ section {
 	text-shadow: 0 -1px 0 #5c5c5c;
 }
 
-.navbar.df-header {
-	/*background-color: #666;*/
-	/*border-color:     #545454;*/
-}
-
 .df-header {
 	box-shadow: 0 1px 2px #999;
 }
@@ -87,32 +90,16 @@ section {
 	opacity:            0.80;
 	-webkit-transition: opacity 1s ease-out;
 	transition:         opacity 1s ease-out;
-	/*background-color: rgba(0, 0, 0, .8);*/
 }
 
 .df-header .navbar-nav > .active > a, .df-header .navbar-nav > .active > a:hover {
-	/*color:            #fff;*/
 	opacity: 1;
-	/*background-color: #787878;*/
 }
 
 .df-header .navbar-nav > li > a:hover {
 	opacity:            1;
 	-webkit-transition: opacity 0.25s ease-in;
 	transition:         opacity 0.25s ease-in;
-}
-
-.df-header .navbar-nav > li:hover {
-	/*background-color: #666666;*/
-}
-
-.df-header .navbar-brand:hover, .df-header .navbar-brand:focus {
-	/*color:            #FFFFFF;*/
-	/*background-color: rgba(0, 0, 0, 0);*/
-}
-
-.df-header a {
-	/*color: #FFFFFF;*/
 }
 
 .inner-content {
@@ -127,17 +114,6 @@ ul li a:hover {
 	overflow: auto;
 	margin:   20px;
 	width:    98%;
-}
-
-.popover-title {
-	/*background-color: #E7E7E7;*/
-	border-bottom: 1px solid #DBDBDB;
-	border-radius: 5px 5px 0 0;
-	font-size:     18px !important;
-	font-weight:   normal;
-	line-height:   18px;
-	margin:        0;
-	padding:       8px 14px;
 }
 
 .navbar .navbar-header .navbar-brand.df-title {
@@ -198,7 +174,10 @@ span.input-group-addon + btn-multientry {
 	margin-bottom: 1px;
 }
 
-/** Specific Sized Devices **/
+/**************************************************************************
+** Media Queries
+**************************************************************************/
+
 @media (max-width: 480px) {
 	#footer {
 		width: 472px;

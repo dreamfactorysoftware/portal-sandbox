@@ -6,25 +6,27 @@ $_guest = Pii::guest();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
 	<title>Oasys Example Code</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="utf-8">
-	<link rel="icon" type="image/png" href="img/apple-touch-icon.png">
-	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet" media="screen">
-	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-	<link type="text/css" href="css/jquery.jscrollpane.min.css" rel="stylesheet" media="all" />
-	<link type="text/css" href="css/jquery.jscrollpane.lozenge.css" rel="stylesheet" media="all" />
-	<link rel="stylesheet" href="/css/jquery.multientry.css" media="all" />
-
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 	<script src="//google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
 
-	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->    <!--[if lt IE 9]>
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
 	<script src="js/html5shiv.js"></script>
-	<script src="js/respond.min.js"></script>    <![endif]-->
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
 
-	<link href="css/main.css" rel="stylesheet">
+	<link rel="icon" href="img/apple-touch-icon.png" type="image/png">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" type="text/css" media="screen">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css">
+	<link rel="stylesheet" href="css/jquery.jscrollpane.min.css" type="text/css" media="all" />
+	<link rel="stylesheet" href="css/jquery.jscrollpane.lozenge.css" media="all" />
+	<link rel="stylesheet" href="/css/jquery.multientry.css" media="all" />
+	<link rel="stylesheet" href="css/main.css" type="text/css" media="all" />
 </head>
 <body>
 
@@ -50,11 +52,14 @@ $_guest = Pii::guest();
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
 				<?php if ( $_guest )
-				{ ?>
+				{
+					?>
 					<li class="active"><a href="#">Login</a></li>
-				<?php }
+				<?php
+				}
 				else
-				{ ?>
+				{
+					?>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="themes">Examples<b class="caret"></b></a>
 
