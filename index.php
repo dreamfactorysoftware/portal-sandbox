@@ -1,6 +1,9 @@
 <?php
 use DreamFactory\Yii\Utility\Pii;
 
+//	Bootstrap ourselves
+require_once __DIR__ . '/autoload.php';
+
 $_guest = Pii::guest();
 ?>
 <!DOCTYPE html>
@@ -14,18 +17,16 @@ $_guest = Pii::guest();
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 	<script src="//google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
 
-	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-	<!--[if lt IE 9]>
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->    <!--[if lt IE 9]>
 	<script src="js/html5shiv.js"></script>
-	<script src="js/respond.min.js"></script>
-	<![endif]-->
+	<script src="js/respond.min.js"></script>    <![endif]-->
 
 	<link rel="icon" href="img/apple-touch-icon.png" type="image/png">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" type="text/css" media="screen">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css">
 	<link rel="stylesheet" href="css/jquery.jscrollpane.min.css" type="text/css" media="all" />
 	<link rel="stylesheet" href="css/jquery.jscrollpane.lozenge.css" media="all" />
-	<link rel="stylesheet" href="/css/jquery.multientry.css" media="all" />
+	<link rel="stylesheet" href="css/jquery.multientry.css" media="all" />
 	<link rel="stylesheet" href="css/main.css" type="text/css" media="all" />
 </head>
 <body>
@@ -54,7 +55,9 @@ $_guest = Pii::guest();
 				<?php if ( $_guest )
 				{
 					?>
-					<li class="active"><a href="#">Login</a></li>
+					<li class="active">
+						<a href="#">Login</a>
+					</li>
 				<?php
 				}
 				else
@@ -101,8 +104,7 @@ $_guest = Pii::guest();
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">
-							<a data-toggle="collapse" data-parent="#call-settings-group" href="#session-form-body">Call
-								Settings</a>
+							<a data-toggle="collapse" data-parent="#call-settings-group" href="#session-form-body">Call Settings</a>
 						</h4>
 					</div>
 					<div id="session-form-body" class="panel-collapse collapse in">
@@ -113,7 +115,9 @@ $_guest = Pii::guest();
 									<label for="request-uri" class="col-sm-2 control-label">Resource</label>
 
 									<div class="col-sm-10">
-										<input type="text" class="form-control" id="request-uri"
+										<input type="text"
+											   class="form-control"
+											   id="request-uri"
 											   value="https://next.cloud.dreamfactory.com/rest/system/user"
 											   placeholder="The request URI (i.e. /system/user)">
 
