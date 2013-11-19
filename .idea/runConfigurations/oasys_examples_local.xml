@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="oasys-examples.local" type="PhpWebAppRunConfigurationType" factoryName="PHP Web Application" singleton="true" browser="FIREFOX" server_name="oasys-examples.local">
+    <RunnerSettings RunnerId="PhpWebAppDebugRunner" />
+    <ConfigurationWrapper RunnerId="PhpWebAppDebugRunner" />
+    <method />
+  </configuration>
+</component>
