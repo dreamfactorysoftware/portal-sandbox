@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectRootManager" version="2" />
+  <component name="RegexUtilComponent" text="Content-Type: application/json&#10;" flags="0" regex="^(A-Z|a-z|0-9|\-)" mode="0" />
+</project>
+
