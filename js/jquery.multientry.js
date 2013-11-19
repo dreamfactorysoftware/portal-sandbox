@@ -73,7 +73,7 @@
 
 			if (options.label) {
 				$('<label for="" class="' + 'col-' + options.gridSize + '-' + options.labelSize + ' ' + options.labelClass + '">' + options.label +
-				  '</label>').appendTo($_pif);
+					'</label>').appendTo($_pif);
 
 				_columns -= options.labelSize;
 			}
@@ -85,12 +85,14 @@
 			var _inputOffsetClass = 'col-' + options.gridSize + '-offset-' + options.labelSize;
 
 			$('<div class="' + _inputSizeClass + '">' + '<ul class="nav nav-stacked form-control ' + options.ulClass + ' scroll-pane" id="' +
-			  options.attribute + '"></ul>' + '</div>' + '</div>').appendTo($_pif);
+				options.attribute + '"></ul>' + '</div>' + '</div>').appendTo($_pif);
 
 			$('<div class="' + options.divClass + '">' + '<div class="' + _inputOffsetClass + ' ' + _inputSizeClass + ' input-group">' +
-			  '	<span class="input-group-btn">' + '		<button class="' + options.buttonClass + '" type="button">Add Header</button>' + '	</span>' +
-			  '	<input data-parent="ul#' + options.attribute + '" id="df-multientry-add-item-' + options.attribute + '" class="' + options.inputClass +
-			  '" type="text" placeholder="' + options.placeholder + '">' + '	</div>' + '</div>').appendTo($_me);
+				'	<span class="input-group-btn">' + '		<button class="' + options.buttonClass +
+				'" type="button"><i class="fa fa-plus-square"></i>Add Header</button>' + '	</span>' +
+				'	<input data-parent="ul#' + options.attribute + '" id="df-multientry-add-item-' + options.attribute + '" class="' +
+				options.inputClass +
+				'" type="text" placeholder="' + options.placeholder + '">' + '	</div>' + '</div>').appendTo($_me);
 
 			$('<style>div#' + $(this).attr('id') + ' label.error { display: block; margin-top: 4px; padding-left:	0; }</style>').appendTo($_me);
 
@@ -174,21 +176,21 @@
 					$('i.fa', $(this)).addClass('hide');
 				}
 			}).on('click', 'li, li a',function(e) {
-				e.preventDefault();
-				$(this).siblings('li').removeClass('active');
-				$(this).addClass('active');
-			}).on('click', 'li a i.fa', function(e) {
-				e.preventDefault();
-				if (confirm('Remove this ' + options.singletonName + '?')) {
-					$(this).closest('li').remove();
-					if ($.fn.jScrollPane) {
-						options._pane.reinitialise();
+					e.preventDefault();
+					$(this).siblings('li').removeClass('active');
+					$(this).addClass('active');
+				}).on('click', 'li a i.fa', function(e) {
+					e.preventDefault();
+					if (confirm('Remove this ' + options.singletonName + '?')) {
+						$(this).closest('li').remove();
+						if ($.fn.jScrollPane) {
+							options._pane.reinitialise();
+						}
+						if (options.afterDelete) {
+							options.afterDelete(this);
+						}
 					}
-					if (options.afterDelete) {
-						options.afterDelete(this);
-					}
-				}
-			});
+				});
 
 			if ($.validator) {
 				$.validator.addMethod('vm_df_item_validator', function(value, element) {

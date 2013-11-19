@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+@import url(http://fonts.googleapis.com/css?family=Lato);
 
 /**************************************************************************
 ** General Classes
@@ -6,12 +6,19 @@
 
 html, body {
 	height:      100%;
-	font-family: 'Open Sans', sans-serif;
+	font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial, sans-serif;
 	/* The html and body elements cannot have any padding or margin. */
 }
 
 code {
 	font-size: 80%;
+}
+
+pre {
+	-moz-tab-size: 2;
+	-ms-tab-size:  2;
+	-o-tab-size:   2;
+	tab-size:      2;
 }
 
 form {
@@ -24,6 +31,14 @@ h3 {
 
 section {
 	margin-bottom: 4px;
+}
+
+a:hover, a:focus {
+	text-decoration: none;
+}
+
+label {
+	font-size: 13px;
 }
 
 /**************************************************************************
@@ -122,8 +137,8 @@ ul li a:hover {
 	letter-spacing: -1px;
 	font-weight:    700;
 	color:          #efefef;
-	font-family:    'Open Sans', 'Helvetica Neue Light', Arial, sans-serif;
-	text-shadow:    0px 1px 0px #e5e5ee;
+	font-family:    'Lato', 'Helvetica Neue Light', Arial, sans-serif;
+	text-shadow:    0 1px 0 #e5e5ee;
 }
 
 .navbar.navbar-inverse .navbar-header .navbar-brand.df-title {
@@ -162,6 +177,10 @@ ul li a:hover {
 	font-size: 10pt;
 }
 
+.panel-title {
+	font-size: 17px;
+}
+
 .panel-title a, .panel-title a:hover {
 	text-decoration: none;
 }
@@ -172,6 +191,16 @@ span.input-group-addon + btn-multientry {
 
 #_request-headers {
 	margin-bottom: 1px;
+}
+
+.help-block {
+	margin-top: 1px;
+	color:      #a3a3a3;
+	font-size:  11px;
+}
+
+i.fa-plus-square {
+	margin-right: 8px;
 }
 
 /**************************************************************************

@@ -31,6 +31,7 @@
 }
 
 .multientry .item-list {
+	height:        100px;
 	min-height:    127px;
 	padding-right: 0;
 	padding-left:  0;
@@ -47,9 +48,14 @@
 }
 
 .multientry .nav .jspPane > li > a {
-	display: inline-block;
-	width:   100%;
-	padding: 8px;
+	display:       inline-block;
+	width:         100%;
+	padding:       4px 8px;
+	border-bottom: 1px solid #ddd;
+}
+
+.multientry .nav .jspPane > li:last-child > a {
+	border-bottom: none;
 }
 
 .multientry .nav .jspPane > li:hover,

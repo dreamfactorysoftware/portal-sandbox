@@ -1,10 +1,21 @@
 <?php
 use DreamFactory\Yii\Utility\Pii;
+use Kisma\Core\Utility\Curl;
 
 //	Bootstrap ourselves
 require_once __DIR__ . '/autoload.php';
 
-$_guest = Pii::guest();
+$_dspUrl = Curl::currentUrl( false, false );
+
+//	Must be logged in...
+if ( Pii::guest() )
+{
+	header( 'Location: ' . $_dspUrl . '/' );
+	die();
+}
+
+//	Default url
+$_dspUrl .= '/rest/system/user';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +25,7 @@ $_guest = Pii::guest();
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="utf-8">
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 	<script src="//google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
 
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->    <!--[if lt IE 9]>
@@ -52,47 +63,38 @@ $_guest = Pii::guest();
 		</div>
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
-				<?php if ( $_guest )
-				{
-					?>
-					<li class="active">
-						<a href="#">Login</a>
-					</li>
-				<?php
-				}
-				else
-				{
-					?>
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="themes">Examples<b class="caret"></b></a>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="themes">Examples<b class="caret"></b></a>
 
-						<ul class="dropdown-menu">
-							<li class="dropdown-header">HTML</li>
-							<li>
-								<a href="#" class="example-code" data-provider="github">GitHub</a>
-							</li>
-							<li>
-								<a href="#" class="example-code" data-provider="facebook">Facebook</a>
-							</li>
-							<li>
-								<a href="#" class="example-code" data-provider="salesforce">Salesforce</a>
-							</li>
-						</ul>
-					</li>
+					<ul class="dropdown-menu">
+						<li class="dropdown-header">HTML</li>
+						<li>
+							<a href="#" class="example-code" data-provider="github">GitHub</a>
+						</li>
+						<li>
+							<a href="#" class="example-code" data-provider="facebook">Facebook</a>
+						</li>
+						<li>
+							<a href="#" class="example-code" data-provider="salesforce">Salesforce</a>
+						</li>
+					</ul>
+				</li>
 
-					<li>
-						<a href="https://www.dreamfactory.com/developers/documentation" target="_blank">Docs</a>
-					</li>
-					<li>
-						<a href="https://www.dreamfactory.com/developers/live_API" target="_blank">API</a>
-					</li>
-					<li>
-						<a href="https://www.dreamfactory.com/developers/faq" target="_blank">FAQs</a>
-					</li>
-					<li>
-						<a href="https://www.dreamfactory.com/developers/support" target="_blank">Support</a>
-					</li>
-				<?php } ?>
+				<li>
+					<a href="https://www.dreamfactory.com/developers/documentation" target="_blank">Docs</a>
+				</li>
+				<li>
+					<a href="https://www.dreamfactory.com/developers/live_API" target="_blank">API</a>
+				</li>
+				<li>
+					<a href="https://www.dreamfactory.com/developers/faq" target="_blank">FAQs</a>
+				</li>
+				<li>
+					<a href="https://www.dreamfactory.com/developers/support" target="_blank">Support</a>
+				</li>
+				<li>
+					<a href="#" id="app-close" target="_blank">Close</a>
+				</li>
 			</ul>
 		</div>
 	</nav>
@@ -118,20 +120,10 @@ $_guest = Pii::guest();
 										<input type="text"
 											   class="form-control"
 											   id="request-uri"
-											   value="https://next.cloud.dreamfactory.com/rest/system/user"
+											   value="<?php echo $_dspUrl; ?>"
 											   placeholder="The request URI (i.e. /system/user)">
 
 										<p class="help-block">Either an absolute or relative URL.</p>
-									</div>
-								</div>
-
-								<div class="form-group">
-									<label for="request-body" class="col-sm-2 control-label">Body</label>
-
-									<div class="col-sm-10">
-										<textarea id="request-body" rows="5" class="form-control"></textarea>
-
-										<p class="help-block">Must be valid JSON</p>
 									</div>
 								</div>
 
@@ -151,7 +143,7 @@ $_guest = Pii::guest();
 										</select>
 									</div>
 
-									<label for="request-app" class="col-sm-2 control-label">Application</label>
+									<label for="request-app" class="col-sm-2 control-label">App/API Key</label>
 
 									<div class="col-sm-4">
 										<select class="form-control" id="request-app">
@@ -161,11 +153,21 @@ $_guest = Pii::guest();
 									</div>
 								</div>
 
-								<div class="multientry" data-attribute="request-headers" data-name="request-headers"></div>
+								<div class="form-group">
+									<label for="request-body" class="col-sm-2 control-label">Body</label>
 
+									<div class="col-sm-10">
+										<textarea id="request-body" rows="2" class="form-control"></textarea>
+
+										<p class="help-block">Must be valid JSON</p>
+									</div>
+								</div>
+
+								<div class="multientry" data-attribute="request-headers" data-name="request-headers"></div>
+								<hr />
 								<div class="form-group">
 									<div class="col-sm-offset-2 col-sm-10">
-										<button type="submit" class="btn btn-primary">Send Request</button>
+										<button id="send-request" type="button" class="btn btn-warning">Send Request</button>
 									</div>
 								</div>
 
@@ -182,7 +184,8 @@ $_guest = Pii::guest();
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">
-							<a data-toggle="collapse" data-parent="#call-results-group" href="#call-results-body">Call Results</a>
+							<a name="provider-results" data-toggle="collapse" data-parent="#call-results-group" href="#call-results-body">Call Results
+							</a>
 						</h4>
 					</div>
 					<div id="call-results-body" class="panel-collapse collapse in">
@@ -204,6 +207,6 @@ $_guest = Pii::guest();
 <script type="text/javascript" src="js/mwheelintent.min.js"></script>
 <script type="text/javascript" src="js/jquery.jscrollpane.min.js"></script>
 <script src="js/jquery.multientry.js"></script>
-<script src="js/oasys.jquery.js"></script>
+<script src="js/app.jquery.js"></script>
 </body>
 </html>
