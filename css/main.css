@@ -203,6 +203,15 @@ i.fa-plus-square {
 	margin-right: 8px;
 }
 
+.form-buttons {
+	float:        right;
+	margin-right: 15px;
+}
+
+#loading-indicator {
+	display: none;
+}
+
 /**************************************************************************
 ** Media Queries
 **************************************************************************/
