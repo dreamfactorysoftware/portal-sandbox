@@ -33,12 +33,23 @@ section {
 	margin-bottom: 4px;
 }
 
+.container section:last-child {
+	margin-bottom: 14px;
+}
+
 a:hover, a:focus {
 	text-decoration: none;
 }
 
 label {
 	font-size: 13px;
+}
+
+optgroup {
+	margin-left:   0;
+	margin-right:  0;
+	padding-left:  4px;
+	padding-right: 4px;
 }
 
 /**************************************************************************
