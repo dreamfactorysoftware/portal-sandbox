@@ -1,0 +1,31 @@
+{
+	"name":              "dreamfactory/oasys-examples",
+	"description":       "DreamFactory Oasys(tm) Example Code",
+	"homepage":          "http://dreamfactorysoftware.github.io/#oasys",
+	"version":           "1.0.0",
+	"keywords":          [
+		"dreamfactory", "oasys", "oauth", "authentication", "framework", "examples"
+	],
+	"type":              "library",
+	"license":           [
+		"Apache-2.0"
+	],
+	"authors":           [
+		{
+			"name":  "Jerry Ablan",
+			"email": "jerryablan@dreamfactory.com",
+			"role":  "Developer"
+		}
+	],
+	"support":           {
+		"email":  "support@dreamfactory.com",
+		"issues": "https://github.com/dreamfactorysoftware/oasys-examples/issues",
+		"wiki":   "https://github.com/dreamfactorysoftware/oasys-examples/wiki",
+		"source": "https://github.com/dreamfactorysoftware/oasys-examples"
+	},
+	"minimum-stability": "dev",
+	"require":           {
+		"php":         ">=5.3.18",
+		"kisma/kisma": "*"
+	}
+}
