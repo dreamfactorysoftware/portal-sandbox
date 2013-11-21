@@ -33,12 +33,23 @@ section {
 	margin-bottom: 4px;
 }
 
+.container section:last-child {
+	margin-bottom: 14px;
+}
+
 a:hover, a:focus {
 	text-decoration: none;
 }
 
 label {
 	font-size: 13px;
+}
+
+optgroup {
+	margin-left:   0;
+	margin-right:  0;
+	padding-left:  4px;
+	padding-right: 4px;
 }
 
 /**************************************************************************
@@ -201,6 +212,15 @@ span.input-group-addon + btn-multientry {
 
 i.fa-plus-square {
 	margin-right: 8px;
+}
+
+.form-buttons {
+	float:        right;
+	margin-right: 15px;
+}
+
+#loading-indicator {
+	display: none;
 }
 
 /**************************************************************************
