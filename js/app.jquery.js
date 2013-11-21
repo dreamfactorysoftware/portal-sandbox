@@ -17,16 +17,148 @@ var _options = {
 };
 
 /**
+ * Check if a var is defined and return default value if not optionally
+ *
+ * @param variable
+ * @param [defaultValue]
+ * @returns {*}
+ * @private
+ */
+var _isDefined = function(variable, defaultValue) {
+	if (typeof variable != 'undefined') {
+		return variable;
+	}
+
+	if (typeof defaultValue != 'undefined') {
+		return defaultValue;
+	}
+
+	//	Nope, not defined
+	return false;
+};
+
+/**
+ * A little URL builder
+ * @param resource
+ * @param [appName]
+ * @returns {string}
+ * @private
+ */
+var _getEndpoint = function(resource, appName) {
+	return _options.baseUrl + resource + '?app_name=' + _isDefined(appName, 'oasys-examples');
+};
+
+/**
+ * A System URL builder
+ * @param resource
+ * @param [appName]
+ * @returns {string}
+ * @private
+ */
+var _getSystemEndpoint = function(resource, appName) {
+	return _getEndpoint('/rest/system/' + resource, appName);
+};
+
+/**
+ * A Portal URL builder
+ * @param portal
+ * @param [appName]
+ * @returns {string}
+ * @private
+ */
+var _getPortalEndpoint = function(portal, appName) {
+	return _getEndpoint('/rest/portal/' + portal, appName);
+};
+
+/**
+ * Load the provider stuff
+ * @param [provider]
+ * @private
+ */
+var _loadProvider = function(provider) {
+	var $_list = $('#provider-list'), _userEndpoint = _getSystemEndpoint('provider_user'), _providerEndpoint = _getSystemEndpoint('provider');
+	var _filter = 'user_id = :user_id AND provider_id = ' + $_list.find('option').filter(':selected').data('provider-id');
+	var _providerName = _isDefined(provider, $_list.val());
+
+	//	If we get the object, just pull out the name
+	if (typeof _providerName == 'object') {
+		_providerName = _providerName.api_name;
+	}
+
+	//	Fill in the request form
+	$('#request-app').val('oasys-examples');
+	$('#request-uri').val(_getPortalEndpoint(_providerName));
+	$('#request-method').val('GET');
+	$('#loading-indicator').hide().removeClass('fa-spin');
+	$('#example-code').html('<small>Ready</small>');
+
+	//	Disable controls
+	$_list.addClass('disabled');
+	$('#provider-auth-status').hide(function() {
+		$('#provider-auth-check').show();
+	});
+
+	//	Pull the credentials
+	$.ajax({
+		url:      _userEndpoint,
+		data:     {
+			filter: _filter
+		},
+		complete: function() {
+			//	Restore controls
+			$('#provider-auth-check').hide();
+			$_list.removeClass('disabled');
+		},
+		success:  function(data) {
+			if (data && data.record && data.record.length) {
+				var _provider = data.record[0];
+
+				if (_provider.auth_text && _provider.auth_text.hasOwnProperty('access_token')) {
+					//	Authorized already
+					$('#provider-auth-status').html('<i class="fa fa-check btn-success"></i><small>Authorization granted</small>').show();
+				}
+				else {
+					//	Need to authorize...
+					$.ajax({
+						async:   false,
+						url: _getPortalEndpoint(_providerName) + '&control=authorize_url',
+						type:    'GET',
+						error:   function(error) {
+							$('#provider-auth-status').html('<i class="fa fa-times btn-danger"></i><small>Authorization required, but there was an error retrieving the authorization URL.</small>').show();
+						},
+						success: function(data) {
+							if (data && data.authorize_url) {
+								_showResults('<h3>Authorization Required</h3><p>Please click <a href="' + data.authorize_url +
+											 '" target="_blank">here</a> to authorize this provider.</p>', false);
+
+								$('#provider-auth-status').html('<i class="fa fa-times btn-danger"></i><small>Authorization required. Click <a href="' +
+																data.authorize_url + '" target="_blank">here</a> to begin the process.</small>').show();
+							}
+						}
+					});
+				}
+			}
+		}
+	});
+};
+
+/**
  * Shows the results pretty-printed
  * @param data
+ * @param [pretty]
  * @returns {boolean}
  * @private
  */
-var _showResults = function(data) {
-	$('#example-code').html('<pre class="prettyprint">' + JSON.stringify(data, null, '\t') + '</pre>');
+var _showResults = function(data, pretty) {
+	if (false === pretty) {
+		$('#example-code').html(data);
+	}
+	else {
+		$('#example-code').html('<pre class="prettyprint">' + JSON.stringify(data, null, '\t') + '</pre>');
 
-	//noinspection JSUnresolvedFunction
-	PR.prettyPrint();
+		//noinspection JSUnresolvedFunction
+		PR.prettyPrint();
+	}
 
 	if (-1 == window.location.href.indexOf('#')) {
 		window.location.href += '#provider-results';
@@ -147,20 +279,7 @@ var _initialize = function() {
 	}
 
 	//	Load providers
-	//	Load apps
-};
-
-/**
- * Load the provider stuff
- * @param provider
- * @private
- */
-var _loadProvider = function(provider) {
-	$('#request-uri').val(_options.baseUrl + '/rest/portal/' + provider.api_name);
-	$('#request-method').val('GET');
-	$('#request-app').val('oasys-examples');
-	$('#example-code').html('<small>Ready</small>');
-	$('#loading-indicator').hide().removeClass('fa-spin');
+	_loadProvider();
 };
 
 /**
