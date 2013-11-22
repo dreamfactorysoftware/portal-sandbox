@@ -24,8 +24,8 @@ $_providerCache = new \stdClass();
 
 $_models = ResourceStore::model( 'app' )->findAll(
 	array(
-		 'select' => 'id, api_name',
-		 'order'  => 'api_name'
+		 'select' => 'id, api_name, name',
+		 'order'  => 'name'
 	)
 );
 
@@ -34,7 +34,7 @@ if ( !empty( $_models ) )
 	/** @var App[] $_models */
 	foreach ( $_models as $_model )
 	{
-		$_apps .= HtmlMarkup::tag( 'option', array( 'value' => $_model->api_name, 'name' => Inflector::neutralize( $_model->api_name ) ), $_model->api_name );
+		$_apps .= HtmlMarkup::tag( 'option', array( 'value' => $_model->api_name, 'name' => $_model->api_name ), $_model->name );
 		unset( $_model );
 	}
 
@@ -49,15 +49,24 @@ $_models = ResourceStore::model( 'provider' )->findAll(
 
 if ( !empty( $_models ) )
 {
+	$_first = true;
+
 	/** @var Provider[] $_models */
 	foreach ( $_models as $_model )
 	{
-		$_providers .= HtmlMarkup::tag(
-			'option',
-			array( 'value' => $_model->api_name, 'name' => Inflector::neutralize( $_model->api_name ) ),
-			$_model->provider_name
+		$_attributes = array(
+			'value'            => $_model->api_name,
+			'name'             => $_model->api_name,
+			'data-provider-id' => $_model->id,
 		);
 
+		if ( $_first )
+		{
+			$_attributes['selected'] = 'selected';
+			$_first = false;
+		}
+
+		$_providers .= HtmlMarkup::tag( 'option', $_attributes, $_model->provider_name );
 		$_providerCache->{$_model->api_name} = $_model->getAttributes();
 
 		unset( $_model );
@@ -173,13 +182,18 @@ $_defaultUrl = $_dspUrl . '/rest/system/user';
 								<div class="form-group">
 									<label for="provider-list" class="col-sm-2 control-label">Providers</label>
 
-									<div class="col-sm-10">
-										<select id="provider-list"><?php echo $_providers; ?></select>
+									<div class="col-sm-4">
+										<select class="form-control" id="provider-list"><?php echo $_providers; ?></select>
 									</div>
+									<div id="provider-auth-check" class="col-sm-5" style="display: none;">
+										<i class="fa fa-spinner fa-spin"></i>
+										<small>Checking authorization...</small>
+									</div>
+									<div id="provider-auth-status" class="col-sm-5" style="display: none;"></div>
 								</div>
 							</div>
 
-							<div id="new-provider" style="display: none;">
+							<div id=" new-provider" style="display: none;">
 								<div class="form-group">
 									<label for="provider-name" class="col-sm-2 control-label">Name</label>
 

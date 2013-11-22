@@ -223,6 +223,20 @@ i.fa-plus-square {
 	display: none;
 }
 
+#provider-auth-check {
+	padding: 7px;
+}
+
+#provider-auth-check i.fa {
+	margin-right: 6px;
+}
+
+#provider-auth-status i {
+	margin:        4px;
+	padding:       4px;
+	border-radius: 4px
+}
+
 /**************************************************************************
 ** Media Queries
 **************************************************************************/
