@@ -1,9 +1,10 @@
 <?php
 /**
- * This file is part of the DreamFactory Services Platform(tm) (DSP)
+ * This file is part of the DreamFactory Oasys Sample App
  *
- * DreamFactory Services Platform(tm) <http://github.com/dreamfactorysoftware/dsp-core>
- * Copyright 2012-2013 DreamFactory Software, Inc. <developer-support@dreamfactory.com>
+ * DreamFactory Oasys <http://github.com/dreamfactorysoftware/oasys>
+ * DreamFactory Oasys Sample App <http://github.com/dreamfactorysoftware/oasys-examples>
+ * Copyright 2013 DreamFactory Software, Inc. <developer-support@dreamfactory.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,21 +18,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 /**
- * index.php
  * Main entry point/bootstrap for PHP applications
  */
 //	Load up composer...
 $_autoloader = require_once( __DIR__ . '/../../vendor/autoload.php' );
 
+//	Turn on debugging
+\Kisma::setDebug( true );
+
 //	Load up Yii
 require_once __DIR__ . '/../../vendor/dreamfactory/yii/framework/yii.php';
 
-//	Yii debug settings
-defined( 'YII_DEBUG' ) or define( 'YII_DEBUG', true );
-defined( 'YII_TRACE_LEVEL' ) or define( 'YII_TRACE_LEVEL', 3 );
+if ( \Kisma::getDebug() )
+{
+	//	Yii debug settings
+	defined( 'YII_DEBUG' ) or define( 'YII_DEBUG', true );
+	defined( 'YII_TRACE_LEVEL' ) or define( 'YII_TRACE_LEVEL', 3 );
+}
 
-//	Create the application and run
+//	Create the application but do not run...
 DreamFactory\Yii\Utility\Pii::run(
 	dirname( __DIR__ ),
 	$_autoloader,

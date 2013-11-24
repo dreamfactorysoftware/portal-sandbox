@@ -1,7 +1,27 @@
 /**
- * oasys.jquery.js
- * The file contains common client-side functions for the DreamFactory Oasys(tm) Example Code
+ * This file is part of the DreamFactory Oasys(tm) Sample App
+ * Copyright 2013 DreamFactory Software, Inc. {@email support@dreamfactory.com}
+ *
+ * DreamFactory Oasys(tm) {@link http://github.com/dreamfactorysoftware/oasys}
+ * DreamFactory Oasys(tm) Sample App {@link http://github.com/dreamfactorysoftware/oasys-examples}
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
+//********************************************************************************
+//* The file contains common client-side functions for the app
+//********************************************************************************
+
 /**
  * Our global options
  */
@@ -87,16 +107,15 @@ var _loadProvider = function(provider) {
 
 	//	Fill in the request form
 	$('#request-app').val('oasys-examples');
-	$('#request-uri').val(_getPortalEndpoint(_providerName));
+	$('#request-uri').val(_getPortalEndpoint(_providerName + '/me'));
 	$('#request-method').val('GET');
-	$('#loading-indicator').hide().removeClass('fa-spin');
+	$('#loading-indicator').fadeOut().removeClass('fa-spin');
 	$('#example-code').html('<small>Ready</small>');
 
 	//	Disable controls
 	$_list.addClass('disabled');
-	$('#provider-auth-status').hide(function() {
-		$('#provider-auth-check').show();
-	});
+	$('#provider-auth-status').hide();
+	$('#provider-auth-check').show();
 
 	//	Pull the credentials
 	$.ajax({
@@ -107,6 +126,7 @@ var _loadProvider = function(provider) {
 		complete: function() {
 			//	Restore controls
 			$('#provider-auth-check').hide();
+			$('#provider-auth-status').show();
 			$_list.removeClass('disabled');
 		},
 		success:  function(data) {
@@ -121,7 +141,7 @@ var _loadProvider = function(provider) {
 					//	Need to authorize...
 					$.ajax({
 						async:   false,
-						url: _getPortalEndpoint(_providerName) + '&control=authorize_url',
+						url:     _getPortalEndpoint(_providerName + '/me') + '&control=authorize_url',
 						type:    'GET',
 						error:   function(error) {
 							$('#provider-auth-status').html('<i class="fa fa-times btn-danger"></i><small>Authorization required, but there was an error retrieving the authorization URL.</small>').show();
@@ -129,10 +149,10 @@ var _loadProvider = function(provider) {
 						success: function(data) {
 							if (data && data.authorize_url) {
 								_showResults('<h3>Authorization Required</h3><p>Please click <a href="' + data.authorize_url +
-											 '" target="_blank">here</a> to authorize this provider.</p>', false);
+									'">here</a> to authorize this provider.</p>', false);
 
 								$('#provider-auth-status').html('<i class="fa fa-times btn-danger"></i><small>Authorization required. Click <a href="' +
-																data.authorize_url + '" target="_blank">here</a> to begin the process.</small>').show();
+									data.authorize_url + '">here</a> to begin the process.</small>').show();
 							}
 						}
 					});
@@ -223,7 +243,7 @@ var _execute = function() {
 			processData: false,
 			data:        _body,
 			beforeSend:  function(xhr) {
-				$('#loading-indicator').addClass('fa-spin').show();
+				$('#loading-indicator').fadeIn().addClass('fa-spin');
 				$('#send-request').addClass('disabled');
 
 				if (_xMethod) {
@@ -241,8 +261,8 @@ var _execute = function() {
 			},
 			error:       function(err) {
 				if (302 == err.status || 307 == err.status) {
-					$_code.empty().html('<h4>Authorization Required</h4><p>Please click the link below to authorize this provider.</p><p>' + err.location +
-										'</p>');
+					_showResults('<h4>Authorization Required</h4><p>Please click the link below to authorize this provider.</p><p>' + err.location +
+						'</p>', false);
 				}
 				else if (err.responseText) {
 					var _json = JSON.parse(err.responseText);
@@ -252,12 +272,12 @@ var _execute = function() {
 					_showResults(_json);
 				}
 				else {
-					_showResults('Error: ' + err.status);
+					_showResults('Error: ' + err.status, false);
 				}
 			},
 			complete:    function() {
 				$('#send-request').removeClass('disabled');
-				$('#loading-indicator').fadeOut().removeClass('fa-spin');
+				$('#loading-indicator').removeClass('fa-spin').fadeOut();
 			}
 		});
 	}
@@ -294,12 +314,6 @@ jQuery(function($) {
 	}).on('close.dsp', function() {
 			_actions('toggleFullScreen', false);
 		});
-
-	$('.multientry').multientry({
-		label:       'Header(s)',
-		formId:      'call-settings-form',
-		placeholder: 'Header (i.e. &quot;Content-Type: application/json&quot;)'
-	});
 
 	$('a.example-code').on('click', function(e) {
 		e.preventDefault();
