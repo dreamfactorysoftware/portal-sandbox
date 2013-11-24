@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucifurious/kisma.git",
-                "reference": "e0f9fd4dca1b2b58b6a00b1ccf6da84ce8ebda29"
+                "reference": "578952aaf7939c2effc9f6fcda66189feec6e871"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucifurious/kisma/zipball/e0f9fd4dca1b2b58b6a00b1ccf6da84ce8ebda29",
-                "reference": "e0f9fd4dca1b2b58b6a00b1ccf6da84ce8ebda29",
+                "url": "https://api.github.com/repos/lucifurious/kisma/zipball/578952aaf7939c2effc9f6fcda66189feec6e871",
+                "reference": "578952aaf7939c2effc9f6fcda66189feec6e871",
                 "shasum": ""
             },
             "require": {
@@ -49,7 +49,7 @@
                 "php5",
                 "utility"
             ],
-            "time": "2013-11-14 22:31:47"
+            "time": "2013-11-22 03:33:43"
         }
     ],
     "packages-dev": [
