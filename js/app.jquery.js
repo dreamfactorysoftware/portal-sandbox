@@ -91,6 +91,30 @@ var _getPortalEndpoint = function(portal, appName) {
 };
 
 /**
+ * @param providerName
+ * @private
+ */
+var _getAuthorizationUrl = function(providerName) {
+	$.ajax({
+		async:   false,
+		url:     _getPortalEndpoint(providerName) + '&control=authorize_url',
+		type:    'GET',
+		error:   function(error) {
+			$('#provider-auth-status').html('<i class="fa fa-times btn-danger"></i><small>Authorization required, but there was an error retrieving the authorization URL.</small>').show();
+		},
+		success: function(data) {
+			if (data && data.authorize_url) {
+				_showResults('<h3>Authorization Required</h3><p>Please click <a href="' + data.authorize_url +
+					'">here</a> to authorize this provider.</p>', false);
+
+				$('#provider-auth-status').html('<i class="fa fa-times btn-danger"></i><small>Authorization required. Click <a href="' +
+					data.authorize_url + '">here</a> to begin the process.</small>').show();
+			}
+		}
+	});
+};
+
+/**
  * Load the provider stuff
  * @param [provider]
  * @private
@@ -129,34 +153,23 @@ var _loadProvider = function(provider) {
 			$('#provider-auth-status').show();
 			$_list.removeClass('disabled');
 		},
+		error:    function(data) {
+			_getAuthorizationUrl(_providerName);
+		},
 		success:  function(data) {
+			var _auth = false;
 			if (data && data.record && data.record.length) {
 				var _provider = data.record[0];
 
-				if (_provider.auth_text && _provider.auth_text.hasOwnProperty('access_token')) {
+				if (_provider.auth_text && _provider.auth_text.hasOwnProperty('access_token') && _provider.auth_text.access_token) {
 					//	Authorized already
 					$('#provider-auth-status').html('<i class="fa fa-check btn-success"></i><small>Authorization granted</small>').show();
+					_auth = true;
 				}
-				else {
-					//	Need to authorize...
-					$.ajax({
-						async:   false,
-						url:     _getPortalEndpoint(_providerName + '/me') + '&control=authorize_url',
-						type:    'GET',
-						error:   function(error) {
-							$('#provider-auth-status').html('<i class="fa fa-times btn-danger"></i><small>Authorization required, but there was an error retrieving the authorization URL.</small>').show();
-						},
-						success: function(data) {
-							if (data && data.authorize_url) {
-								_showResults('<h3>Authorization Required</h3><p>Please click <a href="' + data.authorize_url +
-									'">here</a> to authorize this provider.</p>', false);
+			}
 
-								$('#provider-auth-status').html('<i class="fa fa-times btn-danger"></i><small>Authorization required. Click <a href="' +
-									data.authorize_url + '">here</a> to begin the process.</small>').show();
-							}
-						}
-					});
-				}
+			if (!_auth) {
+				_getAuthorizationUrl(_providerName);
 			}
 		}
 	});
@@ -223,7 +236,7 @@ var _execute = function() {
 		return false;
 	}
 
-	_uri += ( -1 == _uri.indexOf('?') ? '?' : '&') + 'flow_type=1';
+	_uri += ( -1 == _uri.indexOf('?') ? '?' : '&') + 'flow_type=1&return_uri=' + encodeURIComponent(window.location.href);
 
 	$_code.empty().html('<small>Loading...</small>');
 
