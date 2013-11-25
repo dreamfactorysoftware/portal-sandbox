@@ -28,7 +28,7 @@ use Kisma\Core\Utility\HtmlMarkup;
 //	Bootstrap ourselves
 require_once __DIR__ . '/autoload.php';
 
-//	Debugging
+//	Debugging?
 if ( \Kisma::getDebug() )
 {
 	error_reporting( -1 );

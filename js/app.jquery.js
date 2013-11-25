@@ -24,15 +24,28 @@
 
 /**
  * Our global options
+ * @var {*}
  */
 var _options = {
+	/** @var int **/
 	alertHideDelay:      5000,
+	/** @var int **/
 	notifyDiv:           'div#request-message',
+	/** @var int **/
 	ajaxMessageFadeTime: 6000,
+	/** @var {*} **/
 	scrollPane:          null,
+	/** @var string **/
 	defaultUri:          '/rest/system/user',
-	//	Set in index.php
+	/** @var {*} **/
+	currentProvider:     {},
+	/** @var bool */
+	readOnly:            true,
+
+	//	These are set in index.php (ugh)
+	/** @var {*}[] **/
 	providers:           {},
+	/** @var string **/
 	baseUrl:             null
 };
 
@@ -91,6 +104,18 @@ var _getPortalEndpoint = function(portal, appName) {
 };
 
 /**
+ * A Portal URL builder
+ * @param portal
+ * @param [appName]
+ * @returns {string}
+ * @private
+ */
+var _getDefaultEndpoint = function(portal, appName) {
+	return _getPortalEndpoint(portal, appName) +
+		(_options.currentProvider && _options.currentProvider.config_text ? _options.currentProvider.config_text.profile_resource : '' );
+};
+
+/**
  * @param providerName
  * @private
  */
@@ -131,7 +156,7 @@ var _loadProvider = function(provider) {
 
 	//	Fill in the request form
 	$('#request-app').val('oasys-examples');
-	$('#request-uri').val(_getPortalEndpoint(_providerName + '/me'));
+	$('#request-uri').val(_getDefaultEndpoint(_providerName));
 	$('#request-method').val('GET');
 	$('#loading-indicator').fadeOut().removeClass('fa-spin');
 	$('#example-code').html('<small>Ready</small>');
@@ -346,21 +371,23 @@ jQuery(function($) {
 		}
 	});
 
-	$('#add-provider').on('click', function(e) {
-		e.preventDefault();
-		if (!$(this).hasClass('disabled')) {
-			$('#select-provider').slideUp();
-			$('#new-provider').slideDown();
-			$('#add-provider').addClass('disabled');
-		}
-	});
+	if (!_options.readOnly) {
+		$('#add-provider').on('click', function(e) {
+			e.preventDefault();
+			if (!$(this).hasClass('disabled')) {
+				$('#select-provider').slideUp();
+				$('#new-provider').slideDown();
+				$('#add-provider').addClass('disabled');
+			}
+		});
 
-	$('#add-provider-cancel').on('click', function(e) {
-		e.preventDefault();
-		$('#select-provider').slideDown();
-		$('#new-provider').slideUp();
-		$('#add-provider').removeClass('disabled');
-	});
+		$('#add-provider-cancel').on('click', function(e) {
+			e.preventDefault();
+			$('#select-provider').slideDown();
+			$('#new-provider').slideUp();
+			$('#add-provider').removeClass('disabled');
+		});
+	}
 
 	$('#send-request').on('click', function(e) {
 		e.preventDefault();
@@ -380,8 +407,12 @@ jQuery(function($) {
 		var _id = $(this).val();
 
 		if (_options.providers && _options.providers.hasOwnProperty(_id)) {
+			_options.currentProvider = _options.providers[_id];
 			_loadProvider(_options.providers[_id]);
+			return true;
 		}
+
+		return false;
 	});
 
 	/**
