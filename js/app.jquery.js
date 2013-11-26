@@ -129,14 +129,21 @@ var _getAuthorizationUrl = function(providerName) {
 		},
 		success: function(data) {
 			if (data && data.authorize_url) {
-				_showResults('<h3>Authorization Required</h3><p>Please click <a href="' + data.authorize_url +
-					'">here</a> to authorize this provider.</p>', false);
-
-				$('#provider-auth-status').html('<i class="fa fa-times btn-danger"></i><small>Authorization required. Click <a href="' +
-					data.authorize_url + '">here</a> to begin the process.</small>').show();
+				_showAuthorizeUrl(data.authorize_url);
 			}
 		}
 	});
+};
+
+/**
+ * @param {string} url
+ * @private
+ */
+var _showAuthorizeUrl = function(url) {
+	_showResults('<h3>Authorization Required</h3><p>Please click <a href="' + url + '">here</a> to authorize this provider.</p>', false);
+
+	$('#provider-auth-status').html('<i class="fa fa-times btn-danger"></i><small>Authorization required. Click <a href="' + url +
+		'">here</a> to begin the process.</small>').show();
 };
 
 /**
@@ -298,16 +305,30 @@ var _execute = function() {
 				return _showResults(data);
 			},
 			error:       function(err) {
-				if (302 == err.status || 307 == err.status) {
-					_showResults('<h4>Authorization Required</h4><p>Please click the link below to authorize this provider.</p><p>' + err.location +
-						'</p>', false);
-				}
-				else if (err.responseText) {
-					var _json = JSON.parse(err.responseText);
+				var _json = {};
+
+				if (err.responseJSON) {
+					_json = err.responseJSON.error[0];
+				} else if (err.responseText) {
+					_json = JSON.parse(err.responseText);
 					if (!_json) {
 						_json = err.responseText;
 					}
-					_showResults(_json);
+				}
+
+				if (302 == err.status || 307 == err.status) {
+					var _location = _json.location || err.location;
+					if (!_location) {
+						_location = _getAuthorizationUrl(_options.currentProvider);
+					}
+
+					if (!_location) {
+						_showResults('<div class="alert alert-fixed alert-danger"><strong>Authorization Required</strong><p>However, the authorization URL cannot be determined.</p></div>',
+							false);
+					}
+					else {
+						_showAuthorizeUrl(_location);
+					}
 				}
 				else {
 					_showResults('Error: ' + err.status, false);
