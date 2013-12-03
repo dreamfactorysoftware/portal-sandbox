@@ -221,6 +221,10 @@ i.fa-plus-square {
 	display: none;
 }
 
+div[id$="-status"] {
+	margin-left: 8px;
+}
+
 #provider-auth-check {
 	padding: 7px;
 }
@@ -229,10 +233,13 @@ i.fa-plus-square {
 	margin-right: 6px;
 }
 
-#provider-auth-status i {
+i.status-icon {
 	margin:        4px;
 	padding:       4px;
-	border-radius: 4px
+	border-radius: 4px;
+	width:         24px;
+	height:        24px;
+	text-align:    center;
 }
 
 /**************************************************************************

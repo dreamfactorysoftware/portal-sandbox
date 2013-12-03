@@ -18,12 +18,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+use DreamFactory\Oasys\Enums\EndpointTypes;
 use DreamFactory\Platform\Utility\ResourceStore;
 use DreamFactory\Platform\Yii\Models\App;
 use DreamFactory\Platform\Yii\Models\Provider;
 use DreamFactory\Yii\Utility\Pii;
 use Kisma\Core\Utility\Curl;
 use Kisma\Core\Utility\HtmlMarkup;
+use Kisma\Core\Utility\Log;
+use Kisma\Core\Utility\Option;
 
 //********************************************************************************
 //* Bootstrap and Debugging
@@ -46,6 +49,7 @@ if ( Pii::guest() )
 	header( 'Location: ' . $_dspUrl . '/' );
 	die();
 }
+
 
 //********************************************************************************
 //* Load data for dropdowns...
@@ -86,10 +90,13 @@ if ( !empty( $_models ) )
 	/** @var Provider[] $_models */
 	foreach ( $_models as $_model )
 	{
+		$_profileResource = $_model->api_name == 'facebook' ? '/me' : '/user';
+
 		$_attributes = array(
-			'value'            => $_model->api_name,
-			'name'             => $_model->api_name,
-			'data-provider-id' => $_model->id,
+			'value'                 => $_model->api_name,
+			'name'                  => $_model->api_name,
+			'data-provider-id'      => $_model->id,
+			'data-profile-resource' => $_profileResource,
 		);
 
 		if ( $_first )
@@ -101,7 +108,7 @@ if ( !empty( $_models ) )
 		$_providers .= HtmlMarkup::tag( 'option', $_attributes, $_model->provider_name );
 		$_providerCache->{$_model->api_name} = $_model->getAttributes();
 
-		unset( $_model );
+		unset( $_model, $_endpoint, $_profileResource );
 	}
 
 	unset( $_models );
@@ -142,11 +149,17 @@ $_defaultUrl = $_dspUrl . '/rest/system/user';
 										<div class="col-sm-4">
 											<select class="form-control" id="provider-list"><?php echo $_providers; ?></select>
 										</div>
-										<div id="provider-auth-check" class="col-sm-5" style="display: none;">
-											<i class="fa fa-spinner fa-spin"></i>
-											<small>Checking authorization...</small>
+										<div class="col-sm-5">
+											<div id="provider-auth-check" style="display: none;" class="pull-left">
+												<i class="fa fa-spinner fa-spin"></i>
+												<small>Checking authorization...</small>
+											</div>
+											<div id="provider-auth-status" style="display: none;" class="pull-left"></div>
+											<div id="revoke-auth-status" style="display: none;" class="pull-left" data-provider-user-id="">
+												<i class="fa fa-trash-o btn-danger status-icon"></i>
+												<small>Click <a href="#" id="revoke-auth">here</a> to revoke.</small>
+											</div>
 										</div>
-										<div id="provider-auth-status" class="col-sm-5" style="display: none;"></div>
 									</div>
 								</div>
 
@@ -217,8 +230,6 @@ $_defaultUrl = $_dspUrl . '/rest/system/user';
 											   id="request-uri"
 											   value="<?php echo $_defaultUrl; ?>"
 											   placeholder="The request URI (i.e. /system/user)">
-
-										<p class="help-block">Either an absolute or relative URL.</p>
 									</div>
 								</div>
 

@@ -74,11 +74,12 @@ var _isDefined = function(variable, defaultValue) {
  * A little URL builder
  * @param resource
  * @param [appName]
+ * @param [excludeBase] If TRUE, the base URL will not be prepended to the returned endpoint
  * @returns {string}
  * @private
  */
-var _getEndpoint = function(resource, appName) {
-	return _options.baseUrl + resource;
+var _getEndpoint = function(resource, appName, excludeBase) {
+	return ( excludeBase ? '' : _options.baseUrl ) + resource;
 };
 
 /**
@@ -112,7 +113,8 @@ var _getPortalEndpoint = function(portal, appName) {
  */
 var _getDefaultEndpoint = function(portal, appName) {
 	return _getPortalEndpoint(portal, appName) +
-		(_options.currentProvider && _options.currentProvider.config_text ? _options.currentProvider.config_text.profile_resource : '' );
+		   (_options.currentProvider && _options.currentProvider.hasOwnProperty('config_text') && _options.currentProvider.config_text.length
+			   ? _isDefined(_options.currentProvider.config_text.profile_resource, '') : '' );
 };
 
 /**
@@ -122,10 +124,10 @@ var _getDefaultEndpoint = function(portal, appName) {
 var _getAuthorizationUrl = function(providerName) {
 	$.ajax({
 		async:   false,
-		url:     _getPortalEndpoint(providerName) + '?control=authorize_url',
+		url: _getPortalEndpoint(providerName) + '?control=authorize_url',
 		type:    'GET',
 		error:   function(error) {
-			$('#provider-auth-status').html('<i class="fa fa-times btn-danger"></i><small>Authorization required, but there was an error retrieving the authorization URL.</small>').show();
+			$('#provider-auth-status').html('<i class="fa fa-times btn-danger status-icon"></i><small>Authorization required, but there was an error retrieving the authorization URL.</small>').show();
 		},
 		success: function(data) {
 			if (data && data.authorize_url) {
@@ -140,10 +142,13 @@ var _getAuthorizationUrl = function(providerName) {
  * @private
  */
 var _showAuthorizeUrl = function(url) {
-	_showResults('<h3>Authorization Required</h3><p>Please click <a href="' + url + '">here</a> to authorize this provider.</p>', false);
+	var _authUrl = '<small>Click <a target="_top" href="' + url + '">here</a> to begin the process.</small>';
 
-	$('#provider-auth-status').html('<i class="fa fa-times btn-danger"></i><small>Authorization required. Click <a href="' + url +
-		'">here</a> to begin the process.</small>').show();
+	_showResults('<h3>Authorization Required</h3><p>' + _authUrl + '</p>', false);
+
+	$('#revoke-auth-status').hide();
+
+	$('#provider-auth-status').html('<i class="fa fa-times btn-danger status-icon"></i><small>Authorization required.</small>&nbsp;' + _authUrl).show();
 };
 
 /**
@@ -163,7 +168,9 @@ var _loadProvider = function(provider) {
 	}
 
 	//	Fill in the request form
-	if (!$_app.val()) $_app.val('oasys-example');
+	if (!$_app.val()) {
+		$_app.val('oasys-example');
+	}
 	$('#request-uri').val(_getDefaultEndpoint(_providerName));
 	$('#request-method').val('GET');
 	$('#loading-indicator').fadeOut().removeClass('fa-spin');
@@ -178,7 +185,8 @@ var _loadProvider = function(provider) {
 	$.ajax({
 		url:      _userEndpoint,
 		data:     {
-			filter: _filter
+			app_name: $_app.val(),
+			filter:   _filter
 		},
 		complete: function() {
 			//	Restore controls
@@ -196,7 +204,14 @@ var _loadProvider = function(provider) {
 
 				if (_provider.auth_text && _provider.auth_text.hasOwnProperty('access_token') && _provider.auth_text.access_token) {
 					//	Authorized already
-					$('#provider-auth-status').html('<i class="fa fa-check btn-success"></i><small>Authorization granted</small>').show();
+					$('#provider-auth-status').html('<i class="fa fa-check btn-success status-icon"></i><small>Authorization granted.</small>').show();
+
+					//	Set provider user ID
+					if (_provider.hasOwnProperty('provider_user_id')) {
+						$('#revoke-auth-status').data({'provider-user-id': _provider.provider_user_id});
+					}
+
+					$('#revoke-auth-status').show();
 					_auth = true;
 				}
 			}
@@ -269,7 +284,7 @@ var _execute = function() {
 		return false;
 	}
 
-	_uri += ( -1 == _uri.indexOf('?') ? '?' : '&') + 'flow_type=1&return_uri=' + encodeURIComponent(window.location.href);
+	_uri += ( -1 == _uri.indexOf('?') ? '?' : '&') + 'flow_type=1&referrer=' + encodeURIComponent(window.location.href);
 
 	$_code.empty().html('<small>Loading...</small>');
 
@@ -310,7 +325,8 @@ var _execute = function() {
 
 				if (err.responseJSON) {
 					_json = err.responseJSON.error[0];
-				} else if (err.responseText) {
+				}
+				else if (err.responseText) {
 					_json = JSON.parse(err.responseText);
 					if (!_json) {
 						_json = err.responseText;
@@ -418,11 +434,29 @@ jQuery(function($) {
 
 	$('#reset-request').on('click', function(e) {
 		e.preventDefault();
-		$('#request-uri').val(_options.baseUrl + _options.defaultUri);
+		$('#request-uri').val(_options.defaultUri);
 		$('#request-method').val('GET');
 		$('#request-app').val('oasys-example');
 		$('#example-code').html('<small>Ready</small>');
 		$('#loading-indicator').hide().removeClass('fa-spin');
+	});
+
+	$('#revoke-auth').on('click', function(e) {
+		e.preventDefault();
+
+		$.ajax({
+			async:   false,
+			url: _getPortalEndpoint($('#provider-list').val()) + '?control=revoke&provider_user_id=' + $('#revoke-auth-status').data('provider-user-id'),
+			type:    'GET',
+			error:   function(error) {
+				$('#provider-auth-status').html('<i class="fa fa-times btn-danger status-icon"></i><small>Revocation failed.</small>').show();
+			},
+			success: function(data) {
+				if (data && data.authorize_url) {
+					_showAuthorizeUrl(data.authorize_url);
+				}
+			}
+		});
 	});
 
 	$('#provider-list').on('change', function() {
