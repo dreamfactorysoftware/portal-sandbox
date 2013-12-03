@@ -78,7 +78,7 @@ var _isDefined = function(variable, defaultValue) {
  * @private
  */
 var _getEndpoint = function(resource, appName) {
-	return _options.baseUrl + resource + '?app_name=' + _isDefined(appName, 'oasys-examples');
+	return _options.baseUrl + resource;
 };
 
 /**
@@ -122,7 +122,7 @@ var _getDefaultEndpoint = function(portal, appName) {
 var _getAuthorizationUrl = function(providerName) {
 	$.ajax({
 		async:   false,
-		url:     _getPortalEndpoint(providerName) + '&control=authorize_url',
+		url:     _getPortalEndpoint(providerName) + '?control=authorize_url',
 		type:    'GET',
 		error:   function(error) {
 			$('#provider-auth-status').html('<i class="fa fa-times btn-danger"></i><small>Authorization required, but there was an error retrieving the authorization URL.</small>').show();
@@ -152,7 +152,8 @@ var _showAuthorizeUrl = function(url) {
  * @private
  */
 var _loadProvider = function(provider) {
-	var $_list = $('#provider-list'), _userEndpoint = _getSystemEndpoint('provider_user'), _providerEndpoint = _getSystemEndpoint('provider');
+	var $_app = $('#request-app'), $_list = $('#provider-list'), _userEndpoint = _getSystemEndpoint('provider_user');
+	var _providerEndpoint = _getSystemEndpoint('provider');
 	var _filter = 'user_id = :user_id AND provider_id = ' + $_list.find('option').filter(':selected').data('provider-id');
 	var _providerName = _isDefined(provider, $_list.val());
 
@@ -162,7 +163,7 @@ var _loadProvider = function(provider) {
 	}
 
 	//	Fill in the request form
-	$('#request-app').val('oasys-examples');
+	if (!$_app.val()) $_app.val('oasys-example');
 	$('#request-uri').val(_getDefaultEndpoint(_providerName));
 	$('#request-method').val('GET');
 	$('#loading-indicator').fadeOut().removeClass('fa-spin');
@@ -419,7 +420,7 @@ jQuery(function($) {
 		e.preventDefault();
 		$('#request-uri').val(_options.baseUrl + _options.defaultUri);
 		$('#request-method').val('GET');
-		$('#request-app').val('admin');
+		$('#request-app').val('oasys-example');
 		$('#example-code').html('<small>Ready</small>');
 		$('#loading-indicator').hide().removeClass('fa-spin');
 	});

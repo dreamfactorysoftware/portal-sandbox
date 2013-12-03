@@ -39,23 +39,6 @@
 	</div>
 	<div class="collapse navbar-collapse">
 		<ul class="nav navbar-nav">
-			<li class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="themes">Examples<b class="caret"></b></a>
-
-				<ul class="dropdown-menu">
-					<li class="dropdown-header">HTML</li>
-					<li>
-						<a href="#" class="example-code" data-provider="github">GitHub</a>
-					</li>
-					<li>
-						<a href="#" class="example-code" data-provider="facebook">Facebook</a>
-					</li>
-					<li>
-						<a href="#" class="example-code" data-provider="salesforce">Salesforce</a>
-					</li>
-				</ul>
-			</li>
-
 			<li>
 				<a href="https://www.dreamfactory.com/developers/documentation" target="_blank">Docs</a>
 			</li>

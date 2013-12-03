@@ -25,7 +25,10 @@ use DreamFactory\Yii\Utility\Pii;
 use Kisma\Core\Utility\Curl;
 use Kisma\Core\Utility\HtmlMarkup;
 
-//	Bootstrap ourselves
+//********************************************************************************
+//* Bootstrap and Debugging
+//********************************************************************************
+
 require_once __DIR__ . '/autoload.php';
 
 //	Debugging?
@@ -43,6 +46,10 @@ if ( Pii::guest() )
 	header( 'Location: ' . $_dspUrl . '/' );
 	die();
 }
+
+//********************************************************************************
+//* Load data for dropdowns...
+//********************************************************************************
 
 $_apps = $_providers = null;
 $_providerCache = new \stdClass();
