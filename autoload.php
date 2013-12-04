@@ -1,10 +1,10 @@
 <?php
 /**
- * This file is part of the DreamFactory Oasys Sample App
+ * This file is part of the DreamFactory Portal Sandbox Application
+ * Copyright 2013 DreamFactory Software, Inc. {@email support@dreamfactory.com}
  *
- * DreamFactory Oasys <http://github.com/dreamfactorysoftware/oasys>
- * DreamFactory Oasys Sample App <http://github.com/dreamfactorysoftware/oasys-examples>
- * Copyright 2013 DreamFactory Software, Inc. <developer-support@dreamfactory.com>
+ * DreamFactory Portal Sandbox Application {@link http://github.com/dreamfactorysoftware/portal-sandbox}
+ * DreamFactory Oasys(tm) {@link http://github.com/dreamfactorysoftware/oasys}
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,14 +22,18 @@
 /**
  * Main entry point/bootstrap for PHP applications
  */
+//	Base directory of DSP core
+$_appBaseDir = dirname( __DIR__ );
+$_dspBaseDir = dirname( $_appBaseDir );
+
 //	Load up composer...
-$_autoloader = require_once( __DIR__ . '/../../vendor/autoload.php' );
+$_autoloader = require_once( $_dspBaseDir . '/vendor/autoload.php' );
 
 //	Turn on debugging
 \Kisma::setDebug( true );
 
 //	Load up Yii
-require_once __DIR__ . '/../../vendor/dreamfactory/yii/framework/yii.php';
+require_once $_dspBaseDir . '/vendor/dreamfactory/yii/framework/yii.php';
 
 if ( \Kisma::getDebug() )
 {
@@ -40,7 +44,7 @@ if ( \Kisma::getDebug() )
 
 //	Create the application but do not run...
 DreamFactory\Yii\Utility\Pii::run(
-	dirname( __DIR__ ),
+	$_appBaseDir,
 	$_autoloader,
 	'DreamFactory\\Platform\\Yii\\Components\\PlatformWebApplication',
 	null,
