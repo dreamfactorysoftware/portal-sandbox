@@ -1,10 +1,10 @@
 <?php
 /**
- * This file is part of the DreamFactory Oasys(tm) Sample App
+ * This file is part of the DreamFactory Portal Sandbox Application
  * Copyright 2013 DreamFactory Software, Inc. {@email support@dreamfactory.com}
  *
+ * DreamFactory Portal Sandbox Application {@link http://github.com/dreamfactorysoftware/portal-sandbox}
  * DreamFactory Oasys(tm) {@link http://github.com/dreamfactorysoftware/oasys}
- * DreamFactory Oasys(tm) Sample App {@link http://github.com/dreamfactorysoftware/oasys-examples}
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@
  * limitations under the License.
  */
 ?>
-<nav class="navbar navbar-default navbar-inverse navbar-fixed-top df-header">
+<nav class="navbar navbar-default navbar-inverse navbar-fixed-top df-header hide">
 	<div class="navbar-header">
 		<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
 			<span class="sr-only">Toggle navigation</span>
@@ -31,9 +31,9 @@
 			<img src="img/logo-32x32.png" alt="" />
 
 			<div class="pull-left">
-				<a href="#" class="navbar-brand df-title">DreamFactory Oasys</a>
+				<a href="#" class="navbar-brand df-title">DreamFactory Portal</a>
 				<br />
-				<small>Example Code</small>
+				<small>Sandbox Application</small>
 			</div>
 		</div>
 	</div>

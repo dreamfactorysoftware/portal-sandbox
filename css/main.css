@@ -77,7 +77,12 @@ optgroup {
 }
 
 #wrap > .container {
-	padding: 64px 15px 0;
+	padding: 4px 15px 0;
+}
+
+#wrap > .container h1:first-of-type {
+	border-bottom: 1px solid #efefef;
+	font-family:   'Lato', 'Helvetica Neue Light', Arial, sans-serif;
 }
 
 #footer > .container {

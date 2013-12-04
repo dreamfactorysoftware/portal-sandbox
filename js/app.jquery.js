@@ -1,9 +1,9 @@
 /**
- * This file is part of the DreamFactory Oasys(tm) Sample App
+ * This file is part of the DreamFactory Portal Sandbox Application
  * Copyright 2013 DreamFactory Software, Inc. {@email support@dreamfactory.com}
  *
+ * DreamFactory Portal Sandbox Application {@link http://github.com/dreamfactorysoftware/portal-sandbox}
  * DreamFactory Oasys(tm) {@link http://github.com/dreamfactorysoftware/oasys}
- * DreamFactory Oasys(tm) Sample App {@link http://github.com/dreamfactorysoftware/oasys-examples}
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,10 +43,15 @@ var _options = {
 	readOnly:            true,
 
 	//	These are set in index.php (ugh)
+
+	/**
+	 * @var string
+	 */
+	APPLICATION_NAME: null,
 	/** @var {*}[] **/
-	providers:           {},
+	providers:        {},
 	/** @var string **/
-	baseUrl:             null
+	baseUrl:          null
 };
 
 /**
@@ -122,11 +127,12 @@ var _getDefaultEndpoint = function(portal, appName) {
  * @private
  */
 var _getAuthorizationUrl = function(providerName) {
+	$('#revoke-auth-status').hide();
+
 	$.ajax({
 		async:   false,
-		url: _getPortalEndpoint(providerName) + '?control=authorize_url',
-		type:    'GET',
-		error:   function(error) {
+		url: _getPortalEndpoint(providerName) + '?control=authorize_url&referrer=' + _getReferrer(true),
+		type:    'GET', error: function(error) {
 			$('#provider-auth-status').html('<i class="fa fa-times btn-danger status-icon"></i><small>Authorization required, but there was an error retrieving the authorization URL.</small>').show();
 		},
 		success: function(data) {
@@ -169,7 +175,7 @@ var _loadProvider = function(provider) {
 
 	//	Fill in the request form
 	if (!$_app.val()) {
-		$_app.val('oasys-example');
+		$_app.val(_options.APPLICATION_NAME);
 	}
 	$('#request-uri').val(_getDefaultEndpoint(_providerName));
 	$('#request-method').val('GET');
@@ -179,7 +185,9 @@ var _loadProvider = function(provider) {
 	//	Disable controls
 	$_list.addClass('disabled');
 	$('#provider-auth-status').hide();
+	$('#revoke-auth-status').hide();
 	$('#provider-auth-check').show();
+	$('html').css('cursor', 'wait');
 
 	//	Pull the credentials
 	$.ajax({
@@ -193,6 +201,7 @@ var _loadProvider = function(provider) {
 			$('#provider-auth-check').hide();
 			$('#provider-auth-status').show();
 			$_list.removeClass('disabled');
+			$('html').css('cursor', 'pointer');
 		},
 		error:    function(data) {
 			_getAuthorizationUrl(_providerName);
@@ -269,13 +278,27 @@ var _actions = function(method) {
 };
 
 /**
+ * Gets the URL to return to after a redirected AJAX call...
+ * @returns {string}
+ * @private
+ */
+var _getReferrer = function(encoded) {
+	var _run = 'run=' + ($('#request-app').val() || _options.APPLICATION_NAME);
+	var _referrer = window.parent.location.href;
+	if (-1 == _referrer.indexOf(_run)) {
+		_referrer += ( -1 == _referrer.indexOf('?') ? '?' : '&') + _run;
+	}
+	return !_isDefined(encoded, false) ? _referrer : encodeURI(_referrer);
+};
+
+/**
  * Runs the API call
  * @private
  */
 var _execute = function() {
-	var _method = $('#request-method').val(), _xMethod = $('#request-x-method').val();
-	var _uri = $('#request-uri').val(), _folder = $('#request-x-folder-name').val();
-	var _app = $('#request-x-app-name').val() || 'oasys';
+	var _method = $('#request-method').val();
+	var _uri = $('#request-uri').val();
+	var _app = $('#request-app').val() || _options.APPLICATION_NAME;
 	var _raw = $('#request-body').val();
 	var $_code = $('#example-code');
 
@@ -284,7 +307,7 @@ var _execute = function() {
 		return false;
 	}
 
-	_uri += ( -1 == _uri.indexOf('?') ? '?' : '&') + 'flow_type=1&referrer=' + encodeURIComponent(window.location.href);
+	_uri += ( -1 == _uri.indexOf('?') ? '?' : '&') + 'flow_type=1&referrer=' + _getReferrer(true);
 
 	$_code.empty().html('<small>Loading...</small>');
 
@@ -307,12 +330,6 @@ var _execute = function() {
 				$('#loading-indicator').fadeIn().addClass('fa-spin');
 				$('#send-request').addClass('disabled');
 
-				if (_xMethod) {
-					xhr.setRequestHeader('X-HTTP-Method', _xMethod);
-				}
-				if (_folder) {
-					xhr.setRequestHeader('X-Folder-Name', _folder);
-				}
 				if (_app) {
 					xhr.setRequestHeader('X-DreamFactory-Application-Name', _app);
 				}
@@ -436,7 +453,7 @@ jQuery(function($) {
 		e.preventDefault();
 		$('#request-uri').val(_options.defaultUri);
 		$('#request-method').val('GET');
-		$('#request-app').val('oasys-example');
+		$('#request-app').val(_options.APPLICATION_NAME);
 		$('#example-code').html('<small>Ready</small>');
 		$('#loading-indicator').hide().removeClass('fa-spin');
 	});
@@ -444,19 +461,36 @@ jQuery(function($) {
 	$('#revoke-auth').on('click', function(e) {
 		e.preventDefault();
 
+		if (!confirm('Really revoke your authorization for this provider?')) {
+			return false;
+		}
+
+		$('html').css('cursor', 'wait');
+
 		$.ajax({
-			async:   false,
-			url: _getPortalEndpoint($('#provider-list').val()) + '?control=revoke&provider_user_id=' + $('#revoke-auth-status').data('provider-user-id'),
-			type:    'GET',
-			error:   function(error) {
+			async:    false,
+			url: _getPortalEndpoint($('#provider-list').val()) + '?control=revoke&provider_user_id=' + $('#revoke-auth-status').data('provider-user-id') +
+				 '&referrer=' + _getReferrer(true),
+			type:     'GET',
+			complete: function() {
+				$('html').css('cursor', 'pointer');
+			},
+			error:    function(error) {
 				$('#provider-auth-status').html('<i class="fa fa-times btn-danger status-icon"></i><small>Revocation failed.</small>').show();
 			},
-			success: function(data) {
+			success:  function(data) {
+				$('#revoke-auth-status').hide();
+
 				if (data && data.authorize_url) {
 					_showAuthorizeUrl(data.authorize_url);
 				}
+				else {
+					$('#provider-auth-status').html('<i class="fa fa-times btn-danger status-icon"></i><small>Revocation status uncertain. Unexpected result.</small>').show();
+				}
 			}
 		});
+
+		return true;
 	});
 
 	$('#provider-list').on('change', function() {

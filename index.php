@@ -1,10 +1,10 @@
 <?php
 /**
- * This file is part of the DreamFactory Oasys(tm) Sample App
+ * This file is part of the DreamFactory Portal Sandbox Application
  * Copyright 2013 DreamFactory Software, Inc. {@email support@dreamfactory.com}
  *
+ * DreamFactory Portal Sandbox Application {@link http://github.com/dreamfactorysoftware/portal-sandbox}
  * DreamFactory Oasys(tm) {@link http://github.com/dreamfactorysoftware/oasys}
- * DreamFactory Oasys(tm) Sample App {@link http://github.com/dreamfactorysoftware/oasys-examples}
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,15 +18,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-use DreamFactory\Oasys\Enums\EndpointTypes;
 use DreamFactory\Platform\Utility\ResourceStore;
 use DreamFactory\Platform\Yii\Models\App;
 use DreamFactory\Platform\Yii\Models\Provider;
 use DreamFactory\Yii\Utility\Pii;
 use Kisma\Core\Utility\Curl;
 use Kisma\Core\Utility\HtmlMarkup;
-use Kisma\Core\Utility\Log;
-use Kisma\Core\Utility\Option;
+
+//*************************************************************************
+//	Constants
+//*************************************************************************
+
+/**
+ * @var string
+ */
+const APPLICATION_NAME = 'portal-sandbox';
 
 //********************************************************************************
 //* Bootstrap and Debugging
@@ -60,8 +66,8 @@ $_providerCache = new \stdClass();
 
 $_models = ResourceStore::model( 'app' )->findAll(
 	array(
-		 'select' => 'id, api_name, name',
-		 'order'  => 'name'
+		'select' => 'id, api_name, name',
+		'order'  => 'name'
 	)
 );
 
@@ -70,7 +76,14 @@ if ( !empty( $_models ) )
 	/** @var App[] $_models */
 	foreach ( $_models as $_model )
 	{
-		$_apps .= HtmlMarkup::tag( 'option', array( 'value' => $_model->api_name, 'name' => $_model->api_name ), $_model->name );
+		$_attributes = array( 'value' => $_model->api_name, 'name' => $_model->api_name );
+
+		if ( APPLICATION_NAME == $_model->api_name )
+		{
+			$_attributes['selected'] = 'selected';
+		}
+
+		$_apps .= HtmlMarkup::tag( 'option', $_attributes, $_model->name );
 		unset( $_model );
 	}
 
@@ -79,7 +92,7 @@ if ( !empty( $_models ) )
 
 $_models = ResourceStore::model( 'provider' )->findAll(
 	array(
-		 'order' => 'provider_name'
+		'order' => 'provider_name'
 	)
 );
 
@@ -126,6 +139,9 @@ $_defaultUrl = $_dspUrl . '/rest/system/user';
 	<?php require_once __DIR__ . '/views/_navbar.php'; ?>
 
 	<div class="container">
+		<h1>Portal Sandbox</h1>
+
+		<blockquote>[Sample application description copy and help links to go here].</blockquote>
 
 		<section id="provider-settings">
 			<div class="panel-group" id="provider-settings-group">
@@ -133,7 +149,7 @@ $_defaultUrl = $_dspUrl . '/rest/system/user';
 					<div class="panel-heading">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-parent="#provider-settings-group" href="#provider-form-body">Providers</a>
-                            <span class="pull-right"><button id="add-provider" type="button" class="btn btn-info btn-xs">
+                            <span class="pull-right hide"><button id="add-provider" type="button" class="btn btn-info btn-xs">
 									<i class="fa fa-plus-square"></i>Add...
 								</button></span>
 						</h4>
@@ -146,10 +162,10 @@ $_defaultUrl = $_dspUrl . '/rest/system/user';
 									<div class="form-group">
 										<label for="provider-list" class="col-sm-2 control-label">Providers</label>
 
-										<div class="col-sm-4">
+										<div class="col-sm-3">
 											<select class="form-control" id="provider-list"><?php echo $_providers; ?></select>
 										</div>
-										<div class="col-sm-5">
+										<div class="col-sm-6">
 											<div id="provider-auth-check" style="display: none;" class="pull-left">
 												<i class="fa fa-spinner fa-spin"></i>
 												<small>Checking authorization...</small>
@@ -317,9 +333,6 @@ $_defaultUrl = $_dspUrl . '/rest/system/user';
 <?php require_once( 'views/_footer.php' ); ?>
 
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/jquery.mousewheel.min.js"></script>
-<script type="text/javascript" src="js/mwheelintent.min.js"></script>
-<script type="text/javascript" src="js/jquery.jscrollpane.min.js"></script>
 <script src="//google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
 <script src="js/app.jquery.js"></script>
 
@@ -327,6 +340,7 @@ $_defaultUrl = $_dspUrl . '/rest/system/user';
 //	This needs to be last because _options is defined in app.jquery.js... lame, I know...
 _options.baseUrl = '<?php echo $_dspUrl; ?>';
 _options.providers = <?php echo json_encode( $_providerCache ); ?>;
+_options.APPLICATION_NAME = '<?php echo APPLICATION_NAME; ?>';
 </script>
 </body>
 </html>

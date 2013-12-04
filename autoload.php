@@ -1,10 +1,10 @@
 <?php
 /**
- * This file is part of the DreamFactory Oasys Sample App
+ * This file is part of the DreamFactory Portal Sandbox Application
+ * Copyright 2013 DreamFactory Software, Inc. {@email support@dreamfactory.com}
  *
- * DreamFactory Oasys <http://github.com/dreamfactorysoftware/oasys>
- * DreamFactory Oasys Sample App <http://github.com/dreamfactorysoftware/oasys-examples>
- * Copyright 2013 DreamFactory Software, Inc. <developer-support@dreamfactory.com>
+ * DreamFactory Portal Sandbox Application {@link http://github.com/dreamfactorysoftware/portal-sandbox}
+ * DreamFactory Oasys(tm) {@link http://github.com/dreamfactorysoftware/oasys}
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.

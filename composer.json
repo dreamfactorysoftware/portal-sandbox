@@ -1,10 +1,10 @@
 {
-	"name":              "dreamfactory/oasys-examples",
-	"description":       "DreamFactory Oasys(tm) Example Code",
+	"name":              "dreamfactory/portal-sandbox",
+	"description":       "DreamFactory Portal Sandbox Application",
 	"homepage":          "http://dreamfactorysoftware.github.io/#oasys",
 	"version":           "1.0.0",
 	"keywords":          [
-		"dreamfactory", "oasys", "oauth", "authentication", "framework", "examples"
+		"dreamfactory", "oasys", "oauth", "authentication", "framework", "examples", "portal"
 	],
 	"type":              "library",
 	"license":           [

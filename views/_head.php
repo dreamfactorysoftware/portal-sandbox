@@ -1,10 +1,10 @@
 <?php
 /**
- * This file is part of the DreamFactory Oasys(tm) Sample App
+ * This file is part of the DreamFactory Portal Sandbox Application
  * Copyright 2013 DreamFactory Software, Inc. {@email support@dreamfactory.com}
  *
+ * DreamFactory Portal Sandbox Application {@link http://github.com/dreamfactorysoftware/portal-sandbox}
  * DreamFactory Oasys(tm) {@link http://github.com/dreamfactorysoftware/oasys}
- * DreamFactory Oasys(tm) Sample App {@link http://github.com/dreamfactorysoftware/oasys-examples}
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,8 +33,7 @@
 	<link rel="icon" href="img/apple-touch-icon.png" type="image/png">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" type="text/css" media="screen">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css">
-	<link rel="stylesheet" href="css/jquery.jscrollpane.min.css" type="text/css" media="all" />
-	<link rel="stylesheet" href="css/jquery.jscrollpane.lozenge.css" media="all" />
 	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lato">
+
 	<link rel="stylesheet" href="css/main.css" type="text/css" media="all" />
 </head>

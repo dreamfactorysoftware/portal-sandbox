@@ -1,6 +1,6 @@
-# oasys-examples
+# portal-sandbox
 
-## DreamFactory Oasys&trade; Example Code
+## DreamFactory Portal Sandbox Application
 
-Example code repository for DreamFactory Oasys&trade; (Open Authentication System).
+An application that demonstrates the abilities of the DSP ''portal'' service.
 
