@@ -2,7 +2,7 @@
 	"name":              "dreamfactory/portal-sandbox",
 	"description":       "DreamFactory Portal Sandbox Application",
 	"homepage":          "http://dreamfactorysoftware.github.io/#oasys",
-	"version":           "1.0.1",
+	"version":           "1.0.2",
 	"keywords":          [
 		"dreamfactory", "oasys", "oauth", "authentication", "framework", "examples", "portal"
 	],
