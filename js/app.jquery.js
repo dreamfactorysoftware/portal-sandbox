@@ -41,6 +41,7 @@ var _options = {
 	currentProvider:     {},
 	/** @var bool */
 	readOnly:            true,
+	$:                   {request: {}, status: {}},
 
 	//	These are set in index.php (ugh)
 
@@ -73,6 +74,47 @@ var _isDefined = function(variable, defaultValue) {
 
 	//	Nope, not defined
 	return false;
+};
+
+/**
+ * Reset the form all proper-like
+ * @private
+ */
+var _reset = function() {
+	_options.$.request.server.html(_options.baseUrl);
+	_options.$.request.uri.val(_options.defaultUri);
+	_options.$.request.method.val('GET');
+	_options.$.request.app.val(_options.APPLICATION_NAME);
+	_options.$.results.html('<small>Ready</small>');
+	_loading(false);
+};
+
+/**
+ * Turn on/off the indicators
+ * @param which
+ * @private
+ */
+var _loading = function(which) {
+	if (!which) {
+		//	Off
+		_options.$.loading.fadeOut().removeClass('fa-spin');
+		_options.$.page.css({cursor: 'default'});
+		$('#send-request').removeClass('disabled');
+		_options._stopTime = Date.now();
+
+		if (_options._startTime && _options._stopTime) {
+			_options._elapsed = _options._stopTime - _options._startTime;
+			_options.$.request.elapsed.html('<small>(' + _options._elapsed + 'ms)</small>').show();
+			_options._startTime = _options._stopTime = 0;
+		}
+	} else {
+		_options.$.loading.fadeIn().addClass('fa-spin');
+		_options.$.page.css({cursor: 'wait'});
+		$('#send-request').addClass('disabled');
+
+		_options._startTime = Date.now();
+		_options.$.request.elapsed.empty().hide();
+	}
 };
 
 /**
@@ -118,8 +160,8 @@ var _getPortalEndpoint = function(portal, appName) {
  */
 var _getDefaultEndpoint = function(portal, appName) {
 	return _getPortalEndpoint(portal, appName) +
-		   (_options.currentProvider && _options.currentProvider.hasOwnProperty('config_text') && _options.currentProvider.config_text.length
-			   ? _isDefined(_options.currentProvider.config_text.profile_resource, '') : '' );
+		(_options.currentProvider && _options.currentProvider.hasOwnProperty('config_text') && _options.currentProvider.config_text.length
+			? _isDefined(_options.currentProvider.config_text.profile_resource, '') : '' );
 };
 
 /**
@@ -127,13 +169,13 @@ var _getDefaultEndpoint = function(portal, appName) {
  * @private
  */
 var _getAuthorizationUrl = function(providerName) {
-	$('#revoke-auth-status').hide();
+	_options.$.status.revoke.hide();
 
 	$.ajax({
 		async:   false,
-		url: _getPortalEndpoint(providerName) + '?control=authorize_url&referrer=' + _getReferrer(true),
+		url:     _getPortalEndpoint(providerName) + '?control=authorize_url&referrer=' + _getReferrer(true),
 		type:    'GET', error: function(error) {
-			$('#provider-auth-status').html('<i class="fa fa-times btn-danger status-icon"></i><small>Authorization required, but there was an error retrieving the authorization URL.</small>').show();
+			_options.$.status.provider.html('<i class="fa fa-times btn-danger status-icon"></i><small>Authorization required, but there was an error retrieving the authorization URL.</small>').show();
 		},
 		success: function(data) {
 			if (data && data.authorize_url) {
@@ -152,9 +194,9 @@ var _showAuthorizeUrl = function(url) {
 
 	_showResults('<h3>Authorization Required</h3><p>' + _authUrl + '</p>', false);
 
-	$('#revoke-auth-status').hide();
-
-	$('#provider-auth-status').html('<i class="fa fa-times btn-danger status-icon"></i><small>Authorization required.</small>&nbsp;' + _authUrl).show();
+	_options.$.status.revoke.hide();
+	_options.$.status.provider.html('<i class="fa fa-times btn-danger status-icon"></i><small>Authorization required.</small>&nbsp;' +
+		_authUrl).show();
 };
 
 /**
@@ -163,7 +205,7 @@ var _showAuthorizeUrl = function(url) {
  * @private
  */
 var _loadProvider = function(provider) {
-	var $_app = $('#request-app'), $_list = $('#provider-list'), _userEndpoint = _getSystemEndpoint('provider_user');
+	var $_app = _options.$.request.app, $_list = $('#provider-list'), _userEndpoint = _getSystemEndpoint('provider_user');
 	var _providerEndpoint = _getSystemEndpoint('provider');
 	var _filter = 'user_id = :user_id AND provider_id = ' + $_list.find('option').filter(':selected').data('provider-id');
 	var _providerName = _isDefined(provider, $_list.val());
@@ -177,50 +219,53 @@ var _loadProvider = function(provider) {
 	if (!$_app.val()) {
 		$_app.val(_options.APPLICATION_NAME);
 	}
-	$('#request-uri').val(_getDefaultEndpoint(_providerName));
-	$('#request-method').val('GET');
-	$('#loading-indicator').fadeOut().removeClass('fa-spin');
-	$('#example-code').html('<small>Ready</small>');
+	_options.$.request.uri.val(_getDefaultEndpoint(_providerName));
+	_options.$.request.method.val('GET');
+	_options.$.results.html('<small>Ready</small>');
+
+	_loading(false);
 
 	//	Disable controls
 	$_list.addClass('disabled');
-	$('#provider-auth-status').hide();
-	$('#revoke-auth-status').hide();
-	$('#provider-auth-check').show();
-	$('html').css('cursor', 'wait');
+	_options.$.status.provider.hide();
+	_options.$.status.revoke.hide();
+	_options.$.status.check.show();
 
 	//	Pull the credentials
 	$.ajax({
-		url:      _userEndpoint,
-		data:     {
+		url:        _userEndpoint,
+		data:       {
 			app_name: $_app.val(),
 			filter:   _filter
 		},
-		complete: function() {
-			//	Restore controls
-			$('#provider-auth-check').hide();
-			$('#provider-auth-status').show();
-			$_list.removeClass('disabled');
-			$('html').css('cursor', 'pointer');
+		beforeSend: function() {
+			_loading(true);
 		},
-		error:    function(data) {
+		complete:   function() {
+			//	Restore controls
+			_options.$.status.check.hide();
+			_options.$.status.provider.show();
+			$_list.removeClass('disabled');
+			_loading(false);
+		},
+		error:      function(data) {
 			_getAuthorizationUrl(_providerName);
 		},
-		success:  function(data) {
+		success:    function(data) {
 			var _auth = false;
 			if (data && data.record && data.record.length) {
 				var _provider = data.record[0];
 
 				if (_provider.auth_text && _provider.auth_text.hasOwnProperty('access_token') && _provider.auth_text.access_token) {
 					//	Authorized already
-					$('#provider-auth-status').html('<i class="fa fa-check btn-success status-icon"></i><small>Authorization granted.</small>').show();
+					_options.$.status.provider.html('<i class="fa fa-check btn-success status-icon"></i><small>Authorization granted.</small>').show();
 
 					//	Set provider user ID
 					if (_provider.hasOwnProperty('provider_user_id')) {
-						$('#revoke-auth-status').data({'provider-user-id': _provider.provider_user_id});
+						_options.$.status.revoke.data({'provider-user-id': _provider.provider_user_id});
 					}
 
-					$('#revoke-auth-status').show();
+					_options.$.status.revoke.show();
 					_auth = true;
 				}
 			}
@@ -241,19 +286,16 @@ var _loadProvider = function(provider) {
  */
 var _showResults = function(data, pretty) {
 	if (false === pretty) {
-		$('#example-code').html(data);
+		_options.$.results.html(data);
 	}
 	else {
-		$('#example-code').html('<pre class="prettyprint">' + JSON.stringify(data, null, '\t') + '</pre>');
+		_options.$.results.html('<pre class="prettyprint linenums">' + JSON.stringify(data, null, '\t') + '</pre>');
 
 		//noinspection JSUnresolvedFunction
 		PR.prettyPrint();
 	}
 
-	if (-1 == window.location.href.indexOf('#')) {
-		window.location.href += '#provider-results';
-	}
-
+	window.location.hash = 'provider-results';
 	return true;
 };
 
@@ -283,7 +325,7 @@ var _actions = function(method) {
  * @private
  */
 var _getReferrer = function(encoded) {
-	var _run = 'run=' + ($('#request-app').val() || _options.APPLICATION_NAME);
+	var _run = 'run=' + (_options.$.request.app.val() || _options.APPLICATION_NAME);
 	var _referrer = window.parent.location.href;
 	if (-1 == _referrer.indexOf(_run)) {
 		_referrer += ( -1 == _referrer.indexOf('?') ? '?' : '&') + _run;
@@ -296,11 +338,11 @@ var _getReferrer = function(encoded) {
  * @private
  */
 var _execute = function() {
-	var _method = $('#request-method').val();
-	var _uri = $('#request-uri').val();
-	var _app = $('#request-app').val() || _options.APPLICATION_NAME;
-	var _raw = $('#request-body').val();
-	var $_code = $('#example-code');
+	var _method = _options.$.request.method.val();
+	var _uri = _options.$.request.uri.val();
+	var _app = _options.$.request.app.val() || _options.APPLICATION_NAME;
+	var _raw = _options.$.request.body.val();
+	var $_code = _options.$.results;
 
 	if (!_uri || !_uri.length) {
 		alert('Invalid Request URI specified.');
@@ -327,8 +369,7 @@ var _execute = function() {
 			processData: false,
 			data:        _body,
 			beforeSend:  function(xhr) {
-				$('#loading-indicator').fadeIn().addClass('fa-spin');
-				$('#send-request').addClass('disabled');
+				_loading(true);
 
 				if (_app) {
 					xhr.setRequestHeader('X-DreamFactory-Application-Name', _app);
@@ -369,8 +410,7 @@ var _execute = function() {
 				}
 			},
 			complete:    function() {
-				$('#send-request').removeClass('disabled');
-				$('#loading-indicator').removeClass('fa-spin').fadeOut();
+				_loading(false);
 			}
 		});
 	}
@@ -391,6 +431,24 @@ var _initialize = function() {
 		_options.config = window.parent.Config;
 	}
 
+	//	Cache some selectors
+	_options.$.page = $('html');
+	_options.$.loading = $('#loading-indicator');
+	_options.$.results = $('#example-code');
+
+	_options.$.request.server = $('#request-server');
+	_options.$.request.app = $('#request-app');
+	_options.$.request.method = $('#request-method');
+	_options.$.request.uri = $('#request-uri');
+	_options.$.request.body = $('#request-body');
+	_options.$.request.elapsed = $('#request-elapsed');
+
+	_options.$.status.revoke = $('#revoke-auth-status');
+	_options.$.status.provider = $('#provider-auth-status');
+	_options.$.status.check = $('#provider-auth-check');
+
+	_reset();
+
 	//	Load providers
 	_loadProvider();
 };
@@ -402,18 +460,12 @@ jQuery(function($) {
 	//	Initialize...
 	_initialize();
 
-	$('body').on('open.dsp reopen.dsp',function() {
-		_actions('toggleFullScreen', true);
-	}).on('close.dsp', function() {
-			_actions('toggleFullScreen', false);
-		});
-
 	$('a.example-code').on('click', function(e) {
 		e.preventDefault();
 		var _which = $(this).data('provider');
 
 		if (_which) {
-			$('div#example-code').load('salesforce.html');
+			_options.$.results.load('salesforce.html');
 		}
 	});
 
@@ -422,7 +474,6 @@ jQuery(function($) {
 		e.preventDefault();
 		if (window.parent && window.parent.Actions) {
 			window.parent.Actions.showAdmin();
-			window.parent.Actions.toggleFullScreen(false);
 		}
 	});
 
@@ -451,11 +502,7 @@ jQuery(function($) {
 
 	$('#reset-request').on('click', function(e) {
 		e.preventDefault();
-		$('#request-uri').val(_options.defaultUri);
-		$('#request-method').val('GET');
-		$('#request-app').val(_options.APPLICATION_NAME);
-		$('#example-code').html('<small>Ready</small>');
-		$('#loading-indicator').hide().removeClass('fa-spin');
+		_reset();
 	});
 
 	$('#revoke-auth').on('click', function(e) {
@@ -469,23 +516,24 @@ jQuery(function($) {
 
 		$.ajax({
 			async:    false,
-			url: _getPortalEndpoint($('#provider-list').val()) + '?control=revoke&provider_user_id=' + $('#revoke-auth-status').data('provider-user-id') +
-				 '&referrer=' + _getReferrer(true),
+			url:      _getPortalEndpoint($('#provider-list').val()) + '?control=revoke&provider_user_id=' +
+						  _options.$.status.revoke.data('provider-user-id') +
+						  '&referrer=' + _getReferrer(true),
 			type:     'GET',
 			complete: function() {
 				$('html').css('cursor', 'pointer');
 			},
 			error:    function(error) {
-				$('#provider-auth-status').html('<i class="fa fa-times btn-danger status-icon"></i><small>Revocation failed.</small>').show();
+				_options.$.status.provider.html('<i class="fa fa-times btn-danger status-icon"></i><small>Revocation failed.</small>').show();
 			},
 			success:  function(data) {
-				$('#revoke-auth-status').hide();
+				_options.$.status.revoke.hide();
 
 				if (data && data.authorize_url) {
 					_showAuthorizeUrl(data.authorize_url);
 				}
 				else {
-					$('#provider-auth-status').html('<i class="fa fa-times btn-danger status-icon"></i><small>Revocation status uncertain. Unexpected result.</small>').show();
+					_options.$.status.provider.html('<i class="fa fa-times btn-danger status-icon"></i><small>Revocation status uncertain. Unexpected result.</small>').show();
 				}
 			}
 		});
@@ -504,15 +552,4 @@ jQuery(function($) {
 
 		return false;
 	});
-
-	/**
-	 * Clear any alerts after configured time
-	 */
-	if (_options.alertHideDelay) {
-		window.setTimeout(function() {
-			$('div.alert').not('.alert-fixed').fadeTo(500, 0).slideUp(500, function() {
-				$(this).remove();
-			});
-		}, _options.alertHideDelay);
-	}
 });
