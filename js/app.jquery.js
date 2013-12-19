@@ -28,31 +28,31 @@
  */
 var _options = {
 	/** @var int **/
-	alertHideDelay: 5000,
+	alertHideDelay:      5000,
 	/** @var int **/
-	notifyDiv: 'div#request-message',
+	notifyDiv:           'div#request-message',
 	/** @var int **/
 	ajaxMessageFadeTime: 6000,
 	/** @var {*} **/
-	scrollPane: null,
+	scrollPane:          null,
 	/** @var string **/
-	defaultUri: '/rest/system/user',
+	defaultUri:          '/rest/system/user',
 	/** @var {*} **/
-	currentProvider: {},
+	currentProvider:     {},
 	/** @var bool */
-	readOnly: true,
-	$: {request: {}, status: {}},
+	readOnly:            true,
+	/** @var {*} jQuery cache */
+	$:                   {request: {}, status: {}},
 
-	//	These are set in index.php (ugh)
-
+	//    These are set in index.php (ugh)
 	/**
 	 * @var string
 	 */
-	APPLICATION_NAME: null,
+	APPLICATION_NAME:    null,
 	/** @var {*}[] **/
-	providers: {},
+	providers:           {},
 	/** @var string **/
-	baseUrl: null
+	baseUrl:             null
 };
 
 /**
@@ -63,7 +63,7 @@ var _options = {
  * @returns {*}
  * @private
  */
-var _isDefined = function (variable, defaultValue) {
+var _isDefined = function(variable, defaultValue) {
 	if (typeof variable != 'undefined') {
 		return variable;
 	}
@@ -80,7 +80,7 @@ var _isDefined = function (variable, defaultValue) {
  * Reset the form all proper-like
  * @private
  */
-var _reset = function () {
+var _reset = function() {
 	_options.$.request.server.html(_options.baseUrl);
 	_options.$.request.uri.val(_options.defaultUri);
 	_options.$.request.method.val('GET');
@@ -94,7 +94,7 @@ var _reset = function () {
  * @param which
  * @private
  */
-var _loading = function (which) {
+var _loading = function(which) {
 	if (!which) {
 		//	Off
 		_options.$.loading.fadeOut().removeClass('fa-spin');
@@ -107,7 +107,8 @@ var _loading = function (which) {
 			_options.$.request.elapsed.html('<small>(' + _options._elapsed + 'ms)</small>').show();
 			_options._startTime = _options._stopTime = 0;
 		}
-	} else {
+	}
+	else {
 		_options.$.loading.fadeIn().addClass('fa-spin');
 		_options.$.page.css({cursor: 'wait'});
 		$('#send-request').addClass('disabled');
@@ -124,7 +125,7 @@ var _loading = function (which) {
  * @returns {string}
  * @private
  */
-var _getEndpoint = function (resource, excludeBase) {
+var _getEndpoint = function(resource, excludeBase) {
 	return ( excludeBase ? '' : _options.baseUrl ) + resource;
 };
 
@@ -135,7 +136,7 @@ var _getEndpoint = function (resource, excludeBase) {
  * @returns {string}
  * @private
  */
-var _getSystemEndpoint = function (resource, excludeBase) {
+var _getSystemEndpoint = function(resource, excludeBase) {
 	return _getEndpoint('/rest/system/' + resource, excludeBase);
 };
 
@@ -146,7 +147,7 @@ var _getSystemEndpoint = function (resource, excludeBase) {
  * @returns {string}
  * @private
  */
-var _getPortalEndpoint = function (portal, excludeBase) {
+var _getPortalEndpoint = function(portal, excludeBase) {
 	return _getEndpoint('/rest/portal/' + portal, excludeBase);
 };
 
@@ -157,7 +158,7 @@ var _getPortalEndpoint = function (portal, excludeBase) {
  * @returns {string}
  * @private
  */
-var _getDefaultEndpoint = function (portal, excludeBase) {
+var _getDefaultEndpoint = function(portal, excludeBase) {
 	var _profileResource = $('#provider-list').find('option').filter(':selected').data('profile-resource');
 	return _getPortalEndpoint(portal, excludeBase) + (_profileResource || '');
 };
@@ -166,28 +167,27 @@ var _getDefaultEndpoint = function (portal, excludeBase) {
  * @param providerName
  * @private
  */
-var _getAuthorizationUrl = function (providerName) {
+var _getAuthorizationUrl = function(providerName) {
 	_options.$.status.revoke.hide();
 
 	$.ajax({
-		async: false,
+		async:   false,
 		url: _getPortalEndpoint(providerName) + '?control=authorize_url&referrer=' + _getReferrer(true),
-		type: 'GET', error: function (error) {
+		type:    'GET', error: function(error) {
 			_options.$.status.provider.html('<i class="fa fa-times btn-danger status-icon"></i><small>Authorization required, but there was an error retrieving the authorization URL.</small>').show();
 		},
-		success: function (data) {
+		success: function(data) {
 			if (data && data.authorize_url) {
 				_showAuthorizeUrl(data.authorize_url);
 			}
 		}
 	});
 };
-
 /**
- * @param {string} url
+ * @param {string|*} url
  * @private
  */
-var _showAuthorizeUrl = function (url) {
+var _showAuthorizeUrl = function(url) {
 	var _authUrl = '<small>Click <a target="_top" href="' + url + '">here</a> to begin the process.</small>';
 
 	_showResults('<h3>Authorization Required</h3><p>' + _authUrl + '</p>', false);
@@ -201,9 +201,8 @@ var _showAuthorizeUrl = function (url) {
  * @param [provider]
  * @private
  */
-var _loadProvider = function (provider) {
+var _loadProvider = function(provider) {
 	var $_app = _options.$.request.app, $_list = $('#provider-list'), _userEndpoint = _getSystemEndpoint('provider_user');
-	var _providerEndpoint = _getSystemEndpoint('provider');
 	var _filter = 'user_id = :user_id AND provider_id = ' + $_list.find('option').filter(':selected').data('provider-id');
 	var _providerName = _isDefined(provider, $_list.val());
 
@@ -230,25 +229,25 @@ var _loadProvider = function (provider) {
 
 	//	Pull the credentials
 	$.ajax({
-		url: _userEndpoint,
-		data: {
+		url:        _userEndpoint,
+		data:       {
 			app_name: $_app.val(),
-			filter: _filter
+			filter:   _filter
 		},
-		beforeSend: function () {
+		beforeSend: function() {
 			_loading(true);
 		},
-		complete: function () {
+		complete:   function() {
 			//	Restore controls
 			_options.$.status.check.hide();
 			_options.$.status.provider.show();
 			$_list.removeClass('disabled');
 			_loading(false);
 		},
-		error: function (data) {
+		error:      function() {
 			_getAuthorizationUrl(_providerName);
 		},
-		success: function (data) {
+		success:    function(data) {
 			var _auth = false;
 			if (data && data.record && data.record.length) {
 				var _provider = data.record[0];
@@ -281,10 +280,11 @@ var _loadProvider = function (provider) {
  * @returns {boolean}
  * @private
  */
-var _showResults = function (data, pretty) {
+var _showResults = function(data, pretty) {
 	if (false === pretty) {
 		_options.$.results.html(data);
-	} else {
+	}
+	else {
 		_options.$.results.html('<pre class="prettyprint linenums">' + JSON.stringify(data, null, '\t') + '</pre>');
 
 		//noinspection JSUnresolvedFunction
@@ -296,33 +296,11 @@ var _showResults = function (data, pretty) {
 };
 
 /**
- * Call the local DSP
- * @param method
- * @returns {*}
- * @private
- */
-var _actions = function (method) {
-	if (_options.actions && _options.actions[method]) {
-		var _args =
-			[
-			];
-
-		if (arguments.length) {
-			Array.prototype.push.apply(_args, arguments);
-			_args.shift();
-		}
-		return _options.actions[method].apply(null, _args);
-	}
-
-	throw 'Invalid method "' + method + '"';
-};
-
-/**
  * Gets the URL to return to after a redirected AJAX call...
  * @returns {string}
  * @private
  */
-var _getReferrer = function (encoded) {
+var _getReferrer = function(encoded) {
 	var _run = 'run=' + (_options.$.request.app.val() || _options.APPLICATION_NAME);
 	var _referrer = window.parent.location.href;
 	if (-1 == _referrer.indexOf(_run)) {
@@ -335,7 +313,7 @@ var _getReferrer = function (encoded) {
  * Runs the API call
  * @private
  */
-var _execute = function () {
+var _execute = function() {
 	var _method = _options.$.request.method.val();
 	var _uri = _options.$.request.uri.val();
 	var _app = _options.$.request.app.val() || _options.APPLICATION_NAME;
@@ -359,29 +337,30 @@ var _execute = function () {
 		}
 
 		$.ajax({
-			url: _uri,
-			async: true,
-			type: _method,
-			dataType: 'json',
-			cache: false,
+			url:         _uri,
+			async:       true,
+			type:        _method,
+			dataType:    'json',
+			cache:       false,
 			processData: false,
-			data: _body,
-			beforeSend: function (xhr) {
+			data:        _body,
+			beforeSend:  function(xhr) {
 				_loading(true);
 
 				if (_app) {
 					xhr.setRequestHeader('X-DreamFactory-Application-Name', _app);
 				}
 			},
-			success: function (data) {
+			success:     function(data) {
 				return _showResults(data);
 			},
-			error: function (err) {
+			error:       function(err) {
 				var _json = {};
 
 				if (err.responseJSON) {
 					_json = err.responseJSON.error[0];
-				} else if (err.responseText) {
+				}
+				else if (err.responseText) {
 					_json = JSON.parse(err.responseText);
 					if (!_json) {
 						_json = err.responseText;
@@ -397,14 +376,16 @@ var _execute = function () {
 					if (!_location) {
 						_showResults('<div class="alert alert-fixed alert-danger"><strong>Authorization Required</strong><p>However, the authorization URL cannot be determined.</p></div>',
 							false);
-					} else {
+					}
+					else {
 						_showAuthorizeUrl(_location);
 					}
-				} else {
+				}
+				else {
 					_showResults('Error: ' + err.status, false);
 				}
 			},
-			complete: function () {
+			complete:    function() {
 				_loading(false);
 			}
 		});
@@ -420,7 +401,7 @@ var _execute = function () {
  * Initialize the app
  * @private
  */
-var _initialize = function () {
+var _initialize = function() {
 	if (!_options.actions) {
 		_options.actions = window.parent.Actions;
 		_options.config = window.parent.Config;
@@ -451,11 +432,11 @@ var _initialize = function () {
 /**
  * Initialize any buttons and set fieldset menu classes
  */
-jQuery(function ($) {
+jQuery(function($) {
 	//	Initialize...
 	_initialize();
 
-	$('a.example-code').on('click', function (e) {
+	$('a.example-code').on('click', function(e) {
 		e.preventDefault();
 		var _which = $(this).data('provider');
 
@@ -465,7 +446,7 @@ jQuery(function ($) {
 	});
 
 	//	Close the app
-	$('#app-close').on('click', function (e) {
+	$('#app-close').on('click', function(e) {
 		e.preventDefault();
 		if (window.parent && window.parent.Actions) {
 			window.parent.Actions.showAdmin();
@@ -473,7 +454,7 @@ jQuery(function ($) {
 	});
 
 	if (!_options.readOnly) {
-		$('#add-provider').on('click', function (e) {
+		$('#add-provider').on('click', function(e) {
 			e.preventDefault();
 			if (!$(this).hasClass('disabled')) {
 				$('#select-provider').slideUp();
@@ -482,7 +463,7 @@ jQuery(function ($) {
 			}
 		});
 
-		$('#add-provider-cancel').on('click', function (e) {
+		$('#add-provider-cancel').on('click', function(e) {
 			e.preventDefault();
 			$('#select-provider').slideDown();
 			$('#new-provider').slideUp();
@@ -490,17 +471,17 @@ jQuery(function ($) {
 		});
 	}
 
-	$('#send-request').on('click', function (e) {
+	$('#send-request').on('click', function(e) {
 		e.preventDefault();
 		_execute();
 	});
 
-	$('#reset-request').on('click', function (e) {
+	$('#reset-request').on('click', function(e) {
 		e.preventDefault();
 		_reset();
 	});
 
-	$('#revoke-auth').on('click', function (e) {
+	$('#revoke-auth').on('click', function(e) {
 		e.preventDefault();
 
 		if (!confirm('Really revoke your authorization for this provider?')) {
@@ -510,22 +491,24 @@ jQuery(function ($) {
 		$('html').css('cursor', 'wait');
 
 		$.ajax({
-			async: false,
-			url: _getPortalEndpoint($('#provider-list').val()) + '?control=revoke&provider_user_id=' + _options.$.status.revoke.data('provider-user-id') + '&referrer=' +
-				_getReferrer(true),
-			type: 'GET',
-			complete: function () {
+			async:    false,
+			url: _getPortalEndpoint($('#provider-list').val()) + '?control=revoke&provider_user_id=' + _options.$.status.revoke.data('provider-user-id') +
+				 '&referrer=' + _getReferrer(true),
+			type:     'GET',
+			complete: function() {
 				$('html').css('cursor', 'pointer');
 			},
-			error: function (error) {
-				_options.$.status.provider.html('<i class="fa fa-times btn-danger status-icon"></i><small>Revocation failed.</small>').show();
+			error:    function(error) {
+				_options.$.status.provider.html('<i class="fa fa-times btn-danger status-icon"></i><small>Revocation failed. (' + error.message +
+												')</small>').show();
 			},
-			success: function (data) {
+			success:  function(data) {
 				_options.$.status.revoke.hide();
 
 				if (data && data.authorize_url) {
 					_showAuthorizeUrl(data.authorize_url);
-				} else {
+				}
+				else {
 					_options.$.status.provider.html('<i class="fa fa-times btn-danger status-icon"></i><small>Revocation status uncertain. Unexpected result.</small>').show();
 				}
 			}
@@ -534,7 +517,7 @@ jQuery(function ($) {
 		return true;
 	});
 
-	$('#provider-list').on('change', function () {
+	$('#provider-list').on('change', function() {
 		var _id = $(this).val();
 
 		if (_options.providers && _options.providers.hasOwnProperty(_id)) {
