@@ -22,18 +22,15 @@
 /**
  * Main entry point/bootstrap for PHP applications
  */
-//	Base directory of DSP core
-$_appBaseDir = dirname( __DIR__ );
-$_dspBaseDir = dirname( $_appBaseDir );
-
 //	Load up composer...
-$_autoloader = require_once( $_dspBaseDir . '/vendor/autoload.php' );
+$_appBaseDir = __DIR__;
+$_autoloader = require_once( __DIR__ . '/vendor/autoload.php' );
 
 //	Turn on debugging
 \Kisma::setDebug( true );
 
 //	Load up Yii
-require_once $_dspBaseDir . '/vendor/dreamfactory/yii/framework/yii.php';
+require_once '/var/www/launchpad/vendor/dreamfactory/yii/framework/yii.php';
 
 if ( \Kisma::getDebug() )
 {
