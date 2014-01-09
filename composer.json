@@ -1,22 +1,31 @@
 {
-	"name":              "dreamfactory/portal-sandbox",
-	"description":       "DreamFactory Portal Sandbox Application",
-	"homepage":          "http://dreamfactorysoftware.github.io/#oasys",
-	"version":           "1.0.3",
-	"keywords":          [
-		"dreamfactory", "oasys", "oauth", "authentication", "framework", "examples", "portal"
-	],
-	"type":              "library",
-	"license":           [
-		"Apache-2.0"
-	],
-	"authors":           [
-		{
-			"name":  "Jerry Ablan",
-			"email": "jerryablan@dreamfactory.com",
-			"role":  "Developer"
-		}
-	],
+	"name":        "dreamfactory/portal-sandbox",
+	"description": "DreamFactory Portal Sandbox Application",
+	"homepage":    "http://dreamfactorysoftware.github.io/#oasys",
+	"version":     "1.0.4",
+	"keywords":
+				   [
+					   "dreamfactory",
+					   "oasys",
+					   "oauth",
+					   "authentication",
+					   "framework",
+					   "examples",
+					   "portal"
+				   ],
+	"type":        "library",
+	"license":
+				   [
+					   "Apache-2.0"
+				   ],
+	"authors":
+						 [
+							 {
+								 "name":  "Jerry Ablan",
+								 "email": "jerryablan@dreamfactory.com",
+								 "role":  "Developer"
+							 }
+						 ],
 	"support":           {
 		"email":  "support@dreamfactory.com",
 		"issues": "https://github.com/dreamfactorysoftware/oasys-examples/issues",
@@ -25,7 +34,7 @@
 	},
 	"minimum-stability": "dev",
 	"require":           {
-		"php":         ">=5.3.18",
-		"kisma/kisma": "*"
+		"php":                             ">=5.3.18",
+		"kisma/kisma":                     "*"
 	}
 }
