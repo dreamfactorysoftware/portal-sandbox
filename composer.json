@@ -1,40 +1,38 @@
 {
-	"name":        "dreamfactory/portal-sandbox",
-	"description": "DreamFactory Portal Sandbox Application",
-	"homepage":    "http://dreamfactorysoftware.github.io/#oasys",
-	"version":     "1.0.4",
-	"keywords":
-				   [
-					   "dreamfactory",
-					   "oasys",
-					   "oauth",
-					   "authentication",
-					   "framework",
-					   "examples",
-					   "portal"
-				   ],
-	"type":        "library",
-	"license":
-				   [
-					   "Apache-2.0"
-				   ],
-	"authors":
-						 [
-							 {
-								 "name":  "Jerry Ablan",
-								 "email": "jerryablan@dreamfactory.com",
-								 "role":  "Developer"
-							 }
-						 ],
-	"support":           {
-		"email":  "support@dreamfactory.com",
-		"issues": "https://github.com/dreamfactorysoftware/oasys-examples/issues",
-		"wiki":   "https://github.com/dreamfactorysoftware/oasys-examples/wiki",
-		"source": "https://github.com/dreamfactorysoftware/oasys-examples"
-	},
-	"minimum-stability": "dev",
-	"require":           {
-		"php":                             ">=5.3.18",
-		"kisma/kisma":                     "*"
-	}
+    "name": "dreamfactory/portal-sandbox",
+    "description": "DreamFactory Portal Sandbox Application",
+    "homepage": "http://dreamfactorysoftware.github.io/#oasys",
+    "version": "1.0.4",
+    "keywords": [
+        "dreamfactory",
+        "oasys",
+        "oauth",
+        "authentication",
+        "framework",
+        "examples",
+        "portal"
+    ],
+    "type": "dsp-plugin",
+    "license": [
+        "Apache-2.0"
+    ],
+    "authors": [
+        {
+            "name": "Jerry Ablan",
+            "email": "jerryablan@dreamfactory.com",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "email": "support@dreamfactory.com",
+        "issues": "https://github.com/dreamfactorysoftware/oasys-examples/issues",
+        "wiki": "https://github.com/dreamfactorysoftware/oasys-examples/wiki",
+        "source": "https://github.com/dreamfactorysoftware/oasys-examples"
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.3.18",
+        "kisma/kisma": "*",
+        "dreamfactory/lib-platform-installer": "~1.1.0"
+    }
 }
