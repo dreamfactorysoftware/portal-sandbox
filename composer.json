@@ -25,14 +25,14 @@
     ],
     "support": {
         "email": "support@dreamfactory.com",
-        "issues": "https://github.com/dreamfactorysoftware/oasys-examples/issues",
-        "wiki": "https://github.com/dreamfactorysoftware/oasys-examples/wiki",
-        "source": "https://github.com/dreamfactorysoftware/oasys-examples"
+        "issues": "https://github.com/dreamfactorysoftware/portal-sandbox/issues",
+        "wiki": "https://github.com/dreamfactorysoftware/portal-sandbox/wiki",
+        "source": "https://github.com/dreamfactorysoftware/portal-sandbox"
     },
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.18",
         "kisma/kisma": "*",
-        "dreamfactory/lib-platform-installer": "~1.1.0"
+        "dreamfactory/lib-platform-installer": "~1.1.1"
     }
 }
