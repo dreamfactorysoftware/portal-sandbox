@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../../web/web-csp/web/portal-sandbox/.idea/portal-sandbox.iml" filepath="$PROJECT_DIR$/../../web/web-csp/web/portal-sandbox/.idea/portal-sandbox.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/portal-sandbox.iml" filepath="$PROJECT_DIR$/.idea/portal-sandbox.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/portal-sandbox.iml" filepath="$PROJECT_DIR$/.idea/portal-sandbox.iml" />
     </modules>
   </component>
 </project>
