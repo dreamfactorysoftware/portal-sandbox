@@ -12,7 +12,7 @@
         "examples",
         "portal"
     ],
-    "type": "dsp-plugin",
+    "type": "dreamfactory-dsp-plugin",
     "license": [
         "Apache-2.0"
     ],
@@ -33,6 +33,6 @@
     "require": {
         "php": ">=5.3.18",
         "kisma/kisma": "*",
-        "dreamfactory/lib-platform-installer": "~1.1.2"
+        "dreamfactory/lib-platform-installer": "~1.1.5"
     }
 }
