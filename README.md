@@ -1,6 +1,6 @@
 # portal-sandbox
 
-## DreamFactory Portal Sandbox Application v1.1.x
+## DreamFactory Services Platform&trade; Portal Sandbox Application
 
 An application that demonstrates the abilities of the DSP ''portal'' service.
 
