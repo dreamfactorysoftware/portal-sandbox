@@ -41,7 +41,7 @@ const APPLICATION_NAME = 'portal-sandbox';
 //* Bootstrap and Debugging
 //********************************************************************************
 
-require_once __DIR__ . '/autoload.php';
+require_once dirname( __DIR__ ) . '/autoload.php';
 
 //	Debugging?
 if ( \Kisma::getDebug() )
@@ -68,10 +68,10 @@ $_apps = $_providers = null;
 $_providerCache = new \stdClass();
 
 $_models = ResourceStore::model( 'app' )->findAll(
-						array(
-							'select' => 'id, api_name, name',
-							'order'  => 'name'
-						)
+	array(
+		'select' => 'id, api_name, name',
+		'order'  => 'name'
+	)
 );
 
 if ( !empty( $_models ) )
@@ -79,7 +79,7 @@ if ( !empty( $_models ) )
 	/** @var App[] $_models */
 	foreach ( $_models as $_model )
 	{
-		$_attributes = array('value' => $_model->api_name, 'name' => $_model->api_name);
+		$_attributes = array( 'value' => $_model->api_name, 'name' => $_model->api_name );
 
 		if ( APPLICATION_NAME == $_model->api_name )
 		{
@@ -94,10 +94,10 @@ if ( !empty( $_models ) )
 }
 
 $_models = ResourceStore::model( 'provider' )->findAll(
-						array(
-							'select' => 'id, provider_name, api_name',
-							'order'  => 'provider_name',
-						)
+	array(
+		'select' => 'id, provider_name, api_name',
+		'order'  => 'provider_name',
+	)
 );
 
 if ( !empty( $_models ) )
@@ -241,11 +241,12 @@ $_defaultUrl = '/rest/system/user';
 									<div class="col-sm-10">
 										<div class="input-group">
 											<span id="request-server" class="input-group-addon muted">https://*.cloud.dreamfactory.com</span>
+
 											<input type="text"
-												class="form-control"
-												id="request-uri"
-												value="<?php echo $_defaultUrl; ?>"
-												placeholder="The request URI (i.e. /system/user)">
+												   class="form-control"
+												   id="request-uri"
+												   value="<?php echo $_defaultUrl; ?>"
+												   placeholder="The request URI (i.e. /system/user)">
 										</div>
 									</div>
 								</div>
@@ -330,10 +331,10 @@ $_defaultUrl = '/rest/system/user';
 <script src="//google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
 <script src="js/app.jquery.js"></script>
 <script>
-	//	This needs to be last because _options is defined in app.jquery.js... lame, I know...
-	_options.baseUrl = '<?php echo $_dspUrl; ?>';
-	_options.providers = <?php echo json_encode( $_providerCache ); ?>;
-	_options.APPLICATION_NAME = '<?php echo APPLICATION_NAME; ?>';
+//	This needs to be last because _options is defined in app.jquery.js... lame, I know...
+_options.baseUrl = '<?php echo $_dspUrl; ?>';
+_options.providers = <?php echo json_encode( $_providerCache ); ?>;
+_options.APPLICATION_NAME = '<?php echo APPLICATION_NAME; ?>';
 </script>
 </body>
 </html>

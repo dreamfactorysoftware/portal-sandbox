@@ -20,34 +20,5 @@
  */
 
 /**
- * Main entry point/bootstrap for PHP applications
+ * This file contains additional configuration parameters for the portal-sandbox application
  */
-//	Base directory of DSP core
-$_appBaseDir = dirname( dirname( __DIR__ ) );
-$_dspBaseDir = dirname( $_appBaseDir );
-
-//	Load up composer...
-$_autoloader = require_once( $_dspBaseDir . '/vendor/autoload.php' );
-
-//	Turn on debugging
-\Kisma::setDebug( true );
-
-//	Load up Yii
-require_once $_dspBaseDir . '/vendor/dreamfactory/yii/framework/yii.php';
-
-if ( \Kisma::getDebug() )
-{
-	//	Yii debug settings
-	defined( 'YII_DEBUG' ) or define( 'YII_DEBUG', true );
-	defined( 'YII_TRACE_LEVEL' ) or define( 'YII_TRACE_LEVEL', 3 );
-}
-
-//	Create the application but do not run...
-DreamFactory\Yii\Utility\Pii::run(
-	$_appBaseDir,
-	$_autoloader,
-	'DreamFactory\\Platform\\Yii\\Components\\PlatformWebApplication',
-	null,
-	false,
-	false
-);
