@@ -2,7 +2,7 @@
 	"name":              "dreamfactory/portal-sandbox",
 	"description":       "DreamFactory Portal Sandbox Application",
 	"homepage":          "http://dreamfactorysoftware.github.io/#oasys",
-	"version":           "1.1.14",
+	"version":           "1.1.15",
 	"keywords":          [
 		"dreamfactory", "oasys", "oauth", "authentication", "framework", "examples", "portal"
 	],
@@ -27,7 +27,7 @@
 	"require":           {
 		"php":                                 ">=5.3.18",
 		"kisma/kisma":                         "*",
-		"dreamfactory/lib-platform-installer": "*"
+		"dreamfactory/lib-platform-installer": ">=1.2.0"
 	},
 	"extra":             {
 		"link_name": "pbox"
