@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="oasys-examples.local" type="PhpWebAppRunConfigurationType" factoryName="PHP Web Application" singleton="true" server_name="portal-sandbox.local">
+  <configuration default="false" name="portal_sandbox.local" type="PhpWebAppRunConfigurationType" factoryName="PHP Web Application" singleton="true" server_name="portal_sandbox.local">
     <RunnerSettings RunnerId="PhpWebAppDebugRunner" />
     <ConfigurationWrapper RunnerId="PhpWebAppDebugRunner" />
     <method />

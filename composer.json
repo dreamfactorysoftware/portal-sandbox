@@ -1,8 +1,8 @@
 {
 	"name":              "dreamfactory/portal-sandbox",
-	"description":       "DreamFactory Portal Sandbox Application",
+	"description":       "DreamFactory Services Platform(tm) Portal Sandbox Application",
 	"homepage":          "http://dreamfactorysoftware.github.io/#oasys",
-	"version":           "1.1.16",
+	"version":           "1.1.17",
 	"keywords":          [
 		"dreamfactory", "oasys", "oauth", "authentication", "framework", "examples", "portal"
 	],
@@ -14,7 +14,6 @@
 		{
 			"name":  "Jerry Ablan",
 			"email": "jerryablan@dreamfactory.com",
-			"role":  "Developer"
 		}
 	],
 	"support":           {
@@ -27,10 +26,22 @@
 	"require":           {
 		"php":                                 ">=5.3.18",
 		"kisma/kisma":                         "*",
-		"dreamfactory/lib-platform-installer": "~1.2.3"
+		"dreamfactory/lib-platform-installer": "~1.2.4"
 	},
 	"extra":             {
-		"link_name": "pbox",
-		"routes": []
+		"config":    "config/app.config.php",
+		"bootstrap": "autoload.php",
+		"links":     [
+			{
+				"description": "The main content of the app lives in web/ and will be linked to dsp/web/pbox",
+				"target":      "web/",
+				"link":        "pbox"
+			}
+		],
+		"routes":    [
+			{
+				"pattern": "actions"
+			}
+		]
 	}
 }
