@@ -13,7 +13,7 @@
 	"authors":           [
 		{
 			"name":  "Jerry Ablan",
-			"email": "jerryablan@dreamfactory.com",
+			"email": "jerryablan@dreamfactory.com"
 		}
 	],
 	"support":           {
@@ -26,31 +26,32 @@
 	"require":           {
 		"php":                            ">=5.3.18",
 		"kisma/kisma":                    "*",
-		"dreamfactory/package-installer": "~1.2.4"
+		"dreamfactory/package-installer": "~1.2.8"
+	},
+	"autoload":          {
+		"files": ["autoload.php"]
 	},
 	"extra":             {
-		"name":       "Portal Sandbox",
-        "api-name":   "pbox",
-		"description": "A sample application that demonstrates the DSP's portal service.",
-        "start-url":         "/index.php",
-        "url-is-external":  false,
-        "import-url": "https://github.com/dreamfactorysoftware/portal-sandbox/raw/master",
-        "active": true,
-        "fullscreen": false,
-        "fullscreen-toggle": true,
-        "toggle-location": "top",
-
-		"type":       1,
-		"config":     "config/app.config.php",
-		"bootstrap":  "autoload.php",
-		"namespaces": [],
-		"links":      [
+		"name":              "Portal Sandbox",
+		"api-name":          "pbox",
+		"description":       "A sample application that demonstrates the DSP's portal service.",
+		"start-url":         "/index.php",
+		"url-is-external":   false,
+		"import-url":        "https://github.com/dreamfactorysoftware/portal-sandbox/archive/master.zip",
+		"active":            true,
+		"fullscreen":        false,
+		"fullscreen-toggle": true,
+		"toggle-location":   "top",
+		"type":              1,
+		"config":            "config/app.config.php",
+		"namespaces":        [],
+		"links":             [
 			{
-				"target":      null,
-				"link":        "pbox"
+				"target": null,
+				"link":   "pbox"
 			}
 		],
-		"routes":     [
+		"routes":            [
 			{
 				"pattern": "actions"
 			}
