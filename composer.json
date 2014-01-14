@@ -27,6 +27,9 @@
 	"require":           {
 		"php":                                 ">=5.3.18",
 		"kisma/kisma":                         "*",
-		"dreamfactory/lib-platform-installer": ">=1.1.10"
+		"dreamfactory/lib-platform-installer": ">=1.1.12"
+	},
+	"extra":             {
+		"link_name": "pbox"
 	}
 }
