@@ -26,12 +26,13 @@
 	"require":           {
 		"php":                            ">=5.3.18",
 		"kisma/kisma":                    "*",
-		"dreamfactory/package-installer": "~1.2.8"
+		"dreamfactory/package-installer": "~1.2.9"
 	},
 	"autoload":          {
 		"files": ["autoload.php"]
 	},
 	"extra":             {
+		"type":              1,
 		"name":              "Portal Sandbox",
 		"api-name":          "pbox",
 		"description":       "A sample application that demonstrates the DSP's portal service.",
@@ -42,18 +43,11 @@
 		"fullscreen":        false,
 		"fullscreen-toggle": true,
 		"toggle-location":   "top",
-		"type":              1,
 		"config":            "config/app.config.php",
-		"namespaces":        [],
 		"links":             [
 			{
 				"target": null,
 				"link":   "pbox"
-			}
-		],
-		"routes":            [
-			{
-				"pattern": "actions"
 			}
 		]
 	}
