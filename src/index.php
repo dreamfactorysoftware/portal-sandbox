@@ -50,18 +50,15 @@ if ( \Kisma::getDebug() )
 	ini_set( 'display_errors', 1 );
 }
 
-$_dspUrl = Curl::currentUrl( false, false );
-
 //	Must be logged in...
 if ( Pii::guest() )
 {
-	header( 'Location: ' . $_dspUrl . '/' );
+	header( 'Location: /' );
 	die();
 }
 
-
 //********************************************************************************
-//* Load data for dropdowns...
+//* Load data for drop-downs...
 //********************************************************************************
 
 $_apps = $_providers = null;
@@ -332,7 +329,7 @@ $_defaultUrl = '/rest/system/user';
 <script src="js/app.jquery.js"></script>
 <script>
 //	This needs to be last because _options is defined in app.jquery.js... lame, I know...
-_options.baseUrl = '<?php echo $_dspUrl; ?>';
+_options.baseUrl = '<?php echo Curl::currentUrl( false, false ); ?>';
 _options.providers = <?php echo json_encode( $_providerCache ); ?>;
 _options.APPLICATION_NAME = '<?php echo APPLICATION_NAME; ?>';
 </script>
