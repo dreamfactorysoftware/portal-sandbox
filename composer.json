@@ -26,7 +26,7 @@
 	"require":           {
 		"php":                            ">=5.3.18",
 		"kisma/kisma":                    "*",
-		"dreamfactory/package-installer": ">=1.2.16"
+		"dreamfactory/package-installer": "dev-develop as dev-master"
 	},
 	"autoload":          {
 		"files": ["autoload.php"]
