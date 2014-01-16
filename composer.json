@@ -41,7 +41,7 @@
 		"toggle-location":   "top",
 		"links":             [
 			{
-				"target": null,
+				"target": "src/",
 				"link":   "pbox"
 			}
 		]
