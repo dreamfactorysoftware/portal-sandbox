@@ -42,7 +42,6 @@
 		"fullscreen":        false,
 		"fullscreen-toggle": true,
 		"toggle-location":   "top",
-		"config":            "config/app.config.php",
 		"links":             [
 			{
 				"target": null,

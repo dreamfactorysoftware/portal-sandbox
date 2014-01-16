@@ -22,6 +22,4 @@
 /**
  * This file contains additional configuration parameters for the portal-sandbox application
  */
-return array(
-	'key' => 'value',
-);
+return array();
