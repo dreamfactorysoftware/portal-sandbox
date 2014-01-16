@@ -2,10 +2,9 @@
 	"name":              "dreamfactory/portal-sandbox",
 	"description":       "DreamFactory Services Platform(tm) Portal Sandbox Application",
 	"homepage":          "http://dreamfactorysoftware.github.io/#oasys",
-	"version":           "1.1.22",
+	"version":           "1.1.23",
 	"keywords":          [
-		"dreamfactory", "oasys", "oauth", "authentication", "framework",
-		"examples", "portal"
+		"dreamfactory", "oasys", "oauth", "authentication", "framework", "examples", "portal"
 	],
 	"type":              "dreamfactory-plugin",
 	"license":           [
@@ -27,7 +26,7 @@
 	"require":           {
 		"php":                            ">=5.3.18",
 		"kisma/kisma":                    "*",
-		"dreamfactory/package-installer": "~1.2.9"
+		"dreamfactory/package-installer": ">=1.2.16"
 	},
 	"autoload":          {
 		"files": ["autoload.php"]
