@@ -25,7 +25,13 @@
     <option name="FILTER_BY_CURRENT_PROJECT" value="true" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="813f2967-1f50-43db-a019-596101c71f94" name="Default" comment="" />
+    <list default="true" id="813f2967-1f50-43db-a019-596101c71f94" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/deployment.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/.htaccess" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/config/app.config.php" afterPath="$PROJECT_DIR$/config/web.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/autoload.php" afterPath="$PROJECT_DIR$/autoload.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
     <ignored path="oasys-examples.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -51,15 +57,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="composer.json" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/composer.json">
+      <file leaf-file-name="autoload.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/autoload.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="46" column="30" selection-start="1628" selection-end="1628" vertical-scroll-proportion="0.69581056" vertical-offset="354" max-vertical-offset="928">
-              <folding>
-                <element signature="e#266#358#0" expanded="true" />
-                <element signature="e#427#446#0" expanded="true" />
-                <element signature="e#470#551#0" expanded="true" />
-              </folding>
+            <state line="21" column="50" selection-start="957" selection-end="957" vertical-scroll-proportion="0.40677965" vertical-offset="192" max-vertical-offset="976">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="web.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config/web.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="23" column="0" selection-start="1001" selection-end="1001" vertical-scroll-proportion="-3.2" vertical-offset="0" max-vertical-offset="208">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -94,10 +105,11 @@
         <option value="$PROJECT_DIR$/js/jquery.multientry.js" />
         <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/salesforce.html" />
-        <option value="$PROJECT_DIR$/autoload.php" />
         <option value="$PROJECT_DIR$/src/index.php" />
         <option value="$PROJECT_DIR$/config/app.config.php" />
         <option value="$PROJECT_DIR$/composer.json" />
+        <option value="$PROJECT_DIR$/src/.htaccess" />
+        <option value="$PROJECT_DIR$/autoload.php" />
       </list>
     </option>
   </component>
@@ -168,6 +180,20 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="portal-sandbox" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="portal-sandbox" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="config" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -180,7 +206,7 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="recentsLimit" value="5" />
-    <property name="options.lastSelected" value="reference.settings.deploy.options" />
+    <property name="options.lastSelected" value="web.server" />
     <property name="restartRequiresConfirmation" value="true" />
     <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
@@ -222,8 +248,9 @@
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="ToolWindowManager">
     <frame x="-1" y="-1" width="1368" height="746" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
+      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32274246" sideWeight="0.85005337" order="11" side_tool="false" content_ui="combo" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -243,7 +270,6 @@
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="REST Client" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32986766" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32274246" sideWeight="0.85005337" order="11" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -276,13 +302,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/.htaccess">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="368">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="20" column="0" selection-start="903" selection-end="903" vertical-scroll-proportion="0.0" vertical-offset="288" max-vertical-offset="5488">
@@ -294,9 +313,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="28" column="52" selection-start="1030" selection-end="1030" vertical-scroll-proportion="0.0" vertical-offset="448" max-vertical-offset="864">
           <folding>
-            <element signature="e#266#358#0" expanded="true" />
-            <element signature="e#427#446#0" expanded="true" />
-            <element signature="e#470#551#0" expanded="true" />
+            <element signature="e#266#358#0" expanded="false" />
+            <element signature="e#427#446#0" expanded="false" />
+            <element signature="e#470#551#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -304,13 +323,6 @@
     <entry file="file://$PROJECT_DIR$/autoload.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="25" column="45" selection-start="1038" selection-end="1038" vertical-scroll-proportion="0.0" vertical-offset="400" max-vertical-offset="944">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/.htaccess">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="368">
           <folding />
         </state>
       </provider>
@@ -326,9 +338,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="25" column="26" selection-start="867" selection-end="867" vertical-scroll-proportion="0.0" vertical-offset="240" max-vertical-offset="720">
           <folding>
-            <element signature="e#266#358#0" expanded="true" />
-            <element signature="e#427#446#0" expanded="true" />
-            <element signature="e#470#551#0" expanded="true" />
+            <element signature="e#266#358#0" expanded="false" />
+            <element signature="e#427#446#0" expanded="false" />
+            <element signature="e#470#551#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -344,9 +356,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="1" column="0" selection-start="2" selection-end="2" vertical-scroll-proportion="0.0" vertical-offset="16" max-vertical-offset="960">
           <folding>
-            <element signature="e#266#358#0" expanded="true" />
-            <element signature="e#427#446#0" expanded="true" />
-            <element signature="e#470#551#0" expanded="true" />
+            <element signature="e#266#358#0" expanded="false" />
+            <element signature="e#427#446#0" expanded="false" />
+            <element signature="e#470#551#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -355,9 +367,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="31" column="26" selection-start="1074" selection-end="1074" vertical-scroll-proportion="0.0" vertical-offset="59" max-vertical-offset="672">
           <folding>
-            <element signature="e#266#358#0" expanded="true" />
-            <element signature="e#427#446#0" expanded="true" />
-            <element signature="e#470#551#0" expanded="true" />
+            <element signature="e#266#358#0" expanded="false" />
+            <element signature="e#427#446#0" expanded="false" />
+            <element signature="e#470#551#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -366,9 +378,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="25" column="0" selection-start="596" selection-end="596" vertical-scroll-proportion="0.0" vertical-offset="390" max-vertical-offset="704">
           <folding>
-            <element signature="e#266#358#0" expanded="true" />
-            <element signature="e#427#446#0" expanded="true" />
-            <element signature="e#470#551#0" expanded="true" />
+            <element signature="e#266#358#0" expanded="false" />
+            <element signature="e#427#446#0" expanded="false" />
+            <element signature="e#470#551#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -377,9 +389,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="25" column="0" selection-start="596" selection-end="596" vertical-scroll-proportion="0.0" vertical-offset="157" max-vertical-offset="704">
           <folding>
-            <element signature="e#266#358#0" expanded="true" />
-            <element signature="e#427#446#0" expanded="true" />
-            <element signature="e#470#551#0" expanded="true" />
+            <element signature="e#266#358#0" expanded="false" />
+            <element signature="e#427#446#0" expanded="false" />
+            <element signature="e#470#551#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -402,44 +414,35 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/autoload.php">
+    <entry file="file://$PROJECT_DIR$/composer.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="45" selection-start="1038" selection-end="1038" vertical-scroll-proportion="0.009107468" vertical-offset="75" max-vertical-offset="624">
-          <folding />
+        <state line="46" column="30" selection-start="1628" selection-end="1628" vertical-scroll-proportion="1.0790961" vertical-offset="354" max-vertical-offset="928">
+          <folding>
+            <element signature="e#266#358#0" expanded="false" />
+            <element signature="e#427#446#0" expanded="false" />
+            <element signature="e#470#551#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="0" selection-start="903" selection-end="903" vertical-scroll-proportion="0.05970149" vertical-offset="0" max-vertical-offset="5040">
+        <state line="20" column="0" selection-start="903" selection-end="903" vertical-scroll-proportion="-1.8768328" vertical-offset="672" max-vertical-offset="5040">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/.htaccess">
+    <entry file="file://$PROJECT_DIR$/config/web.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="574">
+        <state line="23" column="0" selection-start="1001" selection-end="1001" vertical-scroll-proportion="-3.2" vertical-offset="0" max-vertical-offset="208">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/app.config.php">
+    <entry file="file://$PROJECT_DIR$/autoload.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="0" selection-start="1001" selection-end="1001" vertical-scroll-proportion="0.67030966" vertical-offset="0" max-vertical-offset="549">
-          <folding>
-            <element signature="e#6#902#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/composer.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="30" selection-start="1628" selection-end="1628" vertical-scroll-proportion="0.69581056" vertical-offset="354" max-vertical-offset="928">
-          <folding>
-            <element signature="e#266#358#0" expanded="true" />
-            <element signature="e#427#446#0" expanded="true" />
-            <element signature="e#470#551#0" expanded="true" />
-          </folding>
+        <state line="21" column="50" selection-start="957" selection-end="957" vertical-scroll-proportion="0.40677965" vertical-offset="192" max-vertical-offset="976">
+          <folding />
         </state>
       </provider>
     </entry>

@@ -18,36 +18,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 /**
  * Main entry point/bootstrap for PHP applications
  */
-//	Base directory of DSP core
-$_appBaseDir = dirname( dirname( __DIR__ ) );
-$_dspBaseDir = dirname( $_appBaseDir );
 
-//	Load up composer...
-$_autoloader = require_once( $_dspBaseDir . '/vendor/autoload.php' );
-
-//	Turn on debugging
-\Kisma::setDebug( true );
-
-//	Load up Yii
-require_once $_dspBaseDir . '/vendor/dreamfactory/yii/framework/yii.php';
-
-if ( \Kisma::getDebug() )
-{
-	//	Yii debug settings
-	defined( 'YII_DEBUG' ) or define( 'YII_DEBUG', true );
-	defined( 'YII_TRACE_LEVEL' ) or define( 'YII_TRACE_LEVEL', 3 );
-}
-
-//	Create the application but do not run...
-DreamFactory\Yii\Utility\Pii::run(
-	$_appBaseDir,
-	$_autoloader,
-	'DreamFactory\\Platform\\Yii\\Components\\PlatformWebApplication',
-	null,
-	false,
-	false
-);
+//if ( !isset( $_session ) || !class_exists( '\\Yii', false ) )
+//{
+//
+//	$_dspbase = dirname( dirname( dirname( dirname( __dir__ ) ) ) );
+//
+////	load up composer...
+//	$_autoloader = require_once( $_dspbase . '/vendor/autoload.php' );
+//
+////	turn on debugging
+//	\Kisma::setdebug( true );
+//
+////	load up yii
+//	require_once $_dspbase . '/vendor/dreamfactory/yii/framework/yii.php';
+//
+//	if ( \Kisma::getdebug() )
+//	{
+//		//	yii debug settings
+//		defined( 'yii_debug' ) or define( 'yii_debug', true );
+//		defined( 'yii_trace_level' ) or define( 'yii_trace_level', 3 );
+//	}
+//
+////	create the application but do not run...
+//	dreamfactory\Yii\Utility\Pii::run(
+//		__dir__ . '/src',
+//		$_autoloader,
+//		'dreamfactory\\Platform\\Yii\\Components\\Platformwebapplication',
+//		null,
+//		false,
+//		false
+//	);
+//}
