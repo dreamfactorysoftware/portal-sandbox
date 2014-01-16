@@ -28,9 +28,6 @@
 		"kisma/kisma":                    "*",
 		"dreamfactory/package-installer": "dev-develop as dev-master"
 	},
-	"autoload":          {
-		"files": ["autoload.php"]
-	},
 	"extra":             {
 		"name":              "Portal Sandbox",
 		"api-name":          "pbox",
