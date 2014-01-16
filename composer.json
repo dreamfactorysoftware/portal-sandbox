@@ -2,11 +2,12 @@
 	"name":              "dreamfactory/portal-sandbox",
 	"description":       "DreamFactory Services Platform(tm) Portal Sandbox Application",
 	"homepage":          "http://dreamfactorysoftware.github.io/#oasys",
-	"version":           "1.1.21",
+	"version":           "1.1.22",
 	"keywords":          [
-		"dreamfactory", "oasys", "oauth", "authentication", "framework", "examples", "portal"
+		"dreamfactory", "oasys", "oauth", "authentication", "framework",
+		"examples", "portal"
 	],
-	"type":              "dreamfactory-dsp-plugin",
+	"type":              "dreamfactory-plugin",
 	"license":           [
 		"Apache-2.0"
 	],
@@ -32,7 +33,6 @@
 		"files": ["autoload.php"]
 	},
 	"extra":             {
-		"type":              1,
 		"name":              "Portal Sandbox",
 		"api-name":          "pbox",
 		"description":       "A sample application that demonstrates the DSP's portal service.",
