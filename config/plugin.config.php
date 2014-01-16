@@ -18,10 +18,4 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-/**
- * This file contains additional configuration parameters for the portal-sandbox application
- */
-return array(
-	'key' => 'value',
-);
+return array();
