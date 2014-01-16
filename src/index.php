@@ -41,7 +41,7 @@ const APPLICATION_NAME = 'portal-sandbox';
 //* Bootstrap and Debugging
 //********************************************************************************
 
-require_once dirname( __DIR__ ) . '/autoload.php';
+require_once __DIR__ . '/../autoload.php';
 
 //	Debugging?
 if ( \Kisma::getDebug() )
