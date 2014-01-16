@@ -26,7 +26,7 @@
 	"require":           {
 		"php":                            ">=5.3.18",
 		"kisma/kisma":                    "*",
-		"dreamfactory/package-installer": "dev-develop as dev-master"
+		"dreamfactory/package-installer": ">=1.2.17"
 	},
 	"extra":             {
 		"name":              "Portal Sandbox",
