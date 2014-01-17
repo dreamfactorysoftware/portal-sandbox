@@ -39,7 +39,7 @@
 		"fullscreen":        false,
 		"fullscreen-toggle": true,
 		"toggle-location":   "top",
-		"create_service":    true,
+		"create-service":    true,
 		"links":             [
 			{
 				"target": "src/",
