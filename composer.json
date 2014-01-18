@@ -29,18 +29,20 @@
 		"dreamfactory/package-installer": ">=1.2.21"
 	},
 	"extra":             {
-		"name":              "Portal Sandbox",
-		"api-name":          "pbox",
-		"description":       "A sample application that demonstrates the DSP's portal service.",
-		"start-url":         "/index.php",
-		"url-is-external":   false,
-		"import-url":        "https://github.com/dreamfactorysoftware/portal-sandbox/archive/master.zip",
-		"active":            true,
-		"fullscreen":        false,
-		"fullscreen-toggle": true,
-		"toggle-location":   "top",
-		"create-service":    true,
-		"links":             [
+		"create-application": true,
+		"application":        {
+			"name":              "Portal Sandbox",
+			"api-name":          "pbox",
+			"description":       "A sample application that demonstrates the DSP's portal service.",
+			"start-url":         "/index.php",
+			"url-is-external":   false,
+			"import-url":        "https://github.com/dreamfactorysoftware/portal-sandbox/archive/master.zip",
+			"active":            true,
+			"fullscreen":        false,
+			"fullscreen-toggle": true,
+			"toggle-location":   "top"
+		},
+		"links":              [
 			{
 				"target": "src/",
 				"link":   "pbox"
