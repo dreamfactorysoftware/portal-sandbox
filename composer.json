@@ -25,7 +25,7 @@
 	"require":           {
 		"php":                            ">=5.3.18",
 		"kisma/kisma":                    "*",
-		"dreamfactory/package-installer": "*"
+		"dreamfactory/package-installer": ">=1.2.27"
 	},
 	"extra":             {
 		"create-application": true,
