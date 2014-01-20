@@ -2,7 +2,6 @@
 	"name":              "dreamfactory/portal-sandbox",
 	"description":       "DreamFactory Services Platform(tm) Portal Sandbox Application",
 	"homepage":          "http://dreamfactorysoftware.github.io/#oasys",
-	"version":           "1.1.28",
 	"keywords":          [
 		"dreamfactory", "oasys", "oauth", "authentication", "framework", "examples", "portal"
 	],
@@ -26,21 +25,23 @@
 	"require":           {
 		"php":                            ">=5.3.18",
 		"kisma/kisma":                    "*",
-		"dreamfactory/package-installer": ">=1.2.21"
+		"dreamfactory/package-installer": "*"
 	},
 	"extra":             {
-		"name":              "Portal Sandbox",
-		"api-name":          "pbox",
-		"description":       "A sample application that demonstrates the DSP's portal service.",
-		"start-url":         "/index.php",
-		"url-is-external":   false,
-		"import-url":        "https://github.com/dreamfactorysoftware/portal-sandbox/archive/master.zip",
-		"active":            true,
-		"fullscreen":        false,
-		"fullscreen-toggle": true,
-		"toggle-location":   "top",
-		"create-service":    true,
-		"links":             [
+		"create-application": true,
+		"application":        {
+			"name":              "Portal Sandbox",
+			"api-name":          "pbox",
+			"description":       "A sample application that demonstrates the DSP's portal service.",
+			"start-url":         "/index.php",
+			"url-is-external":   false,
+			"import-url":        "https://github.com/dreamfactorysoftware/portal-sandbox/archive/master.zip",
+			"active":            true,
+			"fullscreen":        false,
+			"fullscreen-toggle": true,
+			"toggle-location":   "top"
+		},
+		"links":              [
 			{
 				"target": "src/",
 				"link":   "pbox"
