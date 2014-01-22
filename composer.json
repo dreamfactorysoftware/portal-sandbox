@@ -25,23 +25,24 @@
 	"require":           {
 		"php":                            ">=5.3.18",
 		"kisma/kisma":                    "*",
-		"dreamfactory/package-installer": ">=1.2.27"
+		"dreamfactory/package-installer": ">=1.3.10"
 	},
 	"extra":             {
-		"create-application": true,
-		"application":        {
-			"name":              "Portal Sandbox",
-			"api-name":          "pbox",
-			"description":       "A sample application that demonstrates the DSP's portal service.",
-			"start-url":         "/index.php",
-			"url-is-external":   false,
-			"import-url":        "https://github.com/dreamfactorysoftware/portal-sandbox/archive/master.zip",
-			"active":            true,
-			"fullscreen":        false,
-			"fullscreen-toggle": true,
-			"toggle-location":   "top"
+		"data":  {
+			"application": {
+				"name":              "Portal Sandbox",
+				"api-name":          "pbox",
+				"description":       "A sample application that demonstrates the DSP's portal service.",
+				"start-url":         "/index.php",
+				"url-is-external":   false,
+				"import-url":        "https://github.com/dreamfactorysoftware/portal-sandbox/archive/master.zip",
+				"active":            true,
+				"fullscreen":        false,
+				"fullscreen-toggle": true,
+				"toggle-location":   "top"
+			}
 		},
-		"links":              [
+		"links": [
 			{
 				"target": "src/",
 				"link":   "pbox"
