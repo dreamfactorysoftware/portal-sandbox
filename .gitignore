@@ -1,4 +1,8 @@
 .idea/
-log
 vendor
-composer.lock
+log
+tests/log
+tests/metrics
+tests/config/keys.php
+tests/storage
+storage

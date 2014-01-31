@@ -3,12 +3,10 @@
 	"description":       "DreamFactory Services Platform(tm) Portal Sandbox Application",
 	"homepage":          "http://dreamfactorysoftware.github.io/#oasys",
 	"keywords":          [
-		"dreamfactory", "oasys", "oauth", "authentication", "framework", "examples", "portal"
+		"oasys", "oauth", "authentication", "examples", "dsp"
 	],
 	"type":              "dreamfactory-plugin",
-	"license":           [
-		"Apache-2.0"
-	],
+	"license":           ["Apache-2.0"],
 	"authors":           [
 		{
 			"name":  "Jerry Ablan",
@@ -22,13 +20,35 @@
 		"source": "https://github.com/dreamfactorysoftware/portal-sandbox"
 	},
 	"minimum-stability": "dev",
+	"repositories":      [
+		{
+			"type": "pear",
+			"url":  "http://pear.php.net"
+		}
+	],
 	"require":           {
 		"php":                            ">=5.3.18",
-		"kisma/kisma":                    "*",
-		"dreamfactory/package-installer": ">=1.3.12"
+		"kisma/kisma":                    "@stable",
+		"dreamfactory/package-installer": "@stable"
+	},
+	"require-dev":       {
+		"dreamfactory/oasys":                   "@stable",
+		"dreamfactory/lib-php-common-platform": "@stable",
+		"phpunit/phpunit":                      "@stable",
+		"phpunit/phpunit-mock-objects":         "@stable",
+		"phpunit/phpunit-selenium":             "@stable",
+		"phpunit/phpunit-story":                "@stable",
+		"phpunit/dbunit":                       "@stable",
+		"phpunit/php-code-coverage":            "@stable",
+		"phpunit/php-text-template":            "@stable",
+		"phpunit/php-token-stream":             "@stable",
+		"phpunit/php-timer":                    "@stable",
+		"phpunit/php-invoker":                  "@stable"
 	},
 	"extra":             {
-		"data":  {
+		"branch-alias": {
+		},
+		"data":         {
 			"application": {
 				"name":              "Portal Sandbox",
 				"api-name":          "pbox",
@@ -42,7 +62,7 @@
 				"toggle-location":   "top"
 			}
 		},
-		"links": [
+		"links":        [
 			{
 				"target": "src/",
 				"link":   "pbox"
