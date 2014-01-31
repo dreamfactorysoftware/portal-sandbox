@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "5d3ca9480fbacfc0f42a9d0c55b95991",
+    "hash": "c4647c59f87b279c510b889b0fa7790a",
     "packages": [
         {
             "name": "dreamfactory/package-installer",

@@ -19,6 +19,9 @@
 		"wiki":   "https://github.com/dreamfactorysoftware/portal-sandbox/wiki",
 		"source": "https://github.com/dreamfactorysoftware/portal-sandbox"
 	},
+	"config":            {
+		"discard-changes": true
+	},
 	"minimum-stability": "dev",
 	"repositories":      [
 		{
