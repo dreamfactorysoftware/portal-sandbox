@@ -30,23 +30,14 @@
 		}
 	],
 	"require":           {
-		"php":                            ">=5.3.18",
-		"kisma/kisma":                    "@stable",
-		"dreamfactory/package-installer": "@stable"
+		"php":                            "~5.3",
+		"kisma/kisma":                    "~0.2",
+		"dreamfactory/package-installer": "*"
 	},
 	"require-dev":       {
 		"dreamfactory/oasys":                   "@stable",
 		"dreamfactory/lib-php-common-platform": "@stable",
-		"phpunit/phpunit":                      "@stable",
-		"phpunit/phpunit-mock-objects":         "@stable",
-		"phpunit/phpunit-selenium":             "@stable",
-		"phpunit/phpunit-story":                "@stable",
-		"phpunit/dbunit":                       "@stable",
-		"phpunit/php-code-coverage":            "@stable",
-		"phpunit/php-text-template":            "@stable",
-		"phpunit/php-token-stream":             "@stable",
-		"phpunit/php-timer":                    "@stable",
-		"phpunit/php-invoker":                  "@stable"
+		"phpunit/phpunit":                      "@stable"
 	},
 	"extra":             {
 		"branch-alias": {
