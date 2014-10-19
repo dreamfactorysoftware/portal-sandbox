@@ -5,7 +5,7 @@
 	"keywords":          [
 		"oasys", "oauth", "authentication", "examples", "dsp"
 	],
-	"type":              "dreamfactory-plugin",
+	"type":              "dreamfactory-application",
 	"license":           ["Apache-2.0"],
 	"authors":           [
 		{
