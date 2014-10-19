@@ -29,7 +29,7 @@ if ( !class_exists( '\\Yii', false ) )
 
     while ( true )
     {
-        if ( file_exists( $_dspBase . '/docs/rocket.psd' ) || is_dir( $_dspBase . '/storage/.private' ) )
+        if ( file_exists( $_dspBase . '/.dreamfactory.php' ) && is_dir( $_dspBase . '/storage/.private' ) )
         {
             break;
         }
@@ -56,6 +56,10 @@ if ( !class_exists( '\\Yii', false ) )
 
     //	Load up Yii
     require_once $_dspBase . '/vendor/dreamfactory/yii/framework/yiilite.php';
+
+    //  Comment both lines to disable debug mode
+    ini_set( 'display_errors', 1 );
+    defined( 'YII_DEBUG' ) or define( 'YII_DEBUG', true );
 
     if ( !\Yii::app() )
     {

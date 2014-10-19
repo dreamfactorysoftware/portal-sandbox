@@ -31,7 +31,7 @@ use Kisma\Core\Utility\Inflector;
 //*************************************************************************
 
 /**
- * @var string
+ * @type string
  */
 const APPLICATION_NAME = 'portal-sandbox';
 
@@ -39,14 +39,7 @@ const APPLICATION_NAME = 'portal-sandbox';
 //* Bootstrap and Debugging
 //********************************************************************************
 
-require_once __DIR__ . '/../autoload.php';
-
-//	Debugging?
-if ( \Kisma::getDebug() )
-{
-    error_reporting( -1 );
-    ini_set( 'display_errors', 1 );
-}
+require_once dirname( __DIR__ ) . '/autoload.php';
 
 //	Must be logged in...
 if ( Pii::guest() )
@@ -135,10 +128,10 @@ $_defaultUrl = '/rest/system/user';
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<?php require_once __DIR__ . '/views/_head.php'; ?>
+<?php require_once __DIR__ . '/views/_head.html'; ?>
 <body>
 <div id="wrap">
-<?php require_once __DIR__ . '/views/_navbar.php'; ?>
+<?php require_once __DIR__ . '/views/_navbar.html'; ?>
 
 <div class="container">
 <h1>Portal Sandbox</h1>
@@ -345,7 +338,34 @@ $_defaultUrl = '/rest/system/user';
 </div>
 </div>
 
-<?php require_once( 'views/_footer.php' ); ?>
+<div id="footer">
+    <div class="container">
+        <div class="social-links pull-right">
+            <ul class="list-inline">
+                <li>
+                    <a target="_blank"
+                        href="http://facebook.com/dreamfactory"><i class="fa fa-facebook-square fa-2x"></i></a>
+                </li>
+                <li>
+                    <a target="_blank"
+                        href="https://twitter.com/dfsoftwareinc"><i class="fa fa-twitter-square fa-2x"></i></a>
+                </li>
+                <li>
+                    <a target="_blank"
+                        href="https://github.com/dreamfactorysoftware"><i class="fa fa-github-square fa-2x"></i></a>
+                </li>
+            </ul>
+        </div>
+        <div class="clearfix"></div>
+        <p>
+			<span class="pull-left hidden-xs hidden-sm">Licensed under the <a target="_blank"
+                    href="http://www.apache.org/licenses/LICENSE-2.0">Apache License v2.0 </a></span>
+            <span class="pull-right">&copy; DreamFactory Software, Inc. <?php echo date( 'Y' ); ?>.
+                All Rights Reserved.
+            </span>
+        </p>
+    </div>
+</div>
 
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="//google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
