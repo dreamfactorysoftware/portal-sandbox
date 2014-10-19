@@ -18,63 +18,55 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+use DreamFactory\Yii\Utility\Pii;
+
 /**
  * Main entry point/bootstrap for PHP applications
  */
 if ( !class_exists( '\\Yii', false ) )
 {
-	$_dspBase = realpath( __DIR__ );
+    $_dspBase = realpath( __DIR__ );
 
-	while ( true )
-	{
-		if ( file_exists( $_dspBase . '/docs/rocket.psd' ) || is_dir( $_dspBase . '/storage/.private' ) )
-		{
-			break;
-		}
+    while ( true )
+    {
+        if ( file_exists( $_dspBase . '/docs/rocket.psd' ) || is_dir( $_dspBase . '/storage/.private' ) )
+        {
+            break;
+        }
 
-		$_dspBase = dirname( $_dspBase );
+        $_dspBase = dirname( $_dspBase );
 
-		if ( empty( $_dspBase ) || $_dspBase == '.' || $_dspBase == '/' )
-		{
-			throw new Exception( 'Unable to locate DSP installation.', 500 );
-		}
-	}
+        if ( empty( $_dspBase ) || $_dspBase == '.' || $_dspBase == '/' )
+        {
+            throw new Exception( 'Unable to locate DSP installation.', 500 );
+        }
+    }
 
-	//	Load up composer...
-	$_autoloader = require_once( $_dspBase . '/vendor/autoload.php' );
+    //	Load up composer...
+    $_autoloader = require_once( $_dspBase . '/vendor/autoload.php' );
 
-	if ( is_object( $_autoloader ) )
-	{
-		\Kisma::set( 'app.autoloader', $_autoloader );
-	}
-	else
-	{
-		$_autoloader = \Kisma::get( 'app.autoloader' );
-	}
+    if ( is_object( $_autoloader ) )
+    {
+        \Kisma::set( 'app.autoloader', $_autoloader );
+    }
+    else
+    {
+        $_autoloader = \Kisma::get( 'app.autoloader' );
+    }
 
-	//	Turn on debugging
-	\Kisma::setDebug( true );
+    //	Load up Yii
+    require_once $_dspBase . '/vendor/dreamfactory/yii/framework/yiilite.php';
 
-	//	Load up Yii
-	require_once $_dspBase . '/vendor/dreamfactory/yii/framework/yii.php';
-
-	if ( \Kisma::getDebug() )
-	{
-		//	Yii debug settings
-		defined( 'YII_DEBUG' ) or define( 'YII_DEBUG', true );
-		defined( 'YII_TRACE_LEVEL' ) or define( 'YII_TRACE_LEVEL', 3 );
-	}
-
-	if ( !\Yii::app() )
-	{
-		//	Create the application but do not run...
-		DreamFactory\Yii\Utility\Pii::run(
-			__DIR__ . '/src',
-			is_object( $_autoloader ) ? $_autoloader : null,
-			'DreamFactory\\Platform\\Yii\\Components\\PlatformWebApplication',
-			$_dspBase . '/config/web.php',
-			false,
-			false
-		);
-	}
+    if ( !\Yii::app() )
+    {
+        //	Create the application but do not run...
+        Pii::run(
+            __DIR__ . '/src',
+            is_object( $_autoloader ) ? $_autoloader : null,
+            'DreamFactory\\Platform\\Yii\\Components\\PlatformWebApplication',
+            $_dspBase . '/config/web.php',
+            false,
+            false
+        );
+    }
 }
