@@ -43,12 +43,11 @@ var _options = {
 	readOnly:            true,
 	/** @var {*} jQuery cache */
 	$:                   {request: {}, status: {}},
-
-	//    These are set in index.php (ugh)
 	/**
 	 * @var string
 	 */
-	APPLICATION_NAME:    null,
+	APPLICATION_NAME:    'portal-sandbox',
+	//    These are set in index.php (ugh)
 	/** @var {*}[] **/
 	providers:           {},
 	/** @var string **/
@@ -231,8 +230,8 @@ var _loadProvider = function(provider) {
 	$.ajax({
 		url:        _userEndpoint,
 		data:       {
-			app_name: $_app.val(),
-			filter:   _filter
+			app_name: $_app.val() || _options.APPLICATION_NAME,
+			filter: _filter
 		},
 		beforeSend: function() {
 			_loading(true);
@@ -375,7 +374,7 @@ var _execute = function() {
 
 					if (!_location) {
 						_showResults('<div class="alert alert-fixed alert-danger"><strong>Authorization Required</strong><p>However, the authorization URL cannot be determined.</p></div>',
-							false);
+						false);
 					}
 					else {
 						_showAuthorizeUrl(_location);
@@ -500,7 +499,7 @@ jQuery(function($) {
 			},
 			error:    function(error) {
 				_options.$.status.provider.html('<i class="fa fa-times btn-danger status-icon"></i><small>Revocation failed. (' + error.message +
-												')</small>').show();
+				')</small>').show();
 			},
 			success:  function(data) {
 				_options.$.status.revoke.hide();
