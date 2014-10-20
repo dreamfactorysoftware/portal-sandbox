@@ -5,7 +5,7 @@
 html, body {
 	height:      100%;
 	font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial, sans-serif;
-	/* The html and body elements cannot have any padding or margin. */
+	/* The html and body elements shouldn't have any padding or margin. */
 }
 
 code {
@@ -21,6 +21,12 @@ pre {
 
 form {
 	padding-top: 11px;
+}
+
+.form-hidden {
+	border-top:    1px solid rgba(0, 0, 0, .25);
+	border-bottom: 1px solid rgba(0, 0, 0, .25);
+	border-radius: 0;
 }
 
 h3 {
@@ -54,35 +60,12 @@ optgroup {
 ** Specific Classes
 **************************************************************************/
 
-/* Wrapper for page content to push down footer */
-#wrap {
-	min-height: 100%;
-	/*noinspection CssOverwrittenProperties*/
-	height:     auto !important;
-	/*noinspection CssOverwrittenProperties*/
-	height:     100%;
-	/* Negative indent footer by its height */
-	margin:     0 auto -64px;
-	/* Pad bottom by footer height */
-	padding:    0 0 64px;
-	/** Hide bottom scroll when pushing */
-	overflow-x: hidden;
-}
-
 /* Set the fixed height of the footer here */
 #footer {
 	background-color: #ccc;
 	height:           64px;
 	width:            100%;
-}
-
-#wrap > .container {
-	padding: 32px 15px 0 15px;
-}
-
-#wrap > .container h1:first-of-type {
-	border-bottom: 1px solid #efefef;
-	font-family:   'Lato', 'Helvetica Neue Light', Arial, sans-serif;
+	padding-top:      8px;
 }
 
 #footer > .container {
@@ -109,32 +92,6 @@ optgroup {
 	text-shadow: 0 -1px 0 #5c5c5c;
 }
 
-.df-header {
-	box-shadow: 0 1px 2px #999;
-}
-
-.df-header .navbar-nav > li > a {
-	font-weight:        normal;
-	color:              #FFFFFF;
-	opacity:            0.80;
-	-webkit-transition: opacity 1s ease-out;
-	transition:         opacity 1s ease-out;
-}
-
-.df-header .navbar-nav > .active > a, .df-header .navbar-nav > .active > a:hover {
-	opacity: 1;
-}
-
-.df-header .navbar-nav > li > a:hover {
-	opacity:            1;
-	-webkit-transition: opacity 0.25s ease-in;
-	transition:         opacity 0.25s ease-in;
-}
-
-.inner-content {
-	padding: 40px 14px 0;
-}
-
 ul li a:hover {
 	text-decoration: none;
 }
@@ -145,14 +102,21 @@ ul li a:hover {
 	width:    98%;
 }
 
+.navbar {
+	margin-bottom: 15px;
+}
+
 .navbar .navbar-header .navbar-brand.df-title {
-	padding:        8px 10px;
 	font-size:      21px;
 	letter-spacing: -1px;
 	font-weight:    700;
 	color:          #efefef;
 	font-family:    'Lato', 'Helvetica Neue Light', Arial, sans-serif;
 	text-shadow:    0 1px 0 #e5e5ee;
+
+	margin:         0;
+	padding:        8px 0 0;
+	text-align:     right;
 }
 
 .navbar.navbar-inverse .navbar-header .navbar-brand.df-title {
@@ -167,12 +131,15 @@ ul li a:hover {
 	width: 100%;
 }
 
+.brand-wrap div {
+	text-align: right;
+}
+
 .brand-wrap img {
 	vertical-align: top;
-	margin-top:     8px;
 	display:        inline-block;
 	float:          left;
-	margin-left:    15px
+	margin:         8px 15px 0 10px;
 }
 
 .brand-wrap small {
@@ -183,8 +150,8 @@ ul li a:hover {
 	line-height: 11px;
 	border-top:  1px solid rgba(245, 198, 129, 0.25);
 	padding:     2px 0 0;
-	margin:      -8px 0 0 12px;
-	width:       90%;
+	margin:      -20px 0 0 0;
+	width:       100%;
 }
 
 .dropdown-item-small {
@@ -249,6 +216,14 @@ i.status-icon {
 	padding-right: 4px;
 }
 
+.tooltip {
+	margin-bottom: 10px;
+}
+
+.navbar-toggle-collapsed + .brand-wrap img {
+	margin-left: 5px;
+}
+
 /**************************************************************************
 ** Media Queries
 **************************************************************************/
@@ -272,3 +247,4 @@ i.status-icon {
 		width: 472px;
 	}
 }
+

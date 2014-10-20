@@ -19,58 +19,72 @@
  * limitations under the License.
  */
 use DreamFactory\Yii\Utility\Pii;
+use Kisma\Core\Exceptions\FileSystemException;
 
 /**
- * Main entry point/bootstrap for PHP applications
+ * Main entry point/bootstrap for DSP apps using PHP
+ *
+ * NOTE: This index file piggy-backs on the DSP's installation
+ * therefore a running DSP is required to use this app.
  */
-if ( !class_exists( '\\Yii', false ) )
+class AppLoader
 {
-    $_dspBase = realpath( __DIR__ );
-
-    while ( true )
+    /**
+     * Locates the installed DSP's base directory
+     *
+     * @param string $startPath
+     *
+     * @throws FileSystemException
+     * @return string|bool The absolute path to the platform installation. False if not found
+     */
+    public static function locatePlatformBasePath( $startPath = __DIR__ )
     {
-        if ( file_exists( $_dspBase . '/.dreamfactory.php' ) && is_dir( $_dspBase . '/storage/.private' ) )
+        //  Start path given or this file's directory
+        $_path = $startPath ?: __DIR__;
+
+        while ( true )
         {
-            break;
+            $_path = rtrim( $_path, ' /' );
+
+            if ( file_exists( $_path . '/.dreamfactory.php' ) && is_dir( $_path . '/storage/.private' ) )
+            {
+                break;
+            }
+
+            //  Too low, go up a level
+            $_path = dirname( $_path );
+
+            //	If we get to the root, ain't no DSP...
+            if ( '/' == $_path || empty( $_path ) )
+            {
+                return false;
+            }
         }
 
-        $_dspBase = dirname( $_dspBase );
-
-        if ( empty( $_dspBase ) || $_dspBase == '.' || $_dspBase == '/' )
-        {
-            throw new Exception( 'Unable to locate DSP installation.', 500 );
-        }
+        return $_path;
     }
 
-    //	Load up composer...
-    $_autoloader = require_once( $_dspBase . '/vendor/autoload.php' );
-
-    if ( is_object( $_autoloader ) )
-    {
-        \Kisma::set( 'app.autoloader', $_autoloader );
-    }
-    else
-    {
-        $_autoloader = \Kisma::get( 'app.autoloader' );
-    }
-
-    //	Load up Yii
-    require_once $_dspBase . '/vendor/dreamfactory/yii/framework/yiilite.php';
-
-    //  Comment both lines to disable debug mode
-    ini_set( 'display_errors', 1 );
-    defined( 'YII_DEBUG' ) or define( 'YII_DEBUG', true );
-
-    if ( !\Yii::app() )
-    {
-        //	Create the application but do not run...
-        Pii::run(
-            __DIR__ . '/src',
-            is_object( $_autoloader ) ? $_autoloader : null,
-            'DreamFactory\\Platform\\Yii\\Components\\PlatformWebApplication',
-            $_dspBase . '/config/web.php',
-            false,
-            false
-        );
-    }
 }
+
+if ( false === ( $_dspBase = AppLoader::locatePlatformBasePath() ) )
+{
+    header( 'Location: /?error=Unable+to+locate+platform+base+path.' );
+    die();
+}
+
+$_autoloader = require( $_dspBase . '/vendor/autoload.php' );
+require $_dspBase . '/vendor/dreamfactory/yii/framework/yiilite.php';
+
+//  Comment both lines to disable debug mode
+ini_set( 'display_errors', 1 );
+defined( 'YII_DEBUG' ) or define( 'YII_DEBUG', true );
+
+//	Create the application but do not run...
+Pii::run(
+    __DIR__ . '/src',
+    $_autoloader,
+    'DreamFactory\\Platform\\Yii\\Components\\PlatformWebApplication',
+    $_dspBase . '/config/web.php',
+    false,
+    false
+);

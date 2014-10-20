@@ -40,7 +40,7 @@ var _options = {
 	/** @var {*} **/
 	currentProvider:     {},
 	/** @var bool */
-	readOnly:            true,
+	allowAdd:            false,
 	/** @var {*} jQuery cache */
 	$:                   {request: {}, status: {}},
 	/**
@@ -85,6 +85,7 @@ var _reset = function() {
 	_options.$.request.method.val('GET');
 	_options.$.request.app.val(_options.APPLICATION_NAME);
 	_options.$.results.html('<small>Ready</small>');
+
 	_loading(false);
 };
 
@@ -426,14 +427,20 @@ var _initialize = function() {
 
 	//	Load providers
 	_loadProvider();
+
+	//	Conditional close button and functionality if embedded
+	if (window.parent && window.parent.Actions) {
+		$('#app-close').on('click', function(e) {
+			e.preventDefault();
+			window.parent.Actions.showAdmin();
+		}).removeClass('hide');
+	}
+
+	//	Tippage
+	$('.social-links a i').tooltip();
 };
 
-/**
- * Initialize any buttons and set fieldset menu classes
- */
-jQuery(function($) {
-	//	Initialize...
-	_initialize();
+var _initializeEvents = function() {
 
 	$('a.example-code').on('click', function(e) {
 		e.preventDefault();
@@ -444,23 +451,16 @@ jQuery(function($) {
 		}
 	});
 
-	//	Close the app
-	$('#app-close').on('click', function(e) {
-		e.preventDefault();
-		if (window.parent && window.parent.Actions) {
-			window.parent.Actions.showAdmin();
-		}
-	});
-
-	if (!_options.readOnly) {
+	if (_options.allowAdd) {
 		$('#add-provider').on('click', function(e) {
 			e.preventDefault();
+
 			if (!$(this).hasClass('disabled')) {
 				$('#select-provider').slideUp();
 				$('#new-provider').slideDown();
 				$('#add-provider').addClass('disabled');
 			}
-		});
+		}).removeClass('hide');
 
 		$('#add-provider-cancel').on('click', function(e) {
 			e.preventDefault();
@@ -469,6 +469,18 @@ jQuery(function($) {
 			$('#add-provider').removeClass('disabled');
 		});
 	}
+
+	$('#provider-list').on('change', function() {
+		var _id = $(this).val();
+
+		if (_options.providers && _options.providers.hasOwnProperty(_id)) {
+			_options.currentProvider = _options.providers[_id];
+			_loadProvider(_options.providers[_id]);
+			return true;
+		}
+
+		return false;
+	});
 
 	$('#send-request').on('click', function(e) {
 		e.preventDefault();
@@ -515,16 +527,13 @@ jQuery(function($) {
 
 		return true;
 	});
+};
 
-	$('#provider-list').on('change', function() {
-		var _id = $(this).val();
-
-		if (_options.providers && _options.providers.hasOwnProperty(_id)) {
-			_options.currentProvider = _options.providers[_id];
-			_loadProvider(_options.providers[_id]);
-			return true;
-		}
-
-		return false;
-	});
+/**
+ * Initialize any buttons and set fieldset menu classes
+ */
+jQuery(function($) {
+	//	Initialize...
+	_initialize();
+	_initializeEvents();
 });
