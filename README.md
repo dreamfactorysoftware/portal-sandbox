@@ -1,4 +1,4 @@
-# portal-sandbox v1.2.3
+# portal-sandbox v1.2.5
 
 ## DreamFactory Services Platform&trade; Portal Sandbox Application
 
