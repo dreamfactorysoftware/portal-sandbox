@@ -32,7 +32,7 @@
 	"require":           {
 		"php":                            "~5.3",
 		"kisma/kisma":                    "~0.2",
-		"dreamfactory/package-installer": "*"
+		"dreamfactory/package-installer": "dev-develop as dev-master"
 	},
 	"require-dev":       {
 		"dreamfactory/oasys":                   "@stable",
