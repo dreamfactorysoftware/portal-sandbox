@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5d1d5908ea790b0c50f66bdcac00ea64",
+    "hash": "87ab6450a4700428225c0265c61c7898",
     "packages": [
         {
             "name": "doctrine/cache",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/cache.git",
-                "reference": "f7a1d660c521461b835dc31af0f6c9836769e917"
+                "reference": "912e8a11ce3c75a630b225dd82aed83e00943ed5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/cache/zipball/f7a1d660c521461b835dc31af0f6c9836769e917",
-                "reference": "f7a1d660c521461b835dc31af0f6c9836769e917",
+                "url": "https://api.github.com/repos/doctrine/cache/zipball/912e8a11ce3c75a630b225dd82aed83e00943ed5",
+                "reference": "912e8a11ce3c75a630b225dd82aed83e00943ed5",
                 "shasum": ""
             },
             "require": {
@@ -73,7 +73,7 @@
                 "cache",
                 "caching"
             ],
-            "time": "2014-09-29 13:28:56"
+            "time": "2014-10-20 19:28:25"
         },
         {
             "name": "dreamfactory/package-installer",
@@ -81,17 +81,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dreamfactorysoftware/package-installer.git",
-                "reference": "f2367bda9f15a16d7faf12cc81e4e80d9418522a"
+                "reference": "9ae7870916654dcc2a1ebb45a6f1fe49e9f9e782"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dreamfactorysoftware/package-installer/zipball/f2367bda9f15a16d7faf12cc81e4e80d9418522a",
-                "reference": "f2367bda9f15a16d7faf12cc81e4e80d9418522a",
+                "url": "https://api.github.com/repos/dreamfactorysoftware/package-installer/zipball/9ae7870916654dcc2a1ebb45a6f1fe49e9f9e782",
+                "reference": "9ae7870916654dcc2a1ebb45a6f1fe49e9f9e782",
                 "shasum": ""
             },
             "require": {
                 "composer-plugin-api": "1.0.0",
-                "dreamfactory/php-utils": "*"
+                "dreamfactory/php-utils": "*",
+                "kisma/kisma": "*"
             },
             "require-dev": {
                 "composer/composer": "*",
@@ -132,7 +133,7 @@
                 "jetpack",
                 "plugin"
             ],
-            "time": "2014-10-20 00:12:28"
+            "time": "2014-10-20 03:44:21"
         },
         {
             "name": "dreamfactory/php-utils",
