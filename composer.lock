@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f2f12ced488b4bba4a58df957ec49e1b",
+    "hash": "306254280c288bd0c765ce7d32c93bfe",
     "packages": [
         {
             "name": "doctrine/cache",
@@ -81,12 +81,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dreamfactorysoftware/package-installer.git",
-                "reference": "cc5ccb5c7c2ecd56de1b4f603232878e23546141"
+                "reference": "05ecc1d358d75904b5ce5e16dcad0953f727bbda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dreamfactorysoftware/package-installer/zipball/cc5ccb5c7c2ecd56de1b4f603232878e23546141",
-                "reference": "cc5ccb5c7c2ecd56de1b4f603232878e23546141",
+                "url": "https://api.github.com/repos/dreamfactorysoftware/package-installer/zipball/05ecc1d358d75904b5ce5e16dcad0953f727bbda",
+                "reference": "05ecc1d358d75904b5ce5e16dcad0953f727bbda",
                 "shasum": ""
             },
             "require": {
@@ -132,7 +132,7 @@
                 "jetpack",
                 "plugin"
             ],
-            "time": "2014-10-21 03:36:38"
+            "time": "2014-10-21 17:26:21"
         },
         {
             "name": "dreamfactory/php-utils",
