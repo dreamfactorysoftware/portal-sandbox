@@ -41,8 +41,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-develop": "1.2.x-dev",
-            "no-plugins": true
+            "dev-develop": "1.2.x-dev"
         },
         "data": {
             "application": {
