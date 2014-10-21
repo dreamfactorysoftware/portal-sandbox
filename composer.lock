@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "87ab6450a4700428225c0265c61c7898",
+    "hash": "e70b87cf010aa8dbd0504782a1778a1b",
     "packages": [
         {
             "name": "doctrine/cache",
@@ -81,12 +81,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dreamfactorysoftware/package-installer.git",
-                "reference": "9ae7870916654dcc2a1ebb45a6f1fe49e9f9e782"
+                "reference": "cc5ccb5c7c2ecd56de1b4f603232878e23546141"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dreamfactorysoftware/package-installer/zipball/9ae7870916654dcc2a1ebb45a6f1fe49e9f9e782",
-                "reference": "9ae7870916654dcc2a1ebb45a6f1fe49e9f9e782",
+                "url": "https://api.github.com/repos/dreamfactorysoftware/package-installer/zipball/cc5ccb5c7c2ecd56de1b4f603232878e23546141",
+                "reference": "cc5ccb5c7c2ecd56de1b4f603232878e23546141",
                 "shasum": ""
             },
             "require": {
@@ -95,8 +95,7 @@
                 "kisma/kisma": "*"
             },
             "require-dev": {
-                "composer/composer": "*",
-                "dreamfactory/lib-php-common-platform": "*"
+                "composer/composer": "*"
             },
             "type": "composer-plugin",
             "extra": {
@@ -133,7 +132,7 @@
                 "jetpack",
                 "plugin"
             ],
-            "time": "2014-10-20 03:44:21"
+            "time": "2014-10-21 03:36:38"
         },
         {
             "name": "dreamfactory/php-utils",
