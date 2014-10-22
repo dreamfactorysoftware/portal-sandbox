@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b66df577cd40ec1881c9567633cfa42f",
+    "hash": "a1890d239812e41577747d2382f6a220",
     "packages": [
         {
             "name": "doctrine/cache",
@@ -140,12 +140,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dreamfactorysoftware/php-utils.git",
-                "reference": "3a0850ee2ebe016eec8386f34e05a3136bfa7bb3"
+                "reference": "25c75d6277465fad419ee7180cc5780956ca626a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dreamfactorysoftware/php-utils/zipball/3a0850ee2ebe016eec8386f34e05a3136bfa7bb3",
-                "reference": "3a0850ee2ebe016eec8386f34e05a3136bfa7bb3",
+                "url": "https://api.github.com/repos/dreamfactorysoftware/php-utils/zipball/25c75d6277465fad419ee7180cc5780956ca626a",
+                "reference": "25c75d6277465fad419ee7180cc5780956ca626a",
                 "shasum": ""
             },
             "require": {
@@ -183,7 +183,7 @@
                 "dreamfactory",
                 "utility"
             ],
-            "time": "2014-10-19 04:22:35"
+            "time": "2014-10-22 18:09:40"
         },
         {
             "name": "kisma/kisma",

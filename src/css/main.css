@@ -62,6 +62,8 @@ optgroup {
 
 /* Set the fixed height of the footer here */
 #footer {
+	position:         absolute;
+	bottom:           0;
 	background-color: #ccc;
 	height:           64px;
 	width:            100%;

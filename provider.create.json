@@ -1,17 +1,16 @@
 {
-	"api_name":          "facebook",
-	"provider_name":     "Facebook",
-	"is_active":         true,
-	"is_system":         false,
-	"is_login_provider": false,
-	"config_text":       {
-		"client_id":     "your.client.id",
-		"client_secret": "your.client.secret",
-		"scope":         [
-			"user_about_me",
-			"email",
-			"user_birthday",
-			"user_groups"
-		]
-	}
+    "api_name": "facebook",
+    "provider_name": "Facebook",
+    "is_active": true,
+    "is_system": false,
+    "is_login_provider": false,
+    "config_text": {
+        "client_id": "your.client.id",
+        "client_secret": "your.client.secret",
+        "scope": [
+            "public_profile",
+            "email",
+            "user_friends"
+        ]
+    }
 }
