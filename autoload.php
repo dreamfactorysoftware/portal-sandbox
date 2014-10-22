@@ -18,30 +18,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-use DreamFactory\Library\Utility\Curl;
 use DreamFactory\Yii\Utility\Pii;
 
-$_path = null;
-
-try
-{
-    //  Try to get from my local host, otherwise find it
-    if ( false !== ( $_config = Curl::get( '/rest/system/config?app_name=admin' ) ) )
-    {
-        if ( isset( $_config['paths'], $_config['paths']['base'] ) )
-        {
-            $_path = $_config['paths']['base'];
-        }
-    }
-}
-catch ( \Exception $_ex )
-{
-    // Ignored
-    $_path = null;
-}
-
 //  Start path given or this file's directory
-$_path = $_path ?: __DIR__;
+$_path = __DIR__;
 
 while ( true )
 {
