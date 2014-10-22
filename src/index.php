@@ -141,15 +141,16 @@ $_defaultUrl = '/rest/system/user';
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries --><!-- WARNING: Respond.js doesn't work if you view the page via file:// --><!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]--></head>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+</head>
 <body>
 <!-- Navbar -->
 <div class="navbar navbar-inverse navbar-static-top" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span>
-                <span class="icon-bar"></span> <span class="icon-bar"></span>
+                <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
             </button>
             <div class="brand-wrap">
                 <img src="img/logo-32x32.png" alt="" />
@@ -188,8 +189,8 @@ $_defaultUrl = '/rest/system/user';
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a data-toggle="collapse"
-                           data-parent="#provider-settings-group"
-                           href="#provider-form-body">Providers</a>
+                            data-parent="#provider-settings-group"
+                            href="#provider-form-body">Providers</a>
                     </h4>
                 </div>
                 <div id="provider-form-body" class="panel-collapse collapse in">
@@ -201,7 +202,7 @@ $_defaultUrl = '/rest/system/user';
 
                                     <div class="col-sm-3">
                                         <select class="form-control"
-                                                id="provider-list"><?php echo $_providers; ?></select>
+                                            id="provider-list"><?php echo $_providers; ?></select>
                                     </div>
                                     <div class="col-sm-6">
                                         <div id="provider-auth-check" style="display: none;" class="pull-left">
@@ -209,12 +210,12 @@ $_defaultUrl = '/rest/system/user';
                                             <small>Checking authorization...</small>
                                         </div>
                                         <div id="provider-auth-status"
-                                             style="display: none;"
-                                             class="pull-left"></div>
+                                            style="display: none;"
+                                            class="pull-left"></div>
                                         <div id="revoke-auth-status"
-                                             style="display: none;"
-                                             class="pull-left"
-                                             data-provider-user-id="">
+                                            style="display: none;"
+                                            class="pull-left"
+                                            data-provider-user-id="">
                                             <i class="fa fa-trash-o btn-danger status-icon"></i>
                                             <small>Click <a href="#" id="revoke-auth">here</a> to revoke.
                                             </small>
@@ -242,8 +243,8 @@ $_defaultUrl = '/rest/system/user';
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a data-toggle="collapse"
-                           data-parent="#call-settings-group"
-                           href="#session-form-body">Call Settings</a>
+                            data-parent="#call-settings-group"
+                            href="#session-form-body">Call Settings</a>
                     </h4>
                 </div>
                 <div id="session-form-body" class="panel-collapse collapse in">
@@ -255,13 +256,13 @@ $_defaultUrl = '/rest/system/user';
                                 <div class="col-sm-10">
                                     <div class="input-group">
                                                     <span id="request-server"
-                                                          class="input-group-addon muted">https://*.cloud.dreamfactory.com</span>
+                                                        class="input-group-addon muted">https://*.cloud.dreamfactory.com</span>
 
                                         <input type="text"
-                                               class="form-control"
-                                               id="request-uri"
-                                               value="<?php echo $_defaultUrl; ?>"
-                                               placeholder="The request URI (i.e. /system/user)">
+                                            class="form-control"
+                                            id="request-uri"
+                                            value="<?php echo $_defaultUrl; ?>"
+                                            placeholder="The request URI (i.e. /system/user)">
                                     </div>
                                 </div>
                             </div>
@@ -308,8 +309,8 @@ $_defaultUrl = '/rest/system/user';
                                 <div class="form-buttons">
                                     <button id="reset-request" type="button" class="btn btn-danger">Reset</button>
                                     <button id="send-request"
-                                            type="button"
-                                            class="btn btn-warning">Send Request
+                                        type="button"
+                                        class="btn btn-warning">Send Request
                                     </button>
                                 </div>
                             </div>
@@ -326,10 +327,10 @@ $_defaultUrl = '/rest/system/user';
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a name="provider-results"
-                           data-toggle="collapse"
-                           data-parent="#call-results-group"
-                           href="#call-results-body">Call Results </a> <span id="request-elapsed"></span>
-                        <span id="loading-indicator" class="pull-right"><i class="fa fa-spinner"></i></span>
+                            data-toggle="collapse"
+                            data-parent="#call-results-group"
+                            href="#call-results-body">Call Results </a> <span id="request-elapsed"></span> <span id="loading-indicator"
+                            class="pull-right"><i class="fa fa-spinner"></i></span>
                     </h4>
                 </div>
                 <div id="call-results-body" class="panel-collapse collapse in">

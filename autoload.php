@@ -22,6 +22,8 @@ use DreamFactory\Yii\Utility\Pii;
 use Kisma\Core\Exceptions\FileSystemException;
 use Kisma\Core\Utility\Curl;
 
+$_autoloader = require( __DIR__ . '/vendor/autoload.php' );
+
 /**
  * Main entry point/bootstrap for DSP apps using PHP
  *
@@ -89,7 +91,11 @@ if ( false === ( $_dspBase = AppLoader::locatePlatformBasePath() ) )
     die();
 }
 
-$_autoloader = require( $_dspBase . '/vendor/autoload.php' );
+if ( empty( $_autoloader ) )
+{
+    $_autoloader = require( $_dspBase . '/vendor/autoload.php' );
+}
+
 require $_dspBase . '/vendor/dreamfactory/yii/framework/yiilite.php';
 
 //  Comment both lines to disable debug mode
