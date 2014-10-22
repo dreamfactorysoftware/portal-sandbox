@@ -49,18 +49,17 @@
         },
         "data": {
             "application": {
-                "api-name": "portal-sandbox",
                 "name": "Portal Sandbox",
+                "api-name": "portal-sandbox",
                 "description": "A sample application that demonstrates the DSP portal service.",
-                "url": "/index.php",
-                "is-url-external": false,
-                "storage-service-id": 2,
-                "storage-container": "applications/dreamfactory",
-                "import-url": "https://github.com/dreamfactorysoftware/portal-sandbox/archive/master.zip",
-                "is-active": 1
+                "is-active": true,
+                "is-url-external": true,
+                "url": "/pbox/index.php",
+                "import-url": "https://github.com/dreamfactorysoftware/portal-sandbox/archive/master.zip"
             }
         },
-        "_links": [
+        "config": ["config/app.config.php"],
+        "links": [
             {
                 "target": "src/",
                 "link": "pbox"

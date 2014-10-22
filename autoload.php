@@ -20,6 +20,7 @@
  */
 use DreamFactory\Yii\Utility\Pii;
 use Kisma\Core\Exceptions\FileSystemException;
+use Kisma\Core\Utility\Curl;
 
 /**
  * Main entry point/bootstrap for DSP apps using PHP
@@ -39,7 +40,22 @@ class AppLoader
      */
     public static function locatePlatformBasePath( $startPath = __DIR__ )
     {
-        $_config = Curl::get( '/rest/system/config?app_name=pbox' );
+        try
+        {
+            //  Try to get from my local host, otherwise find it
+            if ( false !== ( $_config = Curl::get( '/rest/system/config?app_name=admin' ) ) )
+            {
+                if ( isset( $_config['paths'], $_config['paths']['base'] ) )
+                {
+                    return $_config['paths']['base'];
+                }
+            }
+        }
+        catch ( \Exception $_ex )
+        {
+            // Ignored
+        }
+
         //  Start path given or this file's directory
         $_path = $startPath ?: __DIR__;
 
