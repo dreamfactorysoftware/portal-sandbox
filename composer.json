@@ -1,72 +1,70 @@
 {
-  "name": "dreamfactory/portal-sandbox",
-  "description": "DreamFactory Services Platform(tm) Portal Sandbox Application",
-  "homepage": "https://www.dreamfactory.com/",
-  "keywords": [
-    "oasys",
-    "oauth",
-    "authentication",
-    "examples",
-    "dsp"
-  ],
-  "type": "dreamfactory-application",
-  "license": ["Apache-2.0"],
-  "authors": [
-    {
-      "name": "Jerry Ablan",
-      "email": "jerryablan@dreamfactory.com"
-    }
-  ],
-  "support": {
-    "email": "support@dreamfactory.com",
-    "issues": "https://github.com/dreamfactorysoftware/portal-sandbox/issues",
-    "wiki": "https://github.com/dreamfactorysoftware/portal-sandbox/wiki",
-    "source": "https://github.com/dreamfactorysoftware/portal-sandbox"
-  },
-  "config": {
-    "discard-changes": true
-  },
-  "minimum-stability": "dev",
-  "repositories": [
-    {
-      "type": "pear",
-      "url": "http://pear.php.net"
-    }
-  ],
-  "require": {
-    "php": "~5.3",
-    "kisma/kisma": "~0.2",
-    "dreamfactory/package-installer": "dev-develop as dev-master"
-  },
-  "require-dev": {
-    "dreamfactory/oasys": "@stable",
-    "dreamfactory/lib-php-common-platform": "@stable",
-    "phpunit/phpunit": "@stable"
-  },
-  "extra": {
-    "branch-alias": {
-      "dev-develop": "1.2.x-dev"
+    "name": "dreamfactory/portal-sandbox",
+    "description": "DreamFactory Services Platform(tm) Portal Sandbox Application",
+    "homepage": "https://www.dreamfactory.com/",
+    "keywords": [
+        "oasys",
+        "oauth",
+        "authentication",
+        "examples",
+        "dsp"
+    ],
+    "type": "dreamfactory-application",
+    "license": ["Apache-2.0"],
+    "authors": [
+        {
+            "name": "Jerry Ablan",
+            "email": "jerryablan@dreamfactory.com"
+        }
+    ],
+    "support": {
+        "email": "support@dreamfactory.com",
+        "issues": "https://github.com/dreamfactorysoftware/portal-sandbox/issues",
+        "wiki": "https://github.com/dreamfactorysoftware/portal-sandbox/wiki",
+        "source": "https://github.com/dreamfactorysoftware/portal-sandbox"
     },
-    "data": {
-      "application": {
-        "api-name": "portal-sandbox",
-        "name": "Portal Sandbox",
-        "description": "A sample application that demonstrates the DSP portal service.",
-        "start-url": "/index.php",
-        "url-is-external": false,
-        "storage-service-id": 2,
-        "storage-container": "applications/dreamfactory",
-        "import-url": "https://github.com/dreamfactorysoftware/portal-sandbox/archive/master.zip",
-        "active": 1,
-        "toggle-location": "top",
-        "requires-plugin": 0
-      }
+    "config": {
+        "discard-changes": true
     },
-    "_links": [
-      {
-        "target": "src/",
-        "link": "pbox"
-      }
-    ]
-  }
+    "minimum-stability": "dev",
+    "repositories": [
+        {
+            "type": "pear",
+            "url": "http://pear.php.net"
+        }
+    ],
+    "require": {
+        "php": "~5.3",
+        "kisma/kisma": "~0.2",
+        "dreamfactory/package-installer": "dev-develop as dev-master"
+    },
+    "require-dev": {
+        "dreamfactory/oasys": "@stable",
+        "dreamfactory/lib-php-common-platform": "@stable",
+        "phpunit/phpunit": "@stable"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-develop": "1.2.x-dev"
+        },
+        "data": {
+            "application": {
+                "api-name": "portal-sandbox",
+                "name": "Portal Sandbox",
+                "description": "A sample application that demonstrates the DSP portal service.",
+                "url": "/index.php",
+                "is-url-external": false,
+                "storage-service-id": 2,
+                "storage-container": "applications/dreamfactory",
+                "import-url": "https://github.com/dreamfactorysoftware/portal-sandbox/archive/master.zip",
+                "is-active": 1
+            }
+        },
+        "_links": [
+            {
+                "target": "src/",
+                "link": "pbox"
+            }
+        ]
+    }
 }
