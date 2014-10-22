@@ -18,85 +18,65 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+use DreamFactory\Library\Utility\Curl;
 use DreamFactory\Yii\Utility\Pii;
-use Kisma\Core\Exceptions\FileSystemException;
-use Kisma\Core\Utility\Curl;
 
-$_autoloader = require( __DIR__ . '/vendor/autoload.php' );
+$_path = null;
 
-/**
- * Main entry point/bootstrap for DSP apps using PHP
- *
- * NOTE: This index file piggy-backs on the DSP's installation
- * therefore a running DSP is required to use this app.
- */
-class AppLoader
+try
 {
-    /**
-     * Locates the installed DSP's base directory
-     *
-     * @param string $startPath
-     *
-     * @throws FileSystemException
-     * @return string|bool The absolute path to the platform installation. False if not found
-     */
-    public static function locatePlatformBasePath( $startPath = __DIR__ )
+    //  Try to get from my local host, otherwise find it
+    if ( false !== ( $_config = Curl::get( '/rest/system/config?app_name=admin' ) ) )
     {
-        try
+        if ( isset( $_config['paths'], $_config['paths']['base'] ) )
         {
-            //  Try to get from my local host, otherwise find it
-            if ( false !== ( $_config = Curl::get( '/rest/system/config?app_name=admin' ) ) )
-            {
-                if ( isset( $_config['paths'], $_config['paths']['base'] ) )
-                {
-                    return $_config['paths']['base'];
-                }
-            }
+            $_path = $_config['paths']['base'];
         }
-        catch ( \Exception $_ex )
-        {
-            // Ignored
-        }
+    }
+}
+catch ( \Exception $_ex )
+{
+    // Ignored
+    $_path = null;
+}
 
-        //  Start path given or this file's directory
-        $_path = $startPath ?: __DIR__;
+//  Start path given or this file's directory
+$_path = $_path ?: __DIR__;
 
-        while ( true )
-        {
-            $_path = rtrim( $_path, ' /' );
+while ( true )
+{
+    $_path = rtrim( $_path, ' /' );
 
-            if ( file_exists( $_path . '/.dreamfactory.php' ) && is_dir( $_path . '/storage/.private' ) )
-            {
-                break;
-            }
-
-            //  Too low, go up a level
-            $_path = dirname( $_path );
-
-            //	If we get to the root, ain't no DSP...
-            if ( '/' == $_path || empty( $_path ) )
-            {
-                return false;
-            }
-        }
-
-        return $_path;
+    if ( file_exists( $_path . '/vendor/autoload.php' ) )
+    {
+        break;
     }
 
+    if ( file_exists( $_path . '/.dreamfactory.php' ) && is_dir( $_path . '/storage/.private' ) )
+    {
+        break;
+    }
+
+    //  Too low, go up a level
+    $_path = dirname( $_path );
+
+    //	If we get to the root, ain't no DSP...
+    if ( '/' == $_path || empty( $_path ) )
+    {
+        $_path = false;
+        break;
+    }
 }
 
-if ( false === ( $_dspBase = AppLoader::locatePlatformBasePath() ) )
+if ( false === $_path )
 {
-    header( 'Location: /?error=Unable+to+locate+platform+base+path.' );
-    die();
+    throw new RuntimeException( 'DreamFactory installation not found. Cannot load app.' );
 }
 
-if ( empty( $_autoloader ) )
-{
-    $_autoloader = require( $_dspBase . '/vendor/autoload.php' );
-}
-
-require $_dspBase . '/vendor/dreamfactory/yii/framework/yiilite.php';
+/** @noinspection PhpIncludeInspection */
+$_autoloader = require( $_path . '/vendor/autoload.php' );
+/** @noinspection PhpIncludeInspection */
+require $_path . '/vendor/dreamfactory/yii/framework/yiilite.php';
 
 //  Comment both lines to disable debug mode
 ini_set( 'display_errors', 1 );
@@ -107,7 +87,7 @@ Pii::run(
     __DIR__ . '/src',
     $_autoloader,
     'DreamFactory\\Platform\\Yii\\Components\\PlatformWebApplication',
-    $_dspBase . '/config/web.php',
+    $_path . '/config/web.php',
     false,
     false
 );
