@@ -39,6 +39,7 @@ class AppLoader
      */
     public static function locatePlatformBasePath( $startPath = __DIR__ )
     {
+        $_config = Curl::get( '/rest/system/config?app_name=pbox' );
         //  Start path given or this file's directory
         $_path = $startPath ?: __DIR__;
 

@@ -3,7 +3,11 @@
     "description": "DreamFactory Services Platform(tm) Portal Sandbox Application",
     "homepage": "https://www.dreamfactory.com/",
     "keywords": [
-        "oasys", "oauth", "authentication", "examples", "dsp"
+        "oasys",
+        "oauth",
+        "authentication",
+        "examples",
+        "dsp"
     ],
     "type": "dreamfactory-application",
     "license": ["Apache-2.0"],
@@ -45,19 +49,18 @@
         },
         "data": {
             "application": {
+                "api-name": "portal-sandbox",
                 "name": "Portal Sandbox",
-                "api-name": "pbox",
-                "description": "A sample application that demonstrates the DSP's portal service.",
-                "start-url": "/index.php",
-                "url-is-external": false,
+                "description": "A sample application that demonstrates the DSP portal service.",
+                "url": "/index.php",
+                "is-url-external": false,
+                "storage-service-id": 2,
+                "storage-container": "applications/dreamfactory",
                 "import-url": "https://github.com/dreamfactorysoftware/portal-sandbox/archive/master.zip",
-                "active": true,
-                "fullscreen": false,
-                "fullscreen-toggle": true,
-                "toggle-location": "top"
+                "is-active": 1
             }
         },
-        "links": [
+        "_links": [
             {
                 "target": "src/",
                 "link": "pbox"
